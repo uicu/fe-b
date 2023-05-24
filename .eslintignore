@@ -2,3 +2,4 @@ node_modules
 config
 scripts
 public
+commitlint.config.js
