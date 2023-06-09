@@ -3,3 +3,4 @@ config
 scripts
 public
 commitlint.config.js
+setupProxy.js
