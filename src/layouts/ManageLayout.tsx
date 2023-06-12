@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Button, Space, Divider, message } from 'antd'
 import { PlusOutlined, BarsOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
-// import { createQuestionService } from '../services/question'
+import { createQuestionService } from '../services/question'
 import styles from './ManageLayout.module.scss'
 
 const ManageLayout: FC = () => {
@@ -22,22 +22,17 @@ const ManageLayout: FC = () => {
   //   setLoading(false)
   // }
 
-  // const {
-  //   loading,
-  //   // error,
-  //   run: handleCreateClick,
-  // } = useRequest(createQuestionService, {
-  //   manual: true,
-  //   onSuccess(result) {
-  //     nav(`/question/edit/${result.id}`)
-  //     message.success('创建成功')
-  //   },
-  // })
-
-  const handleCreateClick = () => {
-    console.log('test')
-  }
-  const loading = false
+  const {
+    loading,
+    // error,
+    run: handleCreateClick,
+  } = useRequest(createQuestionService, {
+    manual: true,
+    onSuccess(result) {
+      nav(`/question/edit/${result.id}`)
+      message.success('创建成功')
+    },
+  })
 
   return (
     <div className={styles.container}>

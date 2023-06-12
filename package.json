@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "mock": "nodemon -e ts --exec ts-node -r tsconfig-paths/register src/_mock/index.ts",
+    "mock": "nodemon -e ts --exec ts-node -r tsconfig-paths/register _mock/index.ts",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
