@@ -106,7 +106,7 @@ return <Hello></Hello>
   const list = [
     { username: 'zhangsan', name: '张三' },
     { username: 'lisi', name: '李四' },
-    { username: 'shuangyue', name: '双越' },
+    { username: 'shuangyue', name: 'oo' },
   ]
 
   const ul = <ul>

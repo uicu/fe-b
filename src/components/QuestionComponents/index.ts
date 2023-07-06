@@ -29,10 +29,12 @@ type ComponentStatPropsType = QuestionRadioStatPropsType & QuestionCheckboxStatP
 export type ComponentConfType = {
   title: string
   type: string
+  describe: string
   Component: FC<ComponentPropsType>
   PropComponent: FC<ComponentPropsType>
   defaultProps: ComponentPropsType
   StatComponent?: FC<ComponentStatPropsType>
+  Icon: FC
 }
 
 // 全部的组件配置的列表

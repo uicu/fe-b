@@ -14,14 +14,20 @@
     margin: 0 24px;
     display: flex;
     height: 100%;
-
+    position: relative;
     .left {
-        width: 295px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 296px;
+        overflow-y: auto;
         background-color: #fff;
         padding: 0 12px;
     }
 
     .main {
+        display: none;
         flex: 1;
         position: relative;
         overflow: hidden;
@@ -39,6 +45,7 @@
     }
 
     .right {
+        display: none;
         width: 300px;
         background-color: #fff;
         padding: 0 12px;

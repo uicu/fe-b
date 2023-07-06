@@ -1,11 +1,15 @@
-.wrapper {
+.wrapper{
+    display: grid;
+    grid-template-columns: repeat(2, 130px);
+    grid-column-gap: 12px;
+}
+.item {
     margin-bottom: 12px;
     cursor: pointer;
     background-color: #f7f7f7;
     border: 1px solid #f7f7f7;
-    padding: 12px;
+    padding: 10px;
     border-radius: 3px;
-
     &:hover {
         border-color: #d9d9d9;
     }
@@ -13,4 +17,7 @@
 
 .component {
     pointer-events: none; // 屏蔽鼠标的行为
+}
+.describe{
+    width: 320px;
 }
