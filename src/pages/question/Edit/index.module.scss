@@ -12,7 +12,6 @@
 
 .content {
     margin: 0 24px;
-    display: flex;
     height: 100%;
     position: relative;
     .left {
@@ -27,26 +26,25 @@
     }
 
     .main {
-        display: none;
-        flex: 1;
-        position: relative;
-        overflow: hidden;
-
+        position: absolute;
+        left: 296px;
+        top: 0;
+        bottom: 0;
+        right: 296px;
+        padding: 0 24px;
         .canvas-wrapper {
-            position: absolute;
-            width: 400px;
-            height: 712px;
-            top: 50%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-50%);
-            overflow: auto;
-            box-shadow: 0 2px 10px #0000001f;
+            height: 100%;
+            overflow-y: auto;
         }
     }
 
     .right {
-        display: none;
-        width: 300px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 296px;
+        overflow-y: auto;
         background-color: #fff;
         padding: 0 12px;
     }

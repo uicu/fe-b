@@ -15,6 +15,10 @@ const RightPanel: FC = () => {
   const [activeKey, setActiveKey] = useState(TAB_KEYS.PROP_KEY)
   const { selectedId } = useGetComponentInfo()
 
+  function onChange(key: string) {
+    setActiveKey(key as TAB_KEYS)
+  }
+
   useEffect(() => {
     if (selectedId) setActiveKey(TAB_KEYS.PROP_KEY)
     else setActiveKey(TAB_KEYS.SETTING_KEY)
@@ -43,7 +47,7 @@ const RightPanel: FC = () => {
     },
   ]
 
-  return <Tabs activeKey={activeKey} items={tabsItems}></Tabs>
+  return <Tabs activeKey={activeKey} items={tabsItems} onChange={onChange}></Tabs>
 }
 
 export default RightPanel

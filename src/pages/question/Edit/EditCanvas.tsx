@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from 'react'
-import { Spin } from 'antd'
+import { Spin, Skeleton } from 'antd'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
@@ -47,8 +47,8 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
 
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', marginTop: '24px' }}>
-        <Spin />
+      <div style={{ textAlign: 'center', padding: '24px' }}>
+        <Skeleton active />
       </div>
     )
   }
