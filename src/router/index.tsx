@@ -11,6 +11,7 @@ import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
 import Star from '../pages/manage/Star'
+import Demo from '../pages/Demo'
 // import Edit from '../pages/question/Edit'
 // import Stat from '../pages/question/Stat'
 
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
         element: <Stat />,
       },
     ],
+  },
+  {
+    path: 'demo',
+    element: <Demo />,
   },
 ])
 
