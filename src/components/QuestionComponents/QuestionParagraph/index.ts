@@ -1,7 +1,7 @@
 /**
  * @description 问卷 - 段落
  */
-import { InfoOutlined } from '@ant-design/icons'
+import { FileTextOutlined } from '@ant-design/icons'
 import Component from './Component'
 import PropComponent from './PropComponent'
 import { QuestionParagraphDefaultProps } from './interface'
@@ -16,5 +16,5 @@ export default {
   Component,
   PropComponent,
   defaultProps: QuestionParagraphDefaultProps,
-  Icon: InfoOutlined,
+  Icon: FileTextOutlined,
 }

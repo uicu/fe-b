@@ -1,7 +1,7 @@
 /**
  * @description 问卷 radio
  */
-import { InfoOutlined } from '@ant-design/icons'
+import { CheckCircleOutlined } from '@ant-design/icons'
 import Component from './Component'
 import PropComponent from './PropComponent'
 import StatComponent from './StatComponent'
@@ -18,5 +18,5 @@ export default {
   PropComponent,
   defaultProps: QuestionRadioDefaultProps,
   StatComponent,
-  Icon: InfoOutlined,
+  Icon: CheckCircleOutlined,
 }

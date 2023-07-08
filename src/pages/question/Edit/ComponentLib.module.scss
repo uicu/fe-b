@@ -17,6 +17,9 @@
 
 .component {
     pointer-events: none; // 屏蔽鼠标的行为
+    :global(.anticon) {
+        margin-right: 8px;
+    }
 }
 .describe{
     width: 320px;

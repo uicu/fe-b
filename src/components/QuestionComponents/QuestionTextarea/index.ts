@@ -1,7 +1,7 @@
 /**
  * @description 问卷 多行输入
  */
-import { InfoOutlined } from '@ant-design/icons'
+import { FormOutlined } from '@ant-design/icons'
 import Component from './Component'
 import PropComponent from './PropComponent'
 import { QuestionTextareaDefaultProps } from './interface'
@@ -16,5 +16,5 @@ export default {
   Component, // 画布显示的组件
   PropComponent, // 修改属性
   defaultProps: QuestionTextareaDefaultProps,
-  Icon: InfoOutlined,
+  Icon: FormOutlined,
 }

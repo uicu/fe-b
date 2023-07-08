@@ -1,7 +1,7 @@
 /**
  * @description 问卷 info 组件
  */
-import { InfoOutlined } from '@ant-design/icons'
+import { InfoCircleOutlined } from '@ant-design/icons'
 import Component from './Component'
 import PropComponent from './PropComponent'
 import { QuestionInfoDefaultProps } from './interface'
@@ -15,5 +15,5 @@ export default {
   Component,
   PropComponent,
   defaultProps: QuestionInfoDefaultProps,
-  Icon: InfoOutlined,
+  Icon: InfoCircleOutlined,
 }

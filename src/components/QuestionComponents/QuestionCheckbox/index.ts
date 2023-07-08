@@ -1,7 +1,7 @@
 /**
  * @description 问卷 checkbox
  */
-import { InfoOutlined } from '@ant-design/icons'
+import { CheckSquareOutlined } from '@ant-design/icons'
 import Component from './Component'
 import PropComponent from './PropComponent'
 import StatComponent from './StatComponent'
@@ -17,5 +17,5 @@ export default {
   PropComponent,
   StatComponent,
   defaultProps: QuestionCheckboxDefaultProps,
-  Icon: InfoOutlined,
+  Icon: CheckSquareOutlined,
 }
