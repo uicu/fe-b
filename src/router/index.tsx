@@ -11,7 +11,7 @@ import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
 import Star from '../pages/manage/Star'
-import Demo from '../pages/Demo'
+import Demo from '../pages/demo'
 // import Edit from '../pages/question/Edit'
 // import Stat from '../pages/question/Stat'
 

@@ -4,6 +4,21 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 let quill: Quill
 
+const testtext: any = [
+  {
+    insert: '当目标元素有进',
+  },
+  {
+    attributes: {
+      color: '#ff9900',
+    },
+    insert: '一步的描述和',
+  },
+  {
+    insert: '相关操3时\n',
+  },
+]
+
 const Demo: FC = () => {
   function add() {
     const range = quill.getSelection()
@@ -13,9 +28,22 @@ const Demo: FC = () => {
       })
     }
   }
-  function onClick() {
+  function del() {
     quill.deleteText(0, 6)
   }
+  function get() {
+    const c = quill.getContents()
+    console.log(JSON.stringify(c))
+
+    // const c = quill.getFormat()
+    // console.log(c)
+  }
+
+  function format() {
+    quill.format('color', 'red')
+    quill.format('align', 'right')
+  }
+
   useEffect(() => {
     if (quill) return
     const dragonIcon = '龙'
@@ -39,16 +67,22 @@ const Demo: FC = () => {
         },
       },
     })
+
+    quill.setContents(testtext, 'user')
   })
   return (
     <>
-      <div id="editor">
-        当目标元素有进一步的描述和相关操作时，可以收纳到卡片中，根据用户的操作行为进行展现。 和
-        Tooltip
-        的区别是，用户可以对浮层上的元素进行操作，因此它可以承载更复杂的内容，比如链接或按钮等。
-      </div>
-      <button onClick={onClick}>del</button>
+      <div id="editor"></div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <button onClick={del}>del</button>
       <button onClick={add}>add</button>
+      <button onClick={get}>get</button>
+      <button onClick={format}>format</button>
     </>
   )
 }
