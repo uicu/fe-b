@@ -1,14 +1,15 @@
-.toolbar{
-    display: inline-block;
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
-    border-radius: 4px;
-    border: none !important;
-}
+
 
 .editor{
     :global {
+        .ql-toolbar{
+            display: inline-block;
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            border: none !important;
+        }
         .ql-container.ql-snow {
-            border: 1px solid #1677ff;
+            border: 1px solid #1677ff !important;
             border-radius: 4px;
         }
         .ql-editor {
