@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from 'react'
-import { Spin, Skeleton } from 'antd'
+import { Skeleton } from 'antd'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
@@ -84,7 +84,9 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
             return (
               <SortableItem key={fe_id} id={fe_id}>
                 <div className={wrapperClassName} onClick={e => handleClick(e, fe_id)}>
-                  <div className={styles.component}>{genComponent(c)}</div>
+                  <div className={styles.component} data-no-drag="true">
+                    {genComponent(c)}
+                  </div>
                 </div>
               </SortableItem>
             )

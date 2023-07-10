@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, MouseEvent } from 'react'
 import {
   DndContext,
   closestCenter,
@@ -13,6 +13,29 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 
+// 解决dnd-kit点击事件和拖拽事件的冲突
+export class MouseSensorCustomize extends MouseSensor {
+  static activators = [
+    {
+      eventName: 'onMouseDown' as const,
+      handler: ({ nativeEvent: event }: MouseEvent) => {
+        return shouldDragEvent(event.target as HTMLElement)
+      },
+    },
+  ]
+}
+
+function shouldDragEvent(element: HTMLElement | null) {
+  let current = element
+  while (current) {
+    if (current?.dataset?.noDrag) {
+      return false
+    }
+    current = current.parentElement
+  }
+  return true
+}
+
 type PropsType = {
   children: JSX.Element | JSX.Element[]
   items: Array<{ id: string; [key: string]: any }>
@@ -23,7 +46,7 @@ const SortableContainer: FC<PropsType> = (props: PropsType) => {
   const { children, items, onDragEnd } = props
 
   const sensors = useSensors(
-    useSensor(MouseSensor, {
+    useSensor(MouseSensorCustomize, {
       activationConstraint: {
         distance: 8, // 8px
       },

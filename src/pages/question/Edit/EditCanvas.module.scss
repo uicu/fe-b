@@ -2,12 +2,13 @@
     min-height: 100%;
     background-color: #fff;
     overflow: hidden;
+    padding: 30px 50px;
 }
 
 .component-wrapper {
-    margin: 12px;
+    margin: 10px;
     border: 1px solid #fff;
-    padding: 12px;
+    padding: 16px;
     border-radius: 3px;
 
     &:hover {
@@ -24,6 +25,6 @@
     cursor: not-allowed;
 }
 
-.component {
-    pointer-events: none; // 屏蔽鼠标行为，组件不让被点击到
-}
+// .component {
+//     pointer-events: none; // 屏蔽鼠标行为，组件不让被点击到
+// }
