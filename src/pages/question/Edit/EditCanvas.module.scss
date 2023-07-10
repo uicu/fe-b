@@ -1,23 +1,24 @@
 .canvas {
     min-height: 100%;
     background-color: #fff;
-    overflow: hidden;
-    padding: 30px 50px;
+    border-radius: 4px;
 }
 
 .component-wrapper {
-    margin: 10px;
-    border: 1px solid #fff;
-    padding: 16px;
-    border-radius: 3px;
-
+    padding: 26px;
+    border-radius: 4px;
+    transition-duration: 0.3s;
     &:hover {
-        border-color: #d9d9d9;
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.07);
+        transform: scale(1.01);
+        background-color: #fff;
     }
 }
 
 .selected {
-    border-color: #1890ff !important;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.07) !important;
+    transform: scale(1.01) !important;
+    background-color: #fff;
 }
 
 .locked {

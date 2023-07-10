@@ -23,18 +23,21 @@
         overflow-y: auto;
         background-color: #fff;
         padding: 0 12px;
+        border-radius: 4px;
+        z-index: 2;
     }
 
     .main {
         position: absolute;
-        left: 296px;
+        left: 0;
         top: 0;
         bottom: 0;
-        right: 296px;
-        padding: 0 24px;
+        right: 0;
+        z-index: 1;
         .canvas-wrapper {
             height: 100%;
             overflow-y: auto;
+            padding: 0 320px;
         }
     }
 
@@ -47,5 +50,7 @@
         overflow-y: auto;
         background-color: #fff;
         padding: 0 12px;
+        border-radius: 4px;
+        z-index: 2;
     }
 }
