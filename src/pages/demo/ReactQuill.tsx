@@ -27,6 +27,7 @@ function MyComponent() {
 
   useEffect(() => {
     console.log(value)
+    console.log(JSON.stringify(value))
   }, [value])
 
   return <ReactQuill theme="bubble" value={value} onChange={onChange} />

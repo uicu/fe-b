@@ -56,7 +56,19 @@ function getComponentList() {
       title: '段落',
       isHidden: false,
       isLocked: false,
-      props: { text: '一行段落1\n一行段落2', isCenter: false },
+      props: {
+        text: {
+          ops: [
+            { attributes: { color: '#f06666' }, insert: '为' },
+            { insert: '了' },
+            { attributes: { bold: true }, insert: '给您' },
+            { insert: '提\n供' },
+            { attributes: { link: 'https://www.uicu.club/' }, insert: '更好的' },
+            { insert: '服务\n' },
+          ],
+        },
+        isCenter: false,
+      },
     },
     // Radio
     {
