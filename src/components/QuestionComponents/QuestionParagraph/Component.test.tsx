@@ -10,7 +10,7 @@ test('默认属性', () => {
 })
 
 test('传入属性', () => {
-  render(<Component text="hello" isCenter={true} />)
+  render(<Component text="hello" />)
 
   const span = screen.getByText('hello')
   expect(span).toBeInTheDocument()

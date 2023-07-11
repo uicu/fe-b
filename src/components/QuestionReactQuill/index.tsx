@@ -49,23 +49,26 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   }
 
   const handleClick = useCallback((event: MouseEvent) => {
+    if (!id) return
     event.stopPropagation() // 阻止冒泡
     dispatch(changeSelectedId(id))
     dispatch(changeEditorSelectedId(editorId))
   }, [])
 
-  if (editorSelectedId === editorId) {
+  if (editorSelectedId === editorId && id) {
     return (
-      <ReactQuill
-        ref={el => {
-          setReactQuillRef(el)
-        }}
-        className={styles.editor}
-        theme="snow"
-        value={value}
-        onChange={onChange}
-        modules={modules}
-      />
+      <div onClick={e => handleClick(e)}>
+        <ReactQuill
+          ref={el => {
+            setReactQuillRef(el)
+          }}
+          className={styles.editor}
+          theme="snow"
+          value={value}
+          onChange={onChange}
+          modules={modules}
+        />
+      </div>
     )
   } else {
     const staticText = quillGetHTML(value)
