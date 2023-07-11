@@ -9,6 +9,7 @@ import {
   changeSelectedId,
   moveComponent,
 } from '../../../store/componentsReducer'
+import { changeEditorSelectedId } from '../../../store/editorReducer'
 import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
 import SortableContainer from '../../../components/DragSortable/SortableContainer'
 import SortableItem from '../../../components/DragSortable/SortableItem'
@@ -40,6 +41,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
   function handleClick(event: MouseEvent, id: string) {
     event.stopPropagation() // 阻止冒泡
     dispatch(changeSelectedId(id))
+    dispatch(changeEditorSelectedId(''))
   }
 
   // 绑定快捷键

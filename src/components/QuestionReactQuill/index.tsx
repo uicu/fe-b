@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback } from 'react'
+import React, { FC, useState, MouseEvent, useCallback } from 'react'
 import ReactQuill from 'react-quill'
 import { DeltaStatic, Sources } from 'quill'
 import { quillGetHTML } from '../../utils/quill'
@@ -39,7 +39,8 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
     setValue(e)
   }
 
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback((event: MouseEvent) => {
+    event.stopPropagation() // 阻止冒泡
     dispatch(changeEditorSelectedId(editorId))
   }, [])
 
@@ -58,7 +59,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
 
   return (
     <div
-      onClick={handleClick}
+      onClick={e => handleClick(e)}
       className={styles.static}
       dangerouslySetInnerHTML={{ __html: staticText }}
     />
