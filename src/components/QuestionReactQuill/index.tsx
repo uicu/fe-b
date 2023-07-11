@@ -37,6 +37,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
       container: [[{ color: [] }, 'link', 'image', 'video']],
     },
   }
+
   function onChange(
     value: string,
     delta: DeltaStatic,

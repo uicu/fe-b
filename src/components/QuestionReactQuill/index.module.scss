@@ -36,12 +36,26 @@
         }
         .ql-editor {
             padding: 8px 15px;
-          }
+        }
         .ql-snow .ql-tooltip[data-mode=link]::before {
+            content: " ";
+        }
+        .ql-snow .ql-tooltip::before {
             content: " ";
         }
         .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
             content: '保存';
+        }
+        .ql-snow .ql-tooltip a.ql-action::after{
+            content: '编辑';
+        }
+        .ql-snow .ql-tooltip a.ql-remove::before{
+            content: '删除';
+        }
+        .ql-snow .ql-tooltip{
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            border: none !important;
         }
     }
 }
