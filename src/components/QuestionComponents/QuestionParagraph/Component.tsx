@@ -24,7 +24,7 @@ const Component: FC<QuestionParagraphPropsType> = (props: QuestionParagraphProps
   //   </Paragraph>
   // )
 
-  return <QuestionReactQuill value={text} editorId={editorId} />
+  return <QuestionReactQuill value={text} editorId={editorId} id={fe_id} />
 }
 
 export default Component

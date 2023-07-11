@@ -3,8 +3,14 @@
 // 重置编辑器的一些样式
 
 .static{
+    padding: 8px 15px;
+    border: 1px dashed rgba(0, 0, 0, 0);
     font-size: 13px;
     line-height: 1.42;
+    &:hover{
+        border: 1px dashed #1677ff; 
+        border-radius: 4px;
+    }
     p{
         margin: 0;
     }

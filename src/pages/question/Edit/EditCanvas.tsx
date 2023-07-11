@@ -41,7 +41,9 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
   function handleClick(event: MouseEvent, id: string) {
     event.stopPropagation() // 阻止冒泡
     dispatch(changeSelectedId(id))
-    dispatch(changeEditorSelectedId(''))
+    if (id !== selectedId) {
+      dispatch(changeEditorSelectedId(''))
+    }
   }
 
   // 绑定快捷键
