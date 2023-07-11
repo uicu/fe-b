@@ -54,3 +54,12 @@
         z-index: 2;
     }
 }
+
+.selected{
+    .head , .left, .right{
+        opacity: 0.5;
+    } 
+    .main {
+        z-index: 3;
+    }
+}
