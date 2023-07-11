@@ -3,12 +3,14 @@ import undoable, { excludeAction, StateWithHistory } from 'redux-undo'
 import userReducer, { UserStateType } from './userReducer'
 import componentsReducer, { ComponentsStateType } from './componentsReducer'
 import pageInfoReducer, { PageInfoType } from './pageInfoReducer'
+import editorReducer, { EditorStateType } from './editorReducer'
 
 export type StateType = {
   user: UserStateType
   // components: ComponentsStateType
   components: StateWithHistory<ComponentsStateType> // 增加了 undo
   pageInfo: PageInfoType
+  editor: EditorStateType
 }
 
 export default configureStore({
@@ -30,5 +32,7 @@ export default configureStore({
     }),
 
     pageInfo: pageInfoReducer,
+
+    editor: editorReducer,
   },
 })

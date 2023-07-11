@@ -30,7 +30,7 @@ export type ComponentConfType = {
   title: string
   type: string
   describe: string
-  Component: FC<ComponentPropsType>
+  Component: FC<ComponentPropsType & { fe_id?: string }>
   PropComponent: FC<ComponentPropsType>
   defaultProps: ComponentPropsType
   StatComponent?: FC<ComponentStatPropsType>

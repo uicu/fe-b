@@ -1,12 +1,28 @@
 
 
+// 重置编辑器的一些样式
+
+.static{
+    font-size: 13px;
+    line-height: 1.42;
+    p{
+        margin: 0;
+    }
+    img{
+        max-width: 100% !important;
+    }
+}
 .editor{
+    position: relative;
     :global {
         .ql-toolbar{
             display: inline-block;
             box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
             border-radius: 4px;
             border: none !important;
+            position: absolute;
+            top: -42px;
+            background-color: #fff;
         }
         .ql-container.ql-snow {
             border: 1px solid #1677ff !important;

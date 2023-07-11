@@ -23,13 +23,13 @@ type PropsType = {
 }
 
 function genComponent(componentInfo: ComponentInfoType) {
-  const { type, props } = componentInfo // 每个组件的信息，是从 redux store 获取的（服务端获取）
+  const { type, props, fe_id } = componentInfo // 每个组件的信息，是从 redux store 获取的（服务端获取）
 
   const componentConf = getComponentConfByType(type)
   if (componentConf == null) return null
 
   const { Component } = componentConf
-  return <Component {...props} />
+  return <Component {...props} fe_id={fe_id} />
 }
 
 const EditCanvas: FC<PropsType> = ({ loading }) => {

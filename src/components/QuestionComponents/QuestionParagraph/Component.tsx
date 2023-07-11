@@ -6,8 +6,9 @@ import QuestionReactQuill from '../../QuestionReactQuill'
 const { Paragraph } = Typography
 
 const Component: FC<QuestionParagraphPropsType> = (props: QuestionParagraphPropsType) => {
-  const { text = '', isCenter = false } = { ...QuestionParagraphDefaultProps, ...props }
+  const { text = '', isCenter = false, fe_id = '' } = { ...QuestionParagraphDefaultProps, ...props }
 
+  const editorId = `${fe_id}-text`
   // 尽量不要使用 dangerouslySetInnerHTML ，不安全
 
   // const textList = text.split('\n') // 例如 ['hello', '123', '456']
@@ -23,7 +24,7 @@ const Component: FC<QuestionParagraphPropsType> = (props: QuestionParagraphProps
   //   </Paragraph>
   // )
 
-  return <QuestionReactQuill value={text} />
+  return <QuestionReactQuill value={text} editorId={editorId} />
 }
 
 export default Component

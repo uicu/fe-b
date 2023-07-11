@@ -3,8 +3,10 @@ import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { useTitle } from 'ahooks'
 import { changeSelectedId } from '../../../store/componentsReducer'
+import { changeEditorSelectedId } from '../../../store/editorReducer'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
+
 import EditHeader from './EditHeader'
 import EditCanvas from './EditCanvas'
 import LeftPanel from './LeftPanel'
@@ -19,6 +21,7 @@ const Edit: FC = () => {
 
   function clearSelectedId() {
     dispatch(changeSelectedId(''))
+    dispatch(changeEditorSelectedId(''))
   }
 
   // 修改标题
