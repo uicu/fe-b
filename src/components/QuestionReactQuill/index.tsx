@@ -1,9 +1,10 @@
-import React, { FC, useState, MouseEvent, useCallback, useEffect } from 'react'
-import ReactQuill from 'react-quill'
+import React, { FC, useState, MouseEvent, KeyboardEvent, useCallback, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import ReactQuill, { Quill } from 'react-quill'
 import { DeltaStatic, Sources } from 'quill'
+import ImageResize from 'quill-image-resize-module-react'
 import { quillGetHTML } from '../../utils/quill'
 import useGetEditorInfo from '../../hooks/useGetEditorInfo'
-import { useDispatch } from 'react-redux'
 import { changeSelectedId } from '../../store/componentsReducer'
 import { changeEditorSelectedId } from '../../store/editorReducer'
 import 'quill/dist/quill.snow.css'
@@ -14,6 +15,25 @@ export type QuestionReactQuillPropsType = {
   editorId: string
   id: string
 }
+
+/*
+   插件内部选中图片按删除键的时候导致以下报错（报错的原因是里面写了window.Quill.find）：
+    Uncaught TypeError: Cannot read property 'find' of undefined
+      at HTMLDocument.checkImage (image-resize.min.js:formatted:1)
+   因此重写 ImageResize 模块里的checkImage 方法
+*/
+class PlainResize extends ImageResize {
+  checkImage = (event: KeyboardEvent) => {
+    if (this.img) {
+      if (event.keyCode === 46 || event.keyCode === 8) {
+        Quill.find(this.img).deleteAt(0)
+      }
+      this.hide()
+    }
+  }
+}
+
+Quill.register('modules/imageResize', PlainResize)
 
 const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   props: QuestionReactQuillPropsType
@@ -35,6 +55,12 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   const modules = {
     toolbar: {
       container: [[{ color: [] }, 'link', 'image', 'video']],
+    },
+    imageResize: {
+      parchment: Quill.import('parchment'),
+      // 先不要Toolbar这个图片位置调整的按钮，下次初始化编辑的时候会导致style样式丢失
+      // modules: ['Resize', 'DisplaySize', 'Toolbar']
+      modules: ['Resize', 'DisplaySize'],
     },
   }
 
