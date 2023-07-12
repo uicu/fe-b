@@ -33,7 +33,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   }, [reactQuillRef])
 
   // 格式白名单
-  const formats = ['link']
+  const formats = ['color', 'link', 'image', 'video', 'blanks']
 
   // 编辑器modules自定义配置
   const modules = {
