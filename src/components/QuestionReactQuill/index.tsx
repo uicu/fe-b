@@ -32,6 +32,9 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
     reactQuillRef.focus()
   }, [reactQuillRef])
 
+  // 格式白名单
+  const formats = ['link']
+
   // 编辑器modules自定义配置
   const modules = {
     toolbar: {
@@ -77,6 +80,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
           value={value}
           onChange={onChange}
           modules={modules}
+          formats={formats}
         />
       </div>
     )

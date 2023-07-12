@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
-import Quill from './Quill'
-// import ReactQuill from './ReactQuill'
+// import Quill from './Quill'
+import ReactQuill from './ReactQuill'
 
 const Demo: FC = () => {
-  return <Quill />
-  // return <ReactQuill />
+  // return <Quill />
+  return <ReactQuill />
 }
 
 export default Demo
