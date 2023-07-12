@@ -1,8 +1,8 @@
-import React, { FC, useState, MouseEvent, KeyboardEvent, useCallback, useEffect } from 'react'
+import React, { FC, useState, MouseEvent, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import ReactQuill, { Quill } from 'react-quill'
+import ReactQuill from 'react-quill'
 import { DeltaStatic, Sources } from 'quill'
-import ImageResize from 'quill-image-resize-module-react'
+import Quill from './customQuill'
 import { quillGetHTML } from '../../utils/quill'
 import useGetEditorInfo from '../../hooks/useGetEditorInfo'
 import { changeSelectedId } from '../../store/componentsReducer'
@@ -16,24 +16,14 @@ export type QuestionReactQuillPropsType = {
   id: string
 }
 
-/*
-   插件内部选中图片按删除键的时候导致以下报错（报错的原因是里面写了window.Quill.find）：
-    Uncaught TypeError: Cannot read property 'find' of undefined
-      at HTMLDocument.checkImage (image-resize.min.js:formatted:1)
-   因此重写 ImageResize 模块里的checkImage 方法
-*/
-class PlainResize extends ImageResize {
-  checkImage = (event: KeyboardEvent) => {
-    if (this.img) {
-      if (event.keyCode === 46 || event.keyCode === 8) {
-        Quill.find(this.img).deleteAt(0)
-      }
-      this.hide()
-    }
-  }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function blanks(this: any) {
+  const { index } = this.quill.getSelection() as { index: number }
+  // 插入自定义内容
+  this.quill.insertEmbed(index, 'blanks', {
+    id: 'canvas-blanks',
+  })
 }
-
-Quill.register('modules/imageResize', PlainResize)
 
 const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   props: QuestionReactQuillPropsType
@@ -54,7 +44,10 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   // 编辑器modules自定义配置
   const modules = {
     toolbar: {
-      container: [[{ color: [] }, 'link', 'image', 'video']],
+      container: [[{ color: [] }, 'link', 'image', 'video', 'blanks']],
+      handlers: {
+        blanks: blanks,
+      },
     },
     imageResize: {
       parchment: Quill.import('parchment'),
