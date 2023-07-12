@@ -2,7 +2,7 @@ import React, { FC, useState, MouseEvent, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import ReactQuill from 'react-quill'
 import { DeltaStatic, Sources } from 'quill'
-import Quill from './customQuill'
+import Quill, { blanksHandler } from './customQuill'
 import { quillGetHTML } from '../../utils/quill'
 import useGetEditorInfo from '../../hooks/useGetEditorInfo'
 import { changeSelectedId } from '../../store/componentsReducer'
@@ -14,15 +14,6 @@ export type QuestionReactQuillPropsType = {
   value: string
   editorId: string
   id: string
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function blanks(this: any) {
-  const { index } = this.quill.getSelection() as { index: number }
-  // 插入自定义内容
-  this.quill.insertEmbed(index, 'blanks', {
-    id: 'canvas-blanks',
-  })
 }
 
 const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
@@ -46,7 +37,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
     toolbar: {
       container: [[{ color: [] }, 'link', 'image', 'video', 'blanks']],
       handlers: {
-        blanks: blanks,
+        blanks: blanksHandler,
       },
     },
     imageResize: {

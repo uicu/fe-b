@@ -2,7 +2,7 @@ import { KeyboardEvent } from 'react'
 import { Quill } from 'react-quill'
 import ImageResize from 'quill-image-resize-module-react'
 
-// 覆盖图标
+// 【1】覆盖图标
 const icons = Quill.import('ui/icons')
 icons['color'] =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill-rule="evenodd"><path d="M13.197 7.347l5.245 12.98a1 1 0 01-1.854.75L14.94 17H9.059l-1.647 4.077a1 1 0 11-1.854-.75l5.245-12.98A1 1 0 0112 6.76l-.105.036a1 1 0 011.301.552zM12 9.721L9.867 15h4.265L12 9.72z"></path><rect width="2" height="4" rx="1" transform="translate(11 2)"></rect><rect width="2" height="4" rx="1" transform="scale(-1 1) rotate(45 -7.328 -4.45)"></rect><rect width="2" height="4" rx="1" transform="scale(-1 1) rotate(-45 -3.672 26.935)"></rect><g transform="rotate(90 5.5 16.5)"><rect width="2" height="4" rx="1"></rect><rect y="16" width="2" height="4" rx="1"></rect></g></g></svg>'
@@ -19,7 +19,7 @@ icons['video'] =
 icons['blanks'] =
   '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 3a2 2 0 00-2 2v14a2 2 0 002 2h16a2 2 0 002-2V5a2 2 0 00-2-2H4zm.666 2A.667.667 0 004 5.667v12.666c0 .369.298.667.666.667h14.667a.667.667 0 00.667-.667V5.667A.667.667 0 0019.333 5H4.666z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M7 15a1 1 0 100 2h2a1 1 0 100-2H7zM7 7a1 1 0 100 2h2a1 1 0 100-2H7z"></path><path d="M7 9h2v6H7z"></path><path opacity="0.01" d="M23.666.333h-23v23h23z"></path></svg>'
 
-// 图片缩放插件
+// 【2】图片缩放插件
 /*
    插件内部选中图片按删除键的时候导致以下报错（报错的原因是里面写了window.Quill.find）：
     Uncaught TypeError: Cannot read property 'find' of undefined
@@ -38,18 +38,15 @@ class PlainResize extends ImageResize {
 }
 Quill.register('modules/imageResize', PlainResize)
 
-// 自定义空格工具
+// 【3】自定义空格工具
 class Blanks {
   canvas: HTMLCanvasElement | null
   ctx: CanvasRenderingContext2D | null | undefined
   constructor(container: string) {
     this.canvas = typeof container === 'string' ? document.querySelector(container) : container
     this.canvas?.setAttribute('width', '80')
-    this.canvas?.setAttribute('height', '8')
-    this.canvas?.setAttribute(
-      'style',
-      'border-bottom: 1px solid #000000; vertical-align: middle; margin: 0 3px;'
-    )
+    this.canvas?.setAttribute('height', '10')
+    this.canvas?.setAttribute('style', 'border-bottom: 1px solid #000000; vertical-align: middle;')
     // const ctx = this.canvas?.getContext('2d')
     // if (!ctx) return
     // ctx.beginPath() //开始绘制
@@ -83,5 +80,24 @@ class BlanksBlot extends Embed {
   }
 }
 Quill.register('formats/blanks', BlanksBlot)
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function blanksHandler(this: any) {
+  const { index } = this.quill.getSelection() as { index: number }
+
+  // 1.在之前插入空格
+  this.quill.insertText(index, ' ')
+
+  // 2.插入自定义内容
+  this.quill.insertEmbed(index + 1, 'blanks', {
+    id: 'canvas-blanks',
+  })
+
+  // 3.在之后插入空格
+  this.quill.insertText(index + 2, ' ')
+
+  // 4.将光标定位到后面
+  this.quill.setSelection(index + 3)
+}
 
 export default Quill
