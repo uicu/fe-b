@@ -12,21 +12,35 @@ import styles from './index.module.scss'
 
 export type QuestionReactQuillPropsType = {
   value: string
-  editorId: string
-  id: string
+  editorProp: string
+  fe_id: string
+  onChange?: (editorProp: string, delta: string) => void
 }
 
 const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   props: QuestionReactQuillPropsType
 ) => {
-  const { editorId, id } = props
+  const { editorProp, fe_id, onChange } = props
+  const editorId = `${fe_id}-${editorProp}`
 
   const dispatch = useDispatch()
   const { editorSelectedId } = useGetEditorInfo() // 从 redux 中获取editor信息
 
-  const [value, setValue] = useState<DeltaStatic>(props.value as unknown as DeltaStatic)
+  const [value, setValue] = useState<DeltaStatic | string>('')
   const [reactQuillRef, setReactQuillRef] = useState<ReactQuill | null>(null)
 
+  // 初始化值
+  useEffect(() => {
+    try {
+      // 如果能序列化
+      const initValue = JSON.parse(props.value)
+      setValue(initValue)
+    } catch (error) {
+      setValue(props.value)
+    }
+  }, [props.value])
+
+  // 自动获得焦点
   useEffect(() => {
     if (!reactQuillRef) return
     reactQuillRef.focus()
@@ -51,7 +65,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
     },
   }
 
-  function onChange(
+  function handleChange(
     value: string,
     delta: DeltaStatic,
     source: Sources,
@@ -59,16 +73,19 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   ) {
     const e = editor.getContents()
     setValue(e)
+
+    // 调用父组件change
+    onChange?.(editorProp, JSON.stringify(e))
   }
 
   const handleClick = useCallback((event: MouseEvent) => {
-    if (!id) return
+    if (!fe_id) return
     event.stopPropagation() // 阻止冒泡
-    dispatch(changeSelectedId(id))
+    dispatch(changeSelectedId(fe_id))
     dispatch(changeEditorSelectedId(editorId))
   }, [])
 
-  if (editorSelectedId === editorId && id) {
+  if (editorSelectedId === editorId && fe_id) {
     return (
       <div onClick={e => handleClick(e)}>
         <ReactQuill
@@ -78,7 +95,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
           className={styles.editor}
           theme="snow"
           value={value}
-          onChange={onChange}
+          onChange={handleChange}
           modules={modules}
           formats={formats}
         />
