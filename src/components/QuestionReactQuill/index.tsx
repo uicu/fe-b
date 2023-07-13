@@ -2,7 +2,7 @@ import React, { FC, useState, MouseEvent, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import ReactQuill from 'react-quill'
 import { DeltaStatic, Sources } from 'quill'
-import Quill, { blanksHandler } from './customQuill'
+import Quill, { blanksHandler, customMatcher } from './customQuill'
 import { quillGetHTML } from '../../utils/quill'
 import useGetEditorInfo from '../../hooks/useGetEditorInfo'
 import { changeSelectedId } from '../../store/componentsReducer'
@@ -39,6 +39,9 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
 
   // 编辑器modules自定义配置
   const modules = {
+    clipboard: {
+      matchers: [[Node.ELEMENT_NODE, customMatcher]],
+    },
     toolbar: {
       container: [[{ color: [] }, 'link', 'image', 'video', 'blanks']],
       handlers: {

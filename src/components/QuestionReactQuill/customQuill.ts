@@ -1,5 +1,6 @@
 import { KeyboardEvent } from 'react'
 import { Quill } from 'react-quill'
+import { DeltaStatic } from 'quill'
 import ImageResize from 'quill-image-resize-module-react'
 
 // 【1】覆盖图标
@@ -98,6 +99,25 @@ export function blanksHandler(this: any) {
 
   // 4.将光标定位到后面
   this.quill.setSelection(index + 3)
+}
+
+//【4】自定义剪贴板
+// quill.clipboard.addMatcher (Node.ELEMENT_NODE, function (node, delta) {
+//   var plaintext = node.innerText
+//   var Delta = Quill.import('delta')
+//   return new Delta().insert(plaintext)
+// })
+
+export function customMatcher(node: HTMLElement) {
+  const Delta = Quill.import('delta')
+  const delta = new Delta()
+  try {
+    const plaintext = node.innerText
+    return delta.insert(plaintext)
+  } catch (error) {
+    console.warn('粘贴失败', error)
+    return delta.insert('粘贴失败')
+  }
 }
 
 export default Quill
