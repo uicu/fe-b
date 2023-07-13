@@ -24,21 +24,9 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   const editorId = `${fe_id}-${editorProp}`
 
   const dispatch = useDispatch()
-  const { editorSelectedId } = useGetEditorInfo() // 从 redux 中获取editor信息
+  const { editorSelectedId } = useGetEditorInfo() // 从 redux 中获取editor selected id信息
 
-  const [value, setValue] = useState<DeltaStatic | string>('')
   const [reactQuillRef, setReactQuillRef] = useState<ReactQuill | null>(null)
-
-  // 初始化值
-  useEffect(() => {
-    try {
-      // 如果能序列化
-      const initValue = JSON.parse(props.value)
-      setValue(initValue)
-    } catch (error) {
-      setValue(props.value)
-    }
-  }, [props.value])
 
   // 自动获得焦点
   useEffect(() => {
@@ -72,8 +60,6 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
     editor: ReactQuill.UnprivilegedEditor
   ) {
     const e = editor.getContents()
-    setValue(e)
-
     // 调用父组件change
     onChange?.(editorProp, JSON.stringify(e))
   }
@@ -85,6 +71,14 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
     dispatch(changeEditorSelectedId(editorId))
   }, [])
 
+  // 初始化值
+  let defaultValue
+  try {
+    // 如果能序列化
+    defaultValue = JSON.parse(props.value)
+  } catch (error) {
+    defaultValue = props.value
+  }
   if (editorSelectedId === editorId && fe_id) {
     return (
       <div onClick={e => handleClick(e)}>
@@ -92,9 +86,9 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
           ref={el => {
             setReactQuillRef(el)
           }}
+          defaultValue={defaultValue}
           className={styles.editor}
           theme="snow"
-          value={value}
           onChange={handleChange}
           modules={modules}
           formats={formats}
@@ -102,7 +96,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
       </div>
     )
   } else {
-    const staticText = quillGetHTML(value)
+    const staticText = quillGetHTML(defaultValue)
     return (
       <div
         onClick={e => handleClick(e)}
