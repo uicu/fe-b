@@ -13,8 +13,6 @@ const Component: FC<QuestionParagraphPropsType & { fe_id?: string }> = props => 
     const newProps = { [`${editorProp}`]: delta }
     dispatch(changeComponentProps({ fe_id, newProps }))
   }
-  console.log(text, 'text')
-
   return <QuestionReactQuill value={text} editorProp="text" fe_id={fe_id} onChange={handleChange} />
 }
 

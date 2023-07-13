@@ -4,10 +4,11 @@
     border-radius: 4px;
     margin: 0 auto;
     max-width: 720px;
+    padding: 20px 0;
 }
 
 .component-wrapper {
-    padding: 26px;
+    padding: 12px 60px;
     border-radius: 4px;
     transition-duration: 0.3s;
     &:hover {
@@ -24,10 +25,9 @@
 }
 
 .locked {
-    opacity: .5;
+    opacity: 0.5;
     cursor: not-allowed;
+    .component {
+        pointer-events: none; // 屏蔽鼠标行为，组件不让被点击到
+    }
 }
-
-// .component {
-//     pointer-events: none; // 屏蔽鼠标行为，组件不让被点击到
-// }
