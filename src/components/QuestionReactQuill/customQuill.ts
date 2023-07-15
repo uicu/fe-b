@@ -1,6 +1,5 @@
 import { KeyboardEvent } from 'react'
 import { Quill } from 'react-quill'
-import { DeltaStatic } from 'quill'
 import ImageResize from 'quill-image-resize-module-react'
 
 // 【1】覆盖图标

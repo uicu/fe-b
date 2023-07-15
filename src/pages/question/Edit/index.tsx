@@ -13,6 +13,7 @@ import EditHeader from './EditHeader'
 import EditCanvas from './EditCanvas'
 import LeftPanel from './LeftPanel'
 import RightPanel from './RightPanel'
+import CanvasTool from './CanvasTool'
 import styles from './index.module.scss'
 
 const Edit: FC = () => {
@@ -49,6 +50,9 @@ const Edit: FC = () => {
             <LeftPanel />
           </div>
           <div className={styles.main} onClick={clearSelectedId}>
+            <div className={styles['canvas-tool']}>
+              <CanvasTool />
+            </div>
             <div className={styles['canvas-wrapper']}>
               <EditCanvas loading={loading} />
             </div>
