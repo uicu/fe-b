@@ -9,6 +9,7 @@ function getComponentList() {
       fe_id: 'c1', // 注意，由于统计页，左侧和中间需要数据完全一直，所以要写死 fe_id ，不能用 Random.id()
       type: 'questionInfo', // 组件类型，不能重复，前后端统一好
       title: '问卷信息',
+      page: 1,
       isHidden: false,
       isLocked: false,
       props: { title: '问卷标题', desc: '问卷描述...' },
@@ -18,6 +19,7 @@ function getComponentList() {
       fe_id: 'c2',
       type: 'questionTitle', // 组件类型，不能重复，前后端统一好
       title: '标题',
+      page: 1,
       isHidden: false,
       isLocked: false,
       props: { text: '个人信息调研', level: 1, isCenter: false },
@@ -27,6 +29,7 @@ function getComponentList() {
       fe_id: 'c3',
       type: 'questionInput',
       title: '输入框1',
+      page: 1,
       isHidden: false,
       isLocked: false,
       props: { title: '你的姓名', placeholder: '请输入姓名...' },
@@ -36,6 +39,7 @@ function getComponentList() {
       fe_id: 'c4',
       type: 'questionInput',
       title: '输入框2',
+      page: 1,
       isHidden: false,
       isLocked: false,
       props: { title: '你的电话', placeholder: '请输入电话...' },
@@ -45,6 +49,7 @@ function getComponentList() {
       fe_id: 'c5',
       type: 'questionTextarea',
       title: '多行输入',
+      page: 1,
       isHidden: false,
       isLocked: false,
       props: { title: '你的爱好', placeholder: '请输入...' },
@@ -54,6 +59,7 @@ function getComponentList() {
       fe_id: 'c6',
       type: 'questionParagraph',
       title: '段落',
+      page: 1,
       isHidden: false,
       isLocked: false,
       props: {
@@ -66,6 +72,7 @@ function getComponentList() {
       fe_id: 'c7',
       type: 'questionRadio',
       title: '单选',
+      page: 1,
       isHidden: false,
       isLocked: false,
       props: {
@@ -84,6 +91,7 @@ function getComponentList() {
       fe_id: 'c8',
       type: 'questionCheckbox',
       title: '多选',
+      page: 1,
       isHidden: false,
       isLocked: false,
       props: {
@@ -95,6 +103,45 @@ function getComponentList() {
           { value: 'item3', text: '选项3', checked: false },
         ],
       },
+    },
+    // Textarea
+    {
+      fe_id: 'c9',
+      type: 'questionTextarea',
+      title: '多行输入',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: { title: '你的爱好', placeholder: '请输入...' },
+    },
+    // Radio
+    {
+      fe_id: 'c10',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Input
+    {
+      fe_id: 'c11',
+      type: 'questionInput',
+      title: '输入框1',
+      page: 3,
+      isHidden: false,
+      isLocked: false,
+      props: { title: '你的姓名', placeholder: '请输入姓名...' },
     },
   ]
 }

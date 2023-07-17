@@ -1,7 +1,10 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
+import { useDispatch } from 'react-redux'
 import { Pagination, Divider, Dropdown, Button } from 'antd'
-import type { PaginationProps, MenuProps } from 'antd'
+import type { MenuProps } from 'antd'
 import { MoreOutlined } from '@ant-design/icons'
+import useGetPageInfo from '../../../hooks/useGetPageInfo'
+import { changeCurrentPage } from '../../../store/pageInfoReducer'
 import styles from './CanvasTool.module.scss'
 
 const onClick: MenuProps['onClick'] = e => {
@@ -32,21 +35,34 @@ const items = [
 ]
 
 const CanvasTool: FC = () => {
-  const [current, setCurrent] = useState(1)
+  const { pageTotal, currentPage } = useGetPageInfo()
+  const dispatch = useDispatch()
 
-  const onChange: PaginationProps['onChange'] = page => {
-    console.log(page)
-    setCurrent(page)
+  const onChange = (page: number) => {
+    dispatch(changeCurrentPage(page))
   }
   return (
     <div className={styles.tool}>
-      <Pagination simple current={current} onChange={onChange} total={5} pageSize={1} />
+      <Pagination
+        size="small"
+        showLessItems
+        current={currentPage}
+        onChange={onChange}
+        total={pageTotal}
+        defaultPageSize={1}
+      />
       <Divider type="vertical" />
       <Dropdown menu={{ items, onClick }} placement="bottom" arrow>
         <MoreOutlined />
       </Dropdown>
       <Divider type="vertical" />
-      <Button size="small" type="text">
+      <Button
+        size="small"
+        type={currentPage === -1 ? 'link' : 'text'}
+        onClick={() => {
+          onChange(-1)
+        }}
+      >
         结束页
       </Button>
     </div>

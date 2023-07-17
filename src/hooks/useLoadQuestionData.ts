@@ -32,6 +32,7 @@ function useLoadQuestionData() {
       js = '',
       css = '',
       isPublished = false,
+      pageTotal = 1,
       componentList = [],
     } = data
 
@@ -45,7 +46,7 @@ function useLoadQuestionData() {
     dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
 
     // 把 pageInfo 存储到 redux store
-    dispatch(resetPageInfo({ title, desc, js, css, isPublished }))
+    dispatch(resetPageInfo({ title, desc, js, css, isPublished, pageTotal, currentPage: 1 }))
   }, [data])
 
   // 判断 id 变化，执行 ajax 加载问卷数据

@@ -21,6 +21,7 @@ export default [
           css: '',
           isDeleted: false,
           isPublished: true,
+          pageTotal: 3,
           componentList: getComponentList(),
         },
 

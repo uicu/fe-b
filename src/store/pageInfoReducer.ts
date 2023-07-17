@@ -7,6 +7,8 @@ export type PageInfoType = {
   js?: string
   css?: string
   isPublished?: boolean
+  currentPage: number // 当前所在page，-1代表结束页
+  pageTotal: number // 总page
 }
 
 const INIT_STATE: PageInfoType = {
@@ -14,6 +16,9 @@ const INIT_STATE: PageInfoType = {
   desc: '',
   js: '',
   css: '',
+  isPublished: false,
+  currentPage: 1,
+  pageTotal: 1,
 }
 
 const pageInfoSlice = createSlice({
@@ -28,9 +33,14 @@ const pageInfoSlice = createSlice({
     changePageTitle: produce((draft: PageInfoType, action: PayloadAction<string>) => {
       draft.title = action.payload
     }),
+
+    // 修改当前页
+    changeCurrentPage: produce((draft: PageInfoType, action: PayloadAction<number>) => {
+      draft.currentPage = action.payload
+    }),
   },
 })
 
-export const { resetPageInfo, changePageTitle } = pageInfoSlice.actions
+export const { resetPageInfo, changePageTitle, changeCurrentPage } = pageInfoSlice.actions
 
 export default pageInfoSlice.reducer
