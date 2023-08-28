@@ -1,31 +1,164 @@
-import React, { FC, useState } from 'react'
-import { DndContext, DragEndEvent, UniqueIdentifier } from '@dnd-kit/core'
+import React, { useState, useRef } from 'react'
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable'
 
-import { Draggable } from './Draggable'
-import { Droppable } from './Droppable'
+import SortableItem from './SortableItem'
 
-const App: FC = () => {
-  const containers = ['A', 'B', 'C']
-  const [parent, setParent] = useState<UniqueIdentifier | null>(null)
-  const draggableMarkup = <Draggable id="draggable">Drag me</Draggable>
+export const TRASH_ID = 'void'
 
-  function handleDragEnd(event: DragEndEvent) {
-    const { over } = event
+function App() {
+  const [items, setItems] = useState<any>(() => {
+    return {
+      aa: ['A1', 'A2', 'A3'],
+      B: ['B1', 'B2', 'B3'],
+      C: ['C1', 'C2', 'C3'],
+      D: ['D1', 'D2', 'D3'],
+    }
+  })
+  const [containers] = useState(Object.keys(items))
 
-    // If the item is dropped over a container, set it as the parent
-    // otherwise reset the parent to `null`
-    setParent(over ? over.id : null)
+  const [clonedItems, setClonedItems] = useState<any>(null)
+
+  const findContainer = (id: any) => {
+    if (id in items) {
+      return id
+    }
+
+    return Object.keys(items).find(key => items[key].includes(id))
   }
+
+  const onDragCancel = () => {
+    if (clonedItems) {
+      // Reset items to their original state in case items have been
+      // Dragged across containers
+      setItems(clonedItems)
+    }
+    setClonedItems(null)
+  }
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
+
   return (
-    <DndContext onDragEnd={handleDragEnd}>
-      {parent === null ? draggableMarkup : null}
-      {containers.map(id => (
-        // We updated the Droppable component so it would accept an `id`
-        // prop and pass it to `useDroppable`
-        <Droppable key={id} id={id}>
-          {parent === id ? draggableMarkup : 'Drop here'}
-        </Droppable>
-      ))}
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragStart={() => {
+        setClonedItems(items)
+      }}
+      onDragOver={({ active, over }) => {
+        console.log(active, over, 'onDragOver')
+
+        const overId = over?.id
+
+        if (overId == null || overId === TRASH_ID || active.id in items) {
+          return
+        }
+
+        const overContainer = findContainer(overId)
+        const activeContainer = findContainer(active.id)
+
+        if (!overContainer || !activeContainer) {
+          return
+        }
+
+        if (activeContainer !== overContainer) {
+          setItems((items: any) => {
+            const activeItems = items[activeContainer]
+            const overItems = items[overContainer]
+            const overIndex = overItems.indexOf(overId)
+            const activeIndex = activeItems.indexOf(active.id)
+
+            let newIndex: number
+
+            if (overId in items) {
+              newIndex = overItems.length + 1
+            } else {
+              const isBelowOverItem =
+                over &&
+                active.rect.current.translated &&
+                active.rect.current.translated.top > over.rect.top + over.rect.height
+
+              const modifier = isBelowOverItem ? 1 : 0
+
+              newIndex = overIndex >= 0 ? overIndex + modifier : overItems.length + 1
+            }
+
+            return {
+              ...items,
+              [activeContainer]: items[activeContainer].filter((item: any) => item !== active.id),
+              [overContainer]: [
+                ...items[overContainer].slice(0, newIndex),
+                items[activeContainer][activeIndex],
+                ...items[overContainer].slice(newIndex, items[overContainer].length),
+              ],
+            }
+          })
+        }
+      }}
+      onDragEnd={({ active, over }: any) => {
+        console.log(active, over, 'onDragEnd')
+        const activeContainer = findContainer(active.id)
+
+        const overId = over?.id
+
+        const overContainer = findContainer(overId)
+
+        if (overContainer) {
+          const activeIndex = items[activeContainer].indexOf(active.id)
+          const overIndex = items[overContainer].indexOf(overId)
+
+          if (activeIndex !== overIndex) {
+            setItems((items: any) => ({
+              ...items,
+              [overContainer]: arrayMove(items[overContainer], activeIndex, overIndex),
+            }))
+          }
+        }
+      }}
+      onDragCancel={onDragCancel}
+    >
+      {/* <SortableContext items={items} strategy={verticalListSortingStrategy}>
+        {items.map(id => (
+          <SortableItem key={id} id={id}>
+            <p style={{ margin: '30px', backgroundColor: '#ff3300' }}>{id}</p>
+          </SortableItem>
+        ))}
+      </SortableContext> */}
+      {containers.map(containerId => {
+        return (
+          <SortableContext
+            key={containerId}
+            items={items[containerId]}
+            strategy={verticalListSortingStrategy}
+          >
+            {containerId}
+            {items[containerId].map((value: any) => {
+              return (
+                <SortableItem key={value} id={value}>
+                  <p style={{ margin: '30px', backgroundColor: '#ff3300' }}>{value}</p>
+                </SortableItem>
+              )
+            })}
+          </SortableContext>
+        )
+      })}
     </DndContext>
   )
 }

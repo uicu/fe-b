@@ -1,43 +1,11 @@
-import React, { FC, MouseEvent } from 'react'
-import {
-  DndContext,
-  closestCenter,
-  MouseSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent,
-} from '@dnd-kit/core'
-import {
-  // arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable'
-
-// 解决dnd-kit点击事件和拖拽事件的冲突
-export class MouseSensorCustomize extends MouseSensor {
-  static activators = [
-    {
-      eventName: 'onMouseDown' as const,
-      handler: ({ nativeEvent: event }: MouseEvent) => {
-        return shouldDragEvent(event.target as HTMLElement)
-      },
-    },
-  ]
-}
-
-function shouldDragEvent(element: HTMLElement | null) {
-  let current = element
-  while (current) {
-    if (current?.dataset?.noDrag) {
-      return false
-    }
-    current = current.parentElement
-  }
-  return true
-}
+import React, { FC } from 'react'
+import { DndContext, closestCenter, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { MouseSensorCustomize } from './customize'
 
 type PropsType = {
   children: JSX.Element | JSX.Element[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   items: Array<{ id: string; [key: string]: any }>
   onDragEnd: (oldIndex: number, newIndex: number) => void
 }

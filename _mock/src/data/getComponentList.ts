@@ -4,6 +4,16 @@
 
 function getComponentList() {
   return [
+    // Input
+    {
+      fe_id: 'c11',
+      type: 'questionInput',
+      title: '输入框1',
+      page: 3,
+      isHidden: false,
+      isLocked: false,
+      props: { title: '你的姓名', placeholder: '请输入姓名...' },
+    },
     // Info
     {
       fe_id: 'c1', // 注意，由于统计页，左侧和中间需要数据完全一直，所以要写死 fe_id ，不能用 Random.id()
@@ -132,16 +142,6 @@ function getComponentList() {
         ],
         value: '',
       },
-    },
-    // Input
-    {
-      fe_id: 'c11',
-      type: 'questionInput',
-      title: '输入框1',
-      page: 3,
-      isHidden: false,
-      isLocked: false,
-      props: { title: '你的姓名', placeholder: '请输入姓名...' },
     },
   ]
 }

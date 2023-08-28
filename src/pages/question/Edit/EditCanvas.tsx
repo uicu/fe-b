@@ -3,6 +3,7 @@ import { Skeleton } from 'antd'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
+import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import { getComponentConfByType } from '../../../components/QuestionComponents/index'
 import {
   ComponentInfoType,
@@ -14,10 +15,6 @@ import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
 import SortableContainer from '../../../components/DragSortable/SortableContainer'
 import SortableItem from '../../../components/DragSortable/SortableItem'
 import styles from './EditCanvas.module.scss'
-
-// // 临时静态展示一下 Title Input 的效果
-// import QuestionTitle from '../../../components/QuestionComponents/QuestionTitle/Component'
-// import QuestionInput from '../../../components/QuestionComponents/QuestionInput/Component'
 
 type PropsType = {
   loading: boolean
@@ -34,6 +31,7 @@ function genComponent(componentInfo: ComponentInfoType) {
 }
 
 const EditCanvas: FC<PropsType> = ({ loading }) => {
+  const { currentPage } = useGetPageInfo()
   const { componentList, selectedId } = useGetComponentInfo()
   const dispatch = useDispatch()
 
@@ -69,7 +67,10 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
     <SortableContainer items={componentListWithId} onDragEnd={handleDragEnd}>
       <div className={styles.canvas}>
         {componentList
-          .filter(c => !c.isHidden)
+          .filter(c => {
+            // 被隐藏或者不属于当前页则不渲染
+            return !c.isHidden && c.page === currentPage
+          })
           .map(c => {
             const { fe_id, isLocked } = c
 
@@ -93,16 +94,6 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
               </SortableItem>
             )
           })}
-        {/* <div className={styles['component-wrapper']}>
-        <div className={styles.component}>
-          <QuestionTitle />
-        </div>
-      </div>
-      <div className={styles['component-wrapper']}>
-        <div className={styles.component}>
-          <QuestionInput />
-        </div>
-      </div> */}
       </div>
     </SortableContainer>
   )

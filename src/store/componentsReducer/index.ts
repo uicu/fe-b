@@ -23,8 +23,11 @@ export type ComponentsStateType = {
 }
 
 const INIT_STATE: ComponentsStateType = {
+  // 当前选择的组件
   selectedId: '',
+  // 组件列表
   componentList: [],
+  // 用于拷贝暂存
   copiedComponent: null,
 }
 

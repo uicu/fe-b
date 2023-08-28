@@ -22,6 +22,8 @@ function genComponent(c: ComponentConfType) {
         type,
         props: defaultProps,
         page: currentPage,
+        isHidden: false,
+        isLocked: false,
       })
     )
   }, [currentPage])

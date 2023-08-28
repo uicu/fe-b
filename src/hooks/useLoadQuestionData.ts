@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
 import { useDispatch } from 'react-redux'
+import { sortBy } from 'lodash-es'
 import { getQuestionService } from '../services/question'
 import { resetComponents } from '../store/componentsReducer'
 import { resetPageInfo } from '../store/pageInfoReducer'
@@ -43,7 +44,14 @@ function useLoadQuestionData() {
     }
 
     // 把 componentList 存储到 Redux store 中
-    dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
+    dispatch(
+      resetComponents({
+        // 拿到后端数据根据page先排序一下
+        componentList: sortBy(componentList, ['page']),
+        selectedId,
+        copiedComponent: null,
+      })
+    )
 
     // 把 pageInfo 存储到 redux store
     dispatch(resetPageInfo({ title, desc, js, css, isPublished, pageTotal, currentPage: 1 }))
