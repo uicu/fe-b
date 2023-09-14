@@ -73,9 +73,10 @@ const Layers: FC = () => {
   // 构造分组模式
   const [items, setItems] = useState<{ [key: string]: Array<string> }>({})
   const [containers, setContainers] = useState<Array<string>>([])
+  const [statDrag, setStatDrag] = useState<number>(0)
   useEffect(() => {
     // store中已经从远端拿到componentList数据 并且还未构造过分组
-    if (componentList.length > 0 && containers.length === 0) {
+    if (componentList.length > 0 && containers.length !== componentList.length) {
       const _items: { [key: string]: Array<string> } = {}
       componentList.forEach((item: ComponentInfoType) => {
         if (!_items[`${item.page}`]) {
@@ -133,7 +134,7 @@ const Layers: FC = () => {
     })
     // 更新store
     dispatch(replaceComponent(newComponent))
-  }, [items])
+  }, [statDrag])
 
   return (
     <DndContext
@@ -188,6 +189,7 @@ const Layers: FC = () => {
               ],
             }
           })
+          setStatDrag(statDrag + 1)
         }
       }}
       onDragEnd={({ active, over }: DragEndEvent) => {
@@ -203,6 +205,7 @@ const Layers: FC = () => {
               ...items,
               [overContainer]: arrayMove(items[overContainer], activeIndex, overIndex),
             }))
+            setStatDrag(statDrag + 1)
           }
         }
       }}
