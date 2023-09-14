@@ -183,6 +183,13 @@ export const componentsSlice = createSlice({
         draft.componentList = arrayMove(curComponentList, oldIndex, newIndex)
       }
     ),
+
+    // 替换组件列表
+    replaceComponent: produce(
+      (draft: ComponentsStateType, action: PayloadAction<Array<ComponentInfoType>>) => {
+        draft.componentList = action.payload
+      }
+    ),
   },
 })
 
@@ -200,6 +207,7 @@ export const {
   selectNextComponent,
   changeComponentTitle,
   moveComponent,
+  replaceComponent,
 } = componentsSlice.actions
 
 export default componentsSlice.reducer

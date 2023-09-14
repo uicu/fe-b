@@ -21,7 +21,7 @@ export const TRASH_ID = 'void'
 function App() {
   const [items, setItems] = useState<any>(() => {
     return {
-      aa: ['A1', 'A2', 'A3'],
+      A: ['A1', 'A2', 'A3'],
       B: ['B1', 'B2', 'B3'],
       C: ['C1', 'C2', 'C3'],
       D: ['D1', 'D2', 'D3'],

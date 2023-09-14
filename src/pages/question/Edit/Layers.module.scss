@@ -1,16 +1,27 @@
-.item{
-    padding-bottom: 20px;
+
+.page-title{
+    margin: 0;
+    padding: 20px 0 8px;
+    &:first-child{
+        padding-top: 0;
+    }
 }
 .wrapper {
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, .06);
+    padding: 3px 0;
+    margin: 3px 0;
     display: flex;
-
+    align-items: center;
+    &:hover{
+        background-color: #e6f4ff;
+        border-radius: 4px;
+        padding: 3px 4px;
+        margin-left: -4px;
+        margin-right: -4px;
+    }
     .title {
         flex: auto;
         line-height: 2;
     }
-
     .selected {
         color: #1890ff;
     }
