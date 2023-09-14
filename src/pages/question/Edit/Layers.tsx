@@ -149,9 +149,16 @@ const Layers: FC = () => {
         }
         const overContainer = findContainer(overId as string)
         const activeContainer = findContainer(active.id as string)
+
         if (!overContainer || !activeContainer) {
           return
         }
+
+        // 只有一条时，禁止拖拽
+        if (items[activeContainer].length <= 1) {
+          return
+        }
+
         if (activeContainer !== overContainer) {
           setItems((items: { [key: string]: Array<string> }) => {
             const activeItems = items[activeContainer]
@@ -187,6 +194,7 @@ const Layers: FC = () => {
         const activeContainer = findContainer(active.id as string)
         const overId = over?.id
         const overContainer = findContainer(overId as string)
+
         if (overContainer) {
           const activeIndex = items[activeContainer as string].indexOf(active.id as string)
           const overIndex = items[overContainer].indexOf(overId as string)
