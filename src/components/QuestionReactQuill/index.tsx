@@ -4,9 +4,9 @@ import ReactQuill from 'react-quill'
 import { DeltaStatic, Sources } from 'quill'
 import Quill, { blanksHandler, customMatcher } from './customQuill'
 import { quillGetHTML } from '../../utils/quill'
-import useGetEditorInfo from '../../hooks/useGetEditorInfo'
+import useGetInteractionInfo from '../../hooks/useGetInteractionInfo'
 import { changeSelectedId } from '../../store/componentsReducer'
-import { changeEditorSelectedId } from '../../store/editorReducer'
+import { changeEditorSelectedId } from '../../store/interactionReducer'
 import 'quill/dist/quill.snow.css'
 import styles from './index.module.scss'
 
@@ -24,7 +24,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   const editorId = `${fe_id}-${editorProp}`
 
   const dispatch = useDispatch()
-  const { editorSelectedId } = useGetEditorInfo() // 从 redux 中获取editor selected id信息
+  const { editorSelectedId } = useGetInteractionInfo() // 从 redux 中获取editor selected id信息
 
   const [reactQuillRef, setReactQuillRef] = useState<ReactQuill | null>(null)
 

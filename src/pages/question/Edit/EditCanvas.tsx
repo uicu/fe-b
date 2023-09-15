@@ -10,7 +10,7 @@ import {
   changeSelectedId,
   moveComponent,
 } from '../../../store/componentsReducer'
-import { changeEditorSelectedId } from '../../../store/editorReducer'
+import { changeEditorSelectedId } from '../../../store/interactionReducer'
 import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
 import SortableContainer from '../../../components/DragSortable/SortableContainer'
 import SortableItem from '../../../components/DragSortable/SortableItem'

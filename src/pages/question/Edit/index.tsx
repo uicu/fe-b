@@ -3,9 +3,9 @@ import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { useTitle } from 'ahooks'
 import classNames from 'classnames'
-import useGetEditorInfo from '../../../hooks/useGetEditorInfo'
+import useGetInteractionInfo from '../../../hooks/useGetInteractionInfo'
 import { changeSelectedId } from '../../../store/componentsReducer'
-import { changeEditorSelectedId } from '../../../store/editorReducer'
+import { changeEditorSelectedId } from '../../../store/interactionReducer'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
 
@@ -17,7 +17,7 @@ import CanvasTool from './CanvasTool'
 import styles from './index.module.scss'
 
 const Edit: FC = () => {
-  const { editorSelectedId } = useGetEditorInfo()
+  const { editorSelectedId } = useGetInteractionInfo()
   // const { id = '' } = useParams()
   const dispatch = useDispatch()
 
