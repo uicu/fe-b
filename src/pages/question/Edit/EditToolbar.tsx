@@ -22,15 +22,18 @@ import {
   moveComponent,
 } from '../../../store/componentsReducer'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
+import useGetPageInfo from '../../../hooks/useGetPageInfo'
 
 const EditToolbar: FC = () => {
   const dispatch = useDispatch()
   const { selectedId, componentList, selectedComponent, copiedComponent } = useGetComponentInfo()
-  const { isLocked } = selectedComponent || {}
+  const { isLocked, page: selectedPage } = selectedComponent || {}
   const length = componentList.length
   const selectedIndex = componentList.findIndex(c => c.fe_id === selectedId)
   const isFirst = selectedIndex <= 0 // 第一个
   const isLast = selectedIndex + 1 >= length // 最后一个
+
+  const { currentPage } = useGetPageInfo()
 
   // 删除组件
   function handleDelete() {
@@ -82,7 +85,22 @@ const EditToolbar: FC = () => {
   return (
     <Space>
       <Tooltip title="删除">
-        <Button shape="circle" icon={<DeleteOutlined />} onClick={handleDelete}></Button>
+        <Button
+          disabled={(() => {
+            // 1.必须选中
+            // 2.每页至少有一个
+            // 3.当前选中的必须在当前页
+            const currentPageComponentLength = componentList.filter(item => {
+              return item.page === currentPage
+            })
+            return (
+              !selectedId || currentPageComponentLength.length <= 1 || selectedPage !== currentPage
+            )
+          })()}
+          shape="circle"
+          icon={<DeleteOutlined />}
+          onClick={handleDelete}
+        />
       </Tooltip>
       <Tooltip title="隐藏">
         <Button shape="circle" icon={<EyeInvisibleOutlined />} onClick={handleHidden}></Button>

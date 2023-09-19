@@ -86,7 +86,11 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
 
             return (
               <SortableItem key={fe_id} id={fe_id}>
-                <div className={wrapperClassName} onClick={e => handleClick(e, fe_id)}>
+                <div
+                  className={wrapperClassName}
+                  id={`component-key-${fe_id}`}
+                  onClick={e => handleClick(e, fe_id)}
+                >
                   <div className={styles.component} data-no-drag="true">
                     {genComponent(c)}
                   </div>

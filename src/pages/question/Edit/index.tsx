@@ -49,11 +49,11 @@ const Edit: FC = () => {
           <div className={styles.left}>
             <LeftPanel />
           </div>
-          <div className={styles.main} onClick={clearSelectedId}>
+          <div className={styles.main}>
             <div className={styles['canvas-tool']}>
               <CanvasTool />
             </div>
-            <div className={styles['canvas-wrapper']}>
+            <div className={styles['canvas-wrapper']} onClick={clearSelectedId}>
               <EditCanvas loading={loading} />
             </div>
           </div>

@@ -15,6 +15,7 @@ import {
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import SortableItem from '../../../components/DragSortable/SortableItem'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
+import { changeCurrentPage } from '../../../store/pageInfoReducer'
 import {
   ComponentInfoType,
   changeSelectedId,
@@ -41,6 +42,25 @@ const Layers: FC = () => {
       message.info('不能选中隐藏的组件')
       return
     }
+
+    if (curComp) {
+      // 定位到分页
+      const { page } = curComp
+      dispatch(changeCurrentPage(page))
+
+      // 滚动: todo待优化，不要使用setTimeout
+      setTimeout(() => {
+        const wrapperKeyClassName = `component-key-${fe_id}`
+        const anchorElement = document.getElementById(wrapperKeyClassName)
+        if (anchorElement) {
+          anchorElement.scrollIntoView({
+            behavior: 'smooth', // 平滑过渡
+            block: 'start', // 上边框与视窗顶部平齐
+          })
+        }
+      }, 100)
+    }
+
     if (fe_id !== selectedId) {
       // 当前组件未被选中，执行选中
       dispatch(changeSelectedId(fe_id))

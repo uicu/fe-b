@@ -37,17 +37,19 @@ function useLoadQuestionData() {
       componentList = [],
     } = data
 
+    const _componentList = sortBy(componentList, ['page'])
+
     // 获取默认的 selectedId
     let selectedId = ''
-    if (componentList.length > 0) {
-      selectedId = componentList[0].fe_id // 默认选中第一个组件
+    if (_componentList.length > 0) {
+      selectedId = _componentList[0].fe_id // 默认选中第一个组件
     }
 
     // 把 componentList 存储到 Redux store 中
     dispatch(
       resetComponents({
         // 拿到后端数据根据page先排序一下
-        componentList: sortBy(componentList, ['page']),
+        componentList: _componentList,
         selectedId,
         copiedComponent: null,
       })
