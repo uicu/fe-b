@@ -47,18 +47,6 @@ const Layers: FC = () => {
       // 定位到分页
       const { page } = curComp
       dispatch(changeCurrentPage(page))
-
-      // 滚动: todo待优化，不要使用setTimeout
-      setTimeout(() => {
-        const wrapperKeyClassName = `component-key-${fe_id}`
-        const anchorElement = document.getElementById(wrapperKeyClassName)
-        if (anchorElement) {
-          anchorElement.scrollIntoView({
-            behavior: 'smooth', // 平滑过渡
-            block: 'start', // 上边框与视窗顶部平齐
-          })
-        }
-      }, 100)
     }
 
     if (fe_id !== selectedId) {

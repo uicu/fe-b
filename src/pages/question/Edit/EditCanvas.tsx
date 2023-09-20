@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent } from 'react'
+import React, { FC, MouseEvent, useEffect } from 'react'
 import { Skeleton } from 'antd'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
@@ -44,6 +44,18 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
 
   // 绑定快捷键
   useBindCanvasKeyPress()
+
+  // 分页切换时，自动滚动到已滚动的组件
+  useEffect(() => {
+    const wrapperKeyClassName = `component-key-${selectedId}`
+    const anchorElement = document.getElementById(wrapperKeyClassName)
+    if (anchorElement) {
+      anchorElement.scrollIntoView({
+        behavior: 'smooth', // 平滑过渡
+        block: 'start', // 上边框与视窗顶部平齐
+      })
+    }
+  }, [currentPage, selectedId])
 
   if (loading) {
     return (

@@ -4,16 +4,6 @@
 
 function getComponentList() {
   return [
-    // Input
-    {
-      fe_id: 'c11',
-      type: 'questionInput',
-      title: '输入框1',
-      page: 3,
-      isHidden: false,
-      isLocked: false,
-      props: { title: '你的姓名', placeholder: '请输入姓名...' },
-    },
     // Info
     {
       fe_id: 'c1', // 注意，由于统计页，左侧和中间需要数据完全一直，所以要写死 fe_id ，不能用 Random.id()
@@ -142,6 +132,244 @@ function getComponentList() {
         ],
         value: '',
       },
+    },
+    // Radio
+    {
+      fe_id: 'c11',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c12',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c13',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c14',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c15',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c16',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c17',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c18',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c19',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c20',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c21',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Radio
+    {
+      fe_id: 'c22',
+      type: 'questionRadio',
+      title: '单选',
+      page: 2,
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '单选标题',
+        isVertical: false,
+        options: [
+          { value: 'item1', text: '选项1' },
+          { value: 'item2', text: '选项2' },
+          { value: 'item3', text: '选项3' },
+        ],
+        value: '',
+      },
+    },
+    // Input
+    {
+      fe_id: 'c23',
+      type: 'questionInput',
+      title: '输入框1',
+      page: 3,
+      isHidden: false,
+      isLocked: false,
+      props: { title: '你的姓名', placeholder: '请输入姓名...' },
     },
   ]
 }
