@@ -1,12 +1,13 @@
 import { useKeyPress } from 'ahooks'
 import { useDispatch } from 'react-redux'
-import { ActionCreators as UndoActionCreators } from 'redux-undo'
 import {
   removeSelectedComponent,
   copySelectedComponent,
   pasteCopiedComponent,
   selectPrevComponent,
   selectNextComponent,
+  undoComponents,
+  redoComponents,
 } from '../store/componentsReducer'
 import useGetPageInfo from './useGetPageInfo'
 
@@ -66,7 +67,7 @@ function useBindCanvasKeyPress() {
     ['ctrl.z', 'meta.z'],
     () => {
       if (!isActiveElementValid()) return
-      dispatch(UndoActionCreators.undo())
+      dispatch(undoComponents())
     },
     {
       exactMatch: true, // 严格匹配
@@ -76,7 +77,7 @@ function useBindCanvasKeyPress() {
   // 重做
   useKeyPress(['ctrl.shift.z', 'meta.shift.z'], () => {
     if (!isActiveElementValid()) return
-    dispatch(UndoActionCreators.redo())
+    dispatch(redoComponents())
   })
 }
 

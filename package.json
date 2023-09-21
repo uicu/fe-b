@@ -101,8 +101,7 @@
     "react-quill": "^2.0.0",
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.11.2",
-    "recharts": "^2.7.1",
-    "redux-undo": "^1.0.1"
+    "recharts": "^2.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

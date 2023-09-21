@@ -12,7 +12,6 @@ import {
   RedoOutlined,
 } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
-import { ActionCreators as UndoActionCreators } from 'redux-undo'
 import {
   removeSelectedComponent,
   changeComponentHidden,
@@ -20,6 +19,8 @@ import {
   copySelectedComponent,
   pasteCopiedComponent,
   moveComponent,
+  undoComponents,
+  redoComponents,
 } from '../../../store/componentsReducer'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
@@ -74,12 +75,12 @@ const EditToolbar: FC = () => {
 
   // 撤销
   function undo() {
-    dispatch(UndoActionCreators.undo())
+    dispatch(undoComponents())
   }
 
   // 重做
   function redo() {
-    dispatch(UndoActionCreators.redo())
+    dispatch(redoComponents())
   }
 
   return (

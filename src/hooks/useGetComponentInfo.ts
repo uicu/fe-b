@@ -1,12 +1,10 @@
 import { useSelector } from 'react-redux'
 import { StateType } from '../store'
-import { ComponentsStateType } from '../store/componentsReducer'
+import { PresentType } from '../store/componentsReducer'
 
 function useGetComponentInfo() {
   // redux store
-  const components = useSelector<StateType>(
-    state => state.components.present
-  ) as ComponentsStateType
+  const components = useSelector<StateType>(state => state.components.present) as PresentType
 
   const { componentList = [], selectedId, copiedComponent } = components
 

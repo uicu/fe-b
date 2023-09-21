@@ -36,16 +36,16 @@ export function getNextSelectedId(fe_id: string, componentList: ComponentInfoTyp
  * @param newComponent 新组件
  */
 export function insertNewComponent(draft: ComponentsStateType, newComponent: ComponentInfoType) {
-  const { selectedId, componentList } = draft
+  const { selectedId, componentList } = draft.present
   const index = componentList.findIndex(c => c.fe_id === selectedId)
 
   if (index < 0) {
     // 未选中任何组件
-    draft.componentList.push(newComponent)
+    draft.present.componentList.push(newComponent)
   } else {
     // 选中了组件，插入到 index 后面
-    draft.componentList.splice(index + 1, 0, newComponent)
+    draft.present.componentList.splice(index + 1, 0, newComponent)
   }
 
-  draft.selectedId = newComponent.fe_id
+  draft.present.selectedId = newComponent.fe_id
 }
