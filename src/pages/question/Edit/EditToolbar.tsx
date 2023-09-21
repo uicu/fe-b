@@ -29,7 +29,8 @@ const EditToolbar: FC = () => {
   const dispatch = useDispatch()
   // 当前所在的页
   const { currentPage } = useGetPageInfo()
-  const { selectedId, componentList, selectedComponent, copiedComponent } = useGetComponentInfo()
+  const { selectedId, componentList, selectedComponent, copiedComponent, isPast, isFuture } =
+    useGetComponentInfo()
   const { isLocked, page: selectedPage } = selectedComponent || {}
   const length = componentList.length
   const selectedIndex = componentList.findIndex(c => c.fe_id === selectedId)
@@ -187,10 +188,10 @@ const EditToolbar: FC = () => {
         ></Button>
       </Tooltip>
       <Tooltip title="撤销">
-        <Button shape="circle" icon={<UndoOutlined />} onClick={undo}></Button>
+        <Button disabled={!isPast} shape="circle" icon={<UndoOutlined />} onClick={undo}></Button>
       </Tooltip>
       <Tooltip title="重做">
-        <Button shape="circle" icon={<RedoOutlined />} onClick={redo}></Button>
+        <Button disabled={!isFuture} shape="circle" icon={<RedoOutlined />} onClick={redo}></Button>
       </Tooltip>
     </Space>
   )
