@@ -129,16 +129,21 @@ export const componentsSlice = createSlice({
     }),
 
     // 粘贴组件
-    pasteCopiedComponent: produce((draft: ComponentsStateType) => {
-      const { copiedComponent } = draft
-      if (copiedComponent == null) return
+    pasteCopiedComponent: produce(
+      (draft: ComponentsStateType, action: PayloadAction<{ page: number }>) => {
+        const { copiedComponent } = draft
+        if (copiedComponent == null) return
 
-      // 要把 fe_id 给修改了，重要！！
-      copiedComponent.fe_id = nanoid()
+        // 要把 fe_id 给修改了，重要！！
+        copiedComponent.fe_id = nanoid()
 
-      // 插入 copiedComponent
-      insertNewComponent(draft, copiedComponent)
-    }),
+        // 粘贴到当前选择的页上
+        const { page } = action.payload
+        copiedComponent.page = page
+        // 插入 copiedComponent
+        insertNewComponent(draft, copiedComponent)
+      }
+    ),
 
     // 选中上一个
     selectPrevComponent: produce((draft: ComponentsStateType) => {

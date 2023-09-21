@@ -45,7 +45,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
   // 绑定快捷键
   useBindCanvasKeyPress()
 
-  // 分页切换时，自动滚动到已滚动的组件
+  // 分页切换时，自动滚动到已选择的组件
   useEffect(() => {
     const wrapperKeyClassName = `component-key-${selectedId}`
     const anchorElement = document.getElementById(wrapperKeyClassName)

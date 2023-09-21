@@ -8,6 +8,7 @@ import {
   selectPrevComponent,
   selectNextComponent,
 } from '../store/componentsReducer'
+import useGetPageInfo from './useGetPageInfo'
 
 /**
  * 判断 activeElem 是否合法
@@ -28,6 +29,8 @@ function isActiveElementValid() {
 function useBindCanvasKeyPress() {
   const dispatch = useDispatch()
 
+  const { currentPage } = useGetPageInfo()
+
   // 删除组件
   useKeyPress(['backspace', 'delete'], () => {
     if (!isActiveElementValid()) return
@@ -43,7 +46,7 @@ function useBindCanvasKeyPress() {
   // 粘贴
   useKeyPress(['ctrl.v', 'meta.v'], () => {
     if (!isActiveElementValid()) return
-    dispatch(pasteCopiedComponent())
+    dispatch(pasteCopiedComponent({ page: currentPage }))
   })
 
   // 选中上一个
