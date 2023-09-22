@@ -63,7 +63,7 @@ function getComponentList() {
       isHidden: false,
       isLocked: false,
       props: {
-        text: '{"ops":[{"attributes":{"color":"#f06666"},"insert":"为"},{"insert":"了"},{"attributes":{"bold":true},"insert":"给您"},{"insert":"提\\n供"},{"attributes":{"link":"https://www.uicu.club/"},"insert":"更好的"},{"insert":"服务\\n"}]}',
+        text: '{"ops":[{"attributes": {"width": "78","color": "#f06666"},"insert": {"image": "http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg"}},{"attributes":{"color":"#f06666"},"insert":"为"},{"insert":"了"},{"attributes":{"bold":true},"insert":"给您"},{"insert":"提\\n供"},{"attributes":{"link":"https://www.uicu.club/"},"insert":"更好的"},{"insert":"服务\\n"}]}',
         isCenter: false,
       },
     },

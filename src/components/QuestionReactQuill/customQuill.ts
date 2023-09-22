@@ -119,4 +119,47 @@ export function customMatcher(node: HTMLElement) {
   }
 }
 
+//【5】上传本地图片到服务器
+
+//这是点击图片图标触发的事件
+export function imageHandler(this: any) {
+  const input = document.createElement('input')
+  input.setAttribute('type', 'file')
+  input.setAttribute('accept', 'image/*')
+  input.setAttribute('multiple', 'multiple')
+  input.click()
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const that = this
+  input.onchange = async () => {
+    Array.from(input.files as unknown as []).forEach(item => {
+      const formData = new FormData()
+      formData.append('file', item)
+      setTimeout(() => {
+        const { index: cursorPosition } = that.quill.getSelection() as { index: number } //获取当前光标位置
+        const link =
+          'http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg'
+        that.quill.insertEmbed(cursorPosition, 'image', link) //插入图片
+        that.quill.setSelection(cursorPosition + 1) //光标位置加1
+      }, 800)
+      //业务需求安装了压缩图片的插件，可忽略
+      // new Compressor(item, {
+      //   quality: 0.8,
+      //   convertSize: 1024 * 1024 * 8,
+      //   success(result) {
+      //   //很很很很重要的一步
+      //     const formData = new FormData();
+      //     formData.append('file', result, result.name);
+      //     Axios({
+      //       method: 'post',
+      //       data: formData,
+      //       url: config.RES_URL + 'connector?isRelativePath=true'，//图片上传的接口
+      //     }).then(res => {
+
+      //     })
+      //   },
+      // });
+    })
+  }
+}
+
 export default Quill

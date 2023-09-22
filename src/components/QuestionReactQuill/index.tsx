@@ -1,8 +1,11 @@
+//https://github.com/zenoamaro/react-quill/issues/330
+//https://juejin.cn/post/6844904166284869640
+
 import React, { FC, useState, MouseEvent, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import ReactQuill from 'react-quill'
 import { DeltaStatic, Sources } from 'quill'
-import Quill, { blanksHandler, customMatcher } from './customQuill'
+import Quill, { blanksHandler, customMatcher, imageHandler } from './customQuill'
 import { quillGetHTML } from '../../utils/quill'
 import useGetInteractionInfo from '../../hooks/useGetInteractionInfo'
 import { changeSelectedId } from '../../store/componentsReducer'
@@ -35,7 +38,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
   }, [reactQuillRef])
 
   // 格式白名单
-  const formats = ['color', 'link', 'image', 'video', 'blanks']
+  const formats = ['color', 'link', 'image', 'video', 'blanks', 'alt', 'width', 'height', 'style']
 
   // 编辑器modules自定义配置
   const modules = {
@@ -46,6 +49,7 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
       container: [[{ color: [] }, 'link', 'image', 'video', 'blanks']],
       handlers: {
         blanks: blanksHandler,
+        image: imageHandler,
       },
     },
     imageResize: {
