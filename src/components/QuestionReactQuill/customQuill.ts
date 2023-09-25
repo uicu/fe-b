@@ -39,29 +39,29 @@ class PlainResize extends ImageResize {
 Quill.register('modules/imageResize', PlainResize)
 
 // 【3】自定义空格工具
-class Blanks {
-  canvas: HTMLCanvasElement | null
-  ctx: CanvasRenderingContext2D | null | undefined
-  constructor(container: string) {
-    this.canvas = typeof container === 'string' ? document.querySelector(container) : container
-    this.canvas?.setAttribute('width', '80')
-    this.canvas?.setAttribute('height', '10')
-    this.canvas?.setAttribute('style', 'border-bottom: 1px solid #000000; vertical-align: middle;')
-    // const ctx = this.canvas?.getContext('2d')
-    // if (!ctx) return
-    // ctx.beginPath() //开始绘制
-    // ctx.moveTo(0, 30)
-    // ctx.lineTo(180, 30)
-    // ctx.strokeStyle = '#000000' //将线条颜色设置为蓝色
-    // ctx.stroke() //stroke() 方法默认颜色是黑色（如果没有上面一行，则会是黑色）。
-  }
-}
+// class Blanks {
+//   canvas: HTMLCanvasElement | null
+//   ctx: CanvasRenderingContext2D | null | undefined
+//   constructor(container: string) {
+//     this.canvas = typeof container === 'string' ? document.querySelector(container) : container
+//     this.canvas?.setAttribute('width', '80')
+//     this.canvas?.setAttribute('height', '10')
+//     this.canvas?.setAttribute('style', 'display: inline-block; vertical-align: middle;')
+//     const ctx = this.canvas?.getContext('2d')
+//     if (!ctx) return
+//     ctx.beginPath() //开始绘制
+//     ctx.moveTo(0, 30)
+//     ctx.lineTo(180, 30)
+//     ctx.strokeStyle = '#000000' //将线条颜色设置为蓝色
+//     ctx.stroke() //stroke() 方法默认颜色是黑色（如果没有上面一行，则会是黑色）。
+//   }
+// }
 
 const Embed = Quill.import('blots/embed')
 
 class BlanksBlot extends Embed {
   static blotName = 'blanks'
-  static tagName = 'canvas'
+  static tagName = 'div'
 
   static create(value: { id: string; width: number; height: number }) {
     const node = super.create(value)
@@ -74,8 +74,11 @@ class BlanksBlot extends Embed {
     if (height !== undefined) {
       node.setAttribute('height', height)
     }
+
+    node.setAttribute('style', 'display: inline-block; vertical-align: middle;')
+    node.innerText = '____________'
     // 绘制空格的逻辑
-    new Blanks(node)
+    // new Blanks(node)
     return node
   }
 }
@@ -85,19 +88,15 @@ Quill.register('formats/blanks', BlanksBlot)
 export function blanksHandler(this: any) {
   const { index } = this.quill.getSelection() as { index: number }
 
-  // 1.在之前插入空格
-  this.quill.insertText(index, ' ')
-
-  // 2.插入自定义内容
-  this.quill.insertEmbed(index + 1, 'blanks', {
+  // 1.插入自定义内容
+  this.quill.insertEmbed(index, 'blanks', {
     id: 'canvas-blanks',
+    width: 180,
+    height: 10,
   })
 
-  // 3.在之后插入空格
-  this.quill.insertText(index + 2, ' ')
-
-  // 4.将光标定位到后面
-  this.quill.setSelection(index + 3)
+  // 2.将光标定位到后面
+  this.quill.setSelection(index + 1)
 }
 
 //【4】自定义剪贴板
