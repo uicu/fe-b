@@ -1,6 +1,7 @@
 // https://github.com/zenoamaro/react-quill/issues/330
 // https://juejin.cn/post/6844904166284869640
 // https://juejin.cn/post/6968104416784171039
+// https://kang-bing-kui.gitbook.io/quill/wen-dang-document/api/events
 
 import React, { FC, useState, MouseEvent, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
@@ -34,8 +35,10 @@ const QuestionReactQuill: FC<QuestionReactQuillPropsType> = (
 
   // 自动获得焦点
   useEffect(() => {
-    if (!reactQuillRef) return
-    reactQuillRef.focus()
+    if (reactQuillRef && reactQuillRef.editor) {
+      const { editor } = reactQuillRef
+      editor.focus()
+    }
   }, [reactQuillRef])
 
   // 格式白名单
