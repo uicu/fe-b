@@ -1,15 +1,14 @@
 import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
-import { Pagination, Divider, Dropdown, Button } from 'antd'
+import { Pagination, Divider, Dropdown, Button, message } from 'antd'
 import type { MenuProps } from 'antd'
 import { MoreOutlined } from '@ant-design/icons'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
-import { changeCurrentPage } from '../../../store/pageInfoReducer'
+import { changeCurrentPage, changePageTotal } from '../../../store/pageInfoReducer'
+import { changeSelectedId, replaceComponent } from '../../../store/componentsReducer'
+import { changeEditorSelectedId } from '../../../store/interactionReducer'
+import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import styles from './CanvasTool.module.scss'
-
-const onClick: MenuProps['onClick'] = e => {
-  console.log('click', e)
-}
 
 const items = [
   {
@@ -36,10 +35,47 @@ const items = [
 
 const CanvasTool: FC = () => {
   const { pageTotal, currentPage } = useGetPageInfo()
+  const { componentList } = useGetComponentInfo()
   const dispatch = useDispatch()
 
+  // 切换页码
   const onChange = (page: number) => {
     dispatch(changeCurrentPage(page))
+    dispatch(changeSelectedId(''))
+    dispatch(changeEditorSelectedId(''))
+  }
+
+  const onClick: MenuProps['onClick'] = e => {
+    // 删除
+    if (e.key === '1') {
+      if (pageTotal <= 1) return message.error('必须保留一页')
+
+      // 筛选出非当前页的
+      let newComponent = componentList.filter(item => {
+        return item.page !== currentPage
+      })
+      // 在当前页以后的往前挪一位
+      newComponent = newComponent.map(item => {
+        if (item.page > currentPage) {
+          return {
+            ...item,
+            page: item.page - 1,
+          }
+        }
+        return {
+          ...item,
+        }
+      })
+
+      dispatch(replaceComponent(newComponent))
+      dispatch(changePageTotal(pageTotal - 1))
+
+      if (currentPage !== 1) {
+        dispatch(changeCurrentPage(currentPage - 1))
+      }
+      dispatch(changeSelectedId(''))
+      dispatch(changeEditorSelectedId(''))
+    }
   }
   return (
     <div className={styles.tool}>

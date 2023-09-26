@@ -38,9 +38,15 @@ const pageInfoSlice = createSlice({
     changeCurrentPage: produce((draft: PageInfoType, action: PayloadAction<number>) => {
       draft.currentPage = action.payload
     }),
+
+    // 修改页总数
+    changePageTotal: produce((draft: PageInfoType, action: PayloadAction<number>) => {
+      draft.pageTotal = action.payload
+    }),
   },
 })
 
-export const { resetPageInfo, changePageTitle, changeCurrentPage } = pageInfoSlice.actions
+export const { resetPageInfo, changePageTitle, changeCurrentPage, changePageTotal } =
+  pageInfoSlice.actions
 
 export default pageInfoSlice.reducer
