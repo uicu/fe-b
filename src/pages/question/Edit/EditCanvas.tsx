@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import { getComponentConfByType } from '../../../components/QuestionComponents/index'
 import {
+  pushPast,
   ComponentInfoType,
   changeSelectedId,
   moveComponent,
@@ -70,6 +71,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
 
   // 拖拽排序结束
   function handleDragEnd(oldIndex: number, newIndex: number) {
+    dispatch(pushPast())
     dispatch(moveComponent({ oldIndex, newIndex }))
   }
 

@@ -51,6 +51,12 @@ export const componentsSlice = createSlice({
   name: 'components',
   initialState: INIT_STATE,
   reducers: {
+    // 历史记录压栈
+    pushPast: produce((draft: ComponentsStateType) => {
+      // Undo/Redo功能
+      draft.past.push(cloneDeep(draft.present))
+    }),
+
     // 撤销
     undoComponents: produce((draft: ComponentsStateType) => {
       if (draft.past.length > 0) {
@@ -80,9 +86,6 @@ export const componentsSlice = createSlice({
     // 添加新组件
     addComponent: produce(
       (draft: ComponentsStateType, action: PayloadAction<ComponentInfoType>) => {
-        // Undo/Redo功能
-        draft.past.push(cloneDeep(draft.present))
-
         const newComponent = action.payload
         insertNewComponent(draft, newComponent)
       }
@@ -94,11 +97,7 @@ export const componentsSlice = createSlice({
         draft: ComponentsStateType,
         action: PayloadAction<{ fe_id: string; newProps: ComponentPropsType }>
       ) => {
-        // Undo/Redo功能
-        draft.past.push(cloneDeep(draft.present))
-
         const { fe_id, newProps } = action.payload
-
         // 当前要修改属性的这个组件
         const curComp = draft.present.componentList.find(c => c.fe_id === fe_id)
         if (curComp) {
@@ -112,9 +111,6 @@ export const componentsSlice = createSlice({
 
     // 删除选中的组件
     removeSelectedComponent: produce((draft: ComponentsStateType) => {
-      // Undo/Redo功能
-      draft.past.push(cloneDeep(draft.present))
-
       const { componentList = [], selectedId: removedId } = draft.present
 
       // 重新计算 selectedId
@@ -128,9 +124,6 @@ export const componentsSlice = createSlice({
     // 隐藏/显示 组件
     changeComponentHidden: produce(
       (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string; isHidden: boolean }>) => {
-        // Undo/Redo功能
-        draft.past.push(cloneDeep(draft.present))
-
         const { componentList = [] } = draft.present
         const { fe_id, isHidden } = action.payload
 
@@ -155,9 +148,6 @@ export const componentsSlice = createSlice({
     // 锁定/解锁 组件
     toggleComponentLocked: produce(
       (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string }>) => {
-        // Undo/Redo功能
-        draft.past.push(cloneDeep(draft.present))
-
         const { fe_id } = action.payload
 
         const curComp = draft.present.componentList.find(c => c.fe_id === fe_id)
@@ -169,9 +159,6 @@ export const componentsSlice = createSlice({
 
     // 拷贝当前选中的组件
     copySelectedComponent: produce((draft: ComponentsStateType) => {
-      // Undo/Redo功能
-      draft.past.push(cloneDeep(draft.present))
-
       const { selectedId, componentList = [] } = draft.present
       const selectedComponent = componentList.find(c => c.fe_id === selectedId)
       if (selectedComponent == null) return
@@ -181,9 +168,6 @@ export const componentsSlice = createSlice({
     // 粘贴组件
     pasteCopiedComponent: produce(
       (draft: ComponentsStateType, action: PayloadAction<{ page: number }>) => {
-        // Undo/Redo功能
-        draft.past.push(cloneDeep(draft.present))
-
         const { copiedComponent } = draft.present
         if (copiedComponent == null) return
 
@@ -223,9 +207,6 @@ export const componentsSlice = createSlice({
     // 修改组件标题
     changeComponentTitle: produce(
       (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string; title: string }>) => {
-        // Undo/Redo功能
-        draft.past.push(cloneDeep(draft.present))
-
         const { title, fe_id } = action.payload
         const curComp = draft.present.componentList.find(c => c.fe_id === fe_id)
         if (curComp) curComp.title = title
@@ -238,9 +219,6 @@ export const componentsSlice = createSlice({
         draft: ComponentsStateType,
         action: PayloadAction<{ oldIndex: number; newIndex: number }>
       ) => {
-        // Undo/Redo功能
-        draft.past.push(cloneDeep(draft.present))
-
         const { componentList: curComponentList } = draft.present
         const { oldIndex, newIndex } = action.payload
 
@@ -251,31 +229,23 @@ export const componentsSlice = createSlice({
     // 替换组件列表
     replaceComponent: produce(
       (draft: ComponentsStateType, action: PayloadAction<Array<ComponentInfoType>>) => {
-        // Undo/Redo功能
-        draft.past.push(cloneDeep(draft.present))
-
         draft.present.componentList = action.payload
       }
     ),
     // 修改当前页
     changeCurrentPage: produce((draft: ComponentsStateType, action: PayloadAction<number>) => {
-      // Undo/Redo功能
-      draft.past.push(cloneDeep(draft.present))
-
       draft.present.currentPage = action.payload
     }),
 
     // 修改页总数
     changePageTotal: produce((draft: ComponentsStateType, action: PayloadAction<number>) => {
-      // Undo/Redo功能
-      draft.past.push(cloneDeep(draft.present))
-
       draft.present.pageTotal = action.payload
     }),
   },
 })
 
 export const {
+  pushPast,
   undoComponents,
   redoComponents,
   resetComponents,

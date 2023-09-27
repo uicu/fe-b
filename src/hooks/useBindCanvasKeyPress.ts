@@ -1,6 +1,7 @@
 import { useKeyPress } from 'ahooks'
 import { useDispatch } from 'react-redux'
 import {
+  pushPast,
   removeSelectedComponent,
   copySelectedComponent,
   pasteCopiedComponent,
@@ -35,18 +36,21 @@ function useBindCanvasKeyPress() {
   // 删除组件
   useKeyPress(['backspace', 'delete'], () => {
     if (!isActiveElementValid()) return
+    dispatch(pushPast())
     dispatch(removeSelectedComponent())
   })
 
   // 复制
   useKeyPress(['ctrl.c', 'meta.c'], () => {
     if (!isActiveElementValid()) return
+    dispatch(pushPast())
     dispatch(copySelectedComponent())
   })
 
   // 粘贴
   useKeyPress(['ctrl.v', 'meta.v'], () => {
     if (!isActiveElementValid()) return
+    dispatch(pushPast())
     dispatch(pasteCopiedComponent({ page: currentPage }))
   })
 

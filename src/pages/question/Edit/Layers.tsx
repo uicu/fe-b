@@ -16,6 +16,7 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-ki
 import SortableItem from '../../../components/DragSortable/SortableItem'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import {
+  pushPast,
   ComponentInfoType,
   changeSelectedId,
   changeComponentTitle,
@@ -37,6 +38,7 @@ const Layers: FC = () => {
 
   // 点击选中组件
   function handleTitleClick(fe_id: string) {
+    dispatch(pushPast())
     const curComp = componentList.find(c => c.fe_id === fe_id)
     if (curComp && curComp.isHidden) {
       message.info('不能选中隐藏的组件')
@@ -65,16 +67,19 @@ const Layers: FC = () => {
     const newTitle = event.target.value.trim()
     if (!newTitle) return
     if (!selectedId) return
+    dispatch(pushPast())
     dispatch(changeComponentTitle({ fe_id: selectedId, title: newTitle }))
   }
 
   // 切换 隐藏/显示
   function changeHidden(fe_id: string, isHidden: boolean) {
+    dispatch(pushPast())
     dispatch(changeComponentHidden({ fe_id, isHidden }))
   }
 
   // 切换 锁定/解锁
   function changeLocked(fe_id: string) {
+    dispatch(pushPast())
     dispatch(toggleComponentLocked({ fe_id }))
   }
 
@@ -141,6 +146,7 @@ const Layers: FC = () => {
       newComponent = newComponent.concat(pages as Array<ComponentInfoType>)
     })
     // 更新store
+    dispatch(pushPast())
     dispatch(replaceComponent(newComponent))
   }, [statDrag])
 

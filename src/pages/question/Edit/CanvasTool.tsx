@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux'
 import { Pagination, Divider, Dropdown, Button, message } from 'antd'
 import type { MenuProps } from 'antd'
 import { MoreOutlined } from '@ant-design/icons'
-import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import {
+  pushPast,
   changeSelectedId,
   replaceComponent,
   changeCurrentPage,
@@ -44,12 +44,14 @@ const CanvasTool: FC = () => {
 
   // 切换页码
   const onChange = (page: number) => {
+    dispatch(pushPast())
     dispatch(changeCurrentPage(page))
     dispatch(changeSelectedId(''))
     dispatch(changeEditorSelectedId(''))
   }
 
   const onClick: MenuProps['onClick'] = e => {
+    dispatch(pushPast())
     dispatch(changeSelectedId(''))
     dispatch(changeEditorSelectedId(''))
     // 删除

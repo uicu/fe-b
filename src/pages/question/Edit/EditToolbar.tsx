@@ -21,6 +21,7 @@ import {
   moveComponent,
   undoComponents,
   redoComponents,
+  pushPast,
 } from '../../../store/componentsReducer'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 
@@ -38,38 +39,45 @@ const EditToolbar: FC = () => {
 
   // 删除组件
   function handleDelete() {
+    dispatch(pushPast())
     dispatch(removeSelectedComponent())
   }
 
   // 隐藏组件
   function handleHidden() {
+    dispatch(pushPast())
     dispatch(changeComponentHidden({ fe_id: selectedId, isHidden: true }))
   }
 
   // 锁定组件
   function handleLock() {
+    dispatch(pushPast())
     dispatch(toggleComponentLocked({ fe_id: selectedId }))
   }
 
   // 复制
   function copy() {
+    dispatch(pushPast())
     dispatch(copySelectedComponent())
   }
 
   // 粘贴
   function paste() {
+    dispatch(pushPast())
     dispatch(pasteCopiedComponent({ page: currentPage }))
   }
 
   // 上移
   function moveUp() {
     if (isFirst) return
+    dispatch(pushPast())
     dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex - 1 }))
   }
 
   // 下移
   function moveDown() {
     if (isLast) return
+    dispatch(pushPast())
     dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex + 1 }))
   }
 
