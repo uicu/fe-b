@@ -52,11 +52,13 @@ function useLoadQuestionData() {
         componentList: _componentList,
         selectedId,
         copiedComponent: null,
+        pageTotal,
+        currentPage: 1,
       })
     )
 
     // 把 pageInfo 存储到 redux store
-    dispatch(resetPageInfo({ title, desc, js, css, isPublished, pageTotal, currentPage: 1 }))
+    dispatch(resetPageInfo({ title, desc, js, css, isPublished }))
   }, [data])
 
   // 判断 id 变化，执行 ajax 加载问卷数据

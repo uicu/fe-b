@@ -9,7 +9,7 @@ import {
   undoComponents,
   redoComponents,
 } from '../store/componentsReducer'
-import useGetPageInfo from './useGetPageInfo'
+import useGetComponentInfo from './useGetComponentInfo'
 
 /**
  * 判断 activeElem 是否合法
@@ -30,7 +30,7 @@ function isActiveElementValid() {
 function useBindCanvasKeyPress() {
   const dispatch = useDispatch()
 
-  const { currentPage } = useGetPageInfo()
+  const { currentPage } = useGetComponentInfo()
 
   // 删除组件
   useKeyPress(['backspace', 'delete'], () => {

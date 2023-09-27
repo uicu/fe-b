@@ -20,6 +20,8 @@ export type PresentType = {
   selectedId: string
   componentList: Array<ComponentInfoType>
   copiedComponent: ComponentInfoType | null
+  currentPage: number
+  pageTotal: number
 }
 
 export type ComponentsStateType = {
@@ -36,6 +38,10 @@ const INIT_STATE: ComponentsStateType = {
     componentList: [],
     // 用于拷贝暂存
     copiedComponent: null,
+    // 当前所在page，-1代表结束页
+    currentPage: 1,
+    // 总page
+    pageTotal: 1,
   },
   past: [],
   future: [],
@@ -251,6 +257,21 @@ export const componentsSlice = createSlice({
         draft.present.componentList = action.payload
       }
     ),
+    // 修改当前页
+    changeCurrentPage: produce((draft: ComponentsStateType, action: PayloadAction<number>) => {
+      // Undo/Redo功能
+      draft.past.push(cloneDeep(draft.present))
+
+      draft.present.currentPage = action.payload
+    }),
+
+    // 修改页总数
+    changePageTotal: produce((draft: ComponentsStateType, action: PayloadAction<number>) => {
+      // Undo/Redo功能
+      draft.past.push(cloneDeep(draft.present))
+
+      draft.present.pageTotal = action.payload
+    }),
   },
 })
 
@@ -271,6 +292,8 @@ export const {
   changeComponentTitle,
   moveComponent,
   replaceComponent,
+  changeCurrentPage,
+  changePageTotal,
 } = componentsSlice.actions
 
 export default componentsSlice.reducer

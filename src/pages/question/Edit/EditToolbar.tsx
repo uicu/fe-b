@@ -23,12 +23,11 @@ import {
   redoComponents,
 } from '../../../store/componentsReducer'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-import useGetPageInfo from '../../../hooks/useGetPageInfo'
 
 const EditToolbar: FC = () => {
   const dispatch = useDispatch()
   // 当前所在的页
-  const { currentPage } = useGetPageInfo()
+  const { currentPage } = useGetComponentInfo()
   const { selectedId, componentList, selectedComponent, copiedComponent, isPast, isFuture } =
     useGetComponentInfo()
   const { isLocked, page: selectedPage } = selectedComponent || {}

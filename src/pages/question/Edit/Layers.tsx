@@ -15,7 +15,6 @@ import {
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import SortableItem from '../../../components/DragSortable/SortableItem'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-import { changeCurrentPage } from '../../../store/pageInfoReducer'
 import {
   ComponentInfoType,
   changeSelectedId,
@@ -23,6 +22,7 @@ import {
   toggleComponentLocked,
   changeComponentHidden,
   replaceComponent,
+  changeCurrentPage,
 } from '../../../store/componentsReducer'
 import styles from './Layers.module.scss'
 

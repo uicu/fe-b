@@ -4,8 +4,12 @@ import { Pagination, Divider, Dropdown, Button, message } from 'antd'
 import type { MenuProps } from 'antd'
 import { MoreOutlined } from '@ant-design/icons'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
-import { changeCurrentPage, changePageTotal } from '../../../store/pageInfoReducer'
-import { changeSelectedId, replaceComponent } from '../../../store/componentsReducer'
+import {
+  changeSelectedId,
+  replaceComponent,
+  changeCurrentPage,
+  changePageTotal,
+} from '../../../store/componentsReducer'
 import { changeEditorSelectedId } from '../../../store/interactionReducer'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import styles from './CanvasTool.module.scss'
@@ -35,9 +39,7 @@ const itemsConfig = [
 
 const CanvasTool: FC = () => {
   const [items, setItems] = useState<Array<{ key: string; label: string }>>(itemsConfig)
-
-  const { pageTotal, currentPage } = useGetPageInfo()
-  const { componentList } = useGetComponentInfo()
+  const { componentList, pageTotal, currentPage } = useGetComponentInfo()
   const dispatch = useDispatch()
 
   // 切换页码

@@ -3,7 +3,6 @@ import { Skeleton } from 'antd'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import { getComponentConfByType } from '../../../components/QuestionComponents/index'
 import {
   ComponentInfoType,
@@ -31,8 +30,7 @@ function genComponent(componentInfo: ComponentInfoType) {
 }
 
 const EditCanvas: FC<PropsType> = ({ loading }) => {
-  const { currentPage } = useGetPageInfo()
-  const { componentList, selectedId } = useGetComponentInfo()
+  const { componentList, selectedId, currentPage } = useGetComponentInfo()
   const dispatch = useDispatch()
 
   // 点击组件，选中
