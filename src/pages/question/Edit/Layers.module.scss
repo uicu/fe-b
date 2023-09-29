@@ -2,6 +2,12 @@
 .page-title{
     margin: 0;
     padding: 20px 0 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h3{
+        margin: 0;
+    }
     &:first-child{
         padding-top: 0;
     }

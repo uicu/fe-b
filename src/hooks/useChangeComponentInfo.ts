@@ -4,12 +4,67 @@ import { message } from 'antd'
 import { replaceComponent, changeCurrentPage, changePageTotal } from '../store/componentsReducer'
 import useGetComponentInfo from './useGetComponentInfo'
 
+const itemsConfig = [
+  {
+    key: '1',
+    label: '删除',
+  },
+  {
+    key: '2',
+    label: '前移',
+  },
+  {
+    key: '3',
+    label: '后移',
+  },
+  {
+    key: '4',
+    label: '复制',
+  },
+  {
+    key: '5',
+    label: '新增',
+  },
+]
+
 function useChangeComponentInfo() {
   const dispatch = useDispatch()
-  const { componentList, pageTotal, currentPage } = useGetComponentInfo()
+  const { componentList, pageTotal } = useGetComponentInfo()
+
+  const getConfigList = (currentPage: number) => {
+    let newItems: Array<{ key: string; label: string }> = itemsConfig
+    // 删除不要的场景
+    if (pageTotal <= 1 || currentPage === -1) {
+      newItems = newItems.filter(item => {
+        return item.key !== '1'
+      })
+    }
+
+    // 前移不要的场景
+    if (currentPage === 1 || currentPage === -1) {
+      newItems = newItems.filter(item => {
+        return item.key !== '2'
+      })
+    }
+
+    // 后移不要的场景
+    if (currentPage === pageTotal || currentPage === -1) {
+      newItems = newItems.filter(item => {
+        return item.key !== '3'
+      })
+    }
+
+    // 复制不要的场景
+    if (currentPage === -1) {
+      newItems = newItems.filter(item => {
+        return item.key !== '4'
+      })
+    }
+    return newItems
+  }
 
   // 删除
-  const onDel = () => {
+  const onDel = (currentPage: number) => {
     if (pageTotal <= 1 || currentPage === -1) return message.error('不允许删除')
 
     // 筛选出非当前页的
@@ -38,7 +93,7 @@ function useChangeComponentInfo() {
   }
 
   // 前移
-  const onMoveForward = () => {
+  const onMoveForward = (currentPage: number) => {
     if (currentPage === 1 || currentPage === -1) return message.error('不允许前移')
     const newComponent = componentList.map(item => {
       if (item.page === currentPage) {
@@ -65,7 +120,7 @@ function useChangeComponentInfo() {
   }
 
   // 后移
-  const onMoveBack = () => {
+  const onMoveBack = (currentPage: number) => {
     if (currentPage === pageTotal || currentPage === -1) return message.error('不允许后移')
     const newComponent = componentList.map(item => {
       if (item.page === currentPage) {
@@ -91,7 +146,7 @@ function useChangeComponentInfo() {
     }
   }
   // 复制
-  const onCopy = () => {
+  const onCopy = (currentPage: number) => {
     // 找到当前页的所有组件
     let currentComponent = componentList.filter(item => {
       return item.page === currentPage
@@ -127,7 +182,7 @@ function useChangeComponentInfo() {
   }
 
   // 新增
-  const onAdd = () => {
+  const onAdd = (currentPage: number) => {
     // 当前要插入的足迹
     const currentComponent = [
       {
@@ -172,6 +227,7 @@ function useChangeComponentInfo() {
     onMoveBack,
     onCopy,
     onAdd,
+    getConfigList,
   }
 }
 

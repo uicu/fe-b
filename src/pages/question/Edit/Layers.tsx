@@ -1,8 +1,9 @@
 import React, { FC, useState, ChangeEvent, useEffect } from 'react'
 import cloneDeep from 'lodash.clonedeep'
 import classNames from 'classnames'
-import { message, Input, Button, Space } from 'antd'
-import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
+import { message, Input, Button, Space, Dropdown } from 'antd'
+import type { MenuProps } from 'antd'
+import { EyeInvisibleOutlined, LockOutlined, MoreOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
 import {
   DndContext,
@@ -25,16 +26,51 @@ import {
   replaceComponent,
   changeCurrentPage,
 } from '../../../store/componentsReducer'
+import useChangeComponentInfo from '../../../hooks/useChangeComponentInfo'
+import { changeEditorSelectedId } from '../../../store/interactionReducer'
 import styles from './Layers.module.scss'
 
 export const TRASH_ID = 'void'
 
 const Layers: FC = () => {
-  const { componentList, selectedId } = useGetComponentInfo()
+  const { componentList, selectedId, currentPage } = useGetComponentInfo()
+  const { onDel, onMoveForward, onMoveBack, onCopy, onAdd, getConfigList } =
+    useChangeComponentInfo()
   const dispatch = useDispatch()
+
+  // 记录当前正在操作的page
+  const [currentMenuIndex, setCurrentMenuIndex] = useState(currentPage)
+
+  const menuItems = getConfigList(currentMenuIndex)
 
   // 记录当前正在修改标题的组件
   const [changingTitleId, setChangingTitleId] = useState('')
+
+  const onMenuClick: MenuProps['onClick'] = e => {
+    dispatch(pushPast())
+    dispatch(changeSelectedId(''))
+    dispatch(changeEditorSelectedId(''))
+
+    if (e.key === '1') {
+      onDel(currentMenuIndex)
+    }
+
+    if (e.key === '2') {
+      onMoveForward(currentMenuIndex)
+    }
+
+    if (e.key === '3') {
+      onMoveBack(currentMenuIndex)
+    }
+
+    if (e.key === '4') {
+      onCopy(currentMenuIndex)
+    }
+
+    if (e.key === '5') {
+      onAdd(currentMenuIndex)
+    }
+  }
 
   // 点击选中组件
   function handleTitleClick(fe_id: string) {
@@ -232,7 +268,20 @@ const Layers: FC = () => {
             items={items[containerId]}
             strategy={verticalListSortingStrategy}
           >
-            <h3 className={styles['page-title']}>第{containerId}页</h3>
+            <div className={styles['page-title']}>
+              <h3>第{containerId}页</h3>
+              <Dropdown
+                menu={{ items: menuItems, onClick: onMenuClick }}
+                onOpenChange={() => {
+                  setCurrentMenuIndex(Number(containerId))
+                }}
+                placement="bottom"
+                trigger={['click']}
+                arrow
+              >
+                <MoreOutlined />
+              </Dropdown>
+            </div>
             {items[containerId].map((value: string) => {
               const c: ComponentInfoType | undefined = componentList.find(item => {
                 return item.fe_id === value
