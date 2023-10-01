@@ -57,7 +57,7 @@ function useChangeComponentInfo() {
     // 复制不要的场景
     if (currentPage === -1) {
       newItems = newItems.filter(item => {
-        return item.key !== '4'
+        return item.key !== '4' && item.key !== '5'
       })
     }
     return newItems

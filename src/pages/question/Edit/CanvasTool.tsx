@@ -72,9 +72,15 @@ const CanvasTool: FC = () => {
         结束页
       </Button>
       <Divider type="vertical" />
-      <Dropdown menu={{ items: menuItems, onClick: onMenuClick }} placement="bottom" arrow>
-        <MoreOutlined />
-      </Dropdown>
+      {(() => {
+        if (menuItems.length) {
+          return (
+            <Dropdown menu={{ items: menuItems, onClick: onMenuClick }} placement="bottom" arrow>
+              <MoreOutlined />
+            </Dropdown>
+          )
+        }
+      })()}
     </div>
   )
 }
