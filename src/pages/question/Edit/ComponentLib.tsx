@@ -15,6 +15,7 @@ function genComponent(c: ComponentConfType) {
   const dispatch = useDispatch()
 
   const handleClick = useCallback(() => {
+    if (currentPage === -1) return
     dispatch(pushPast())
     dispatch(
       addComponent({

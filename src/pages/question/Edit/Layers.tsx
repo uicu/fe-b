@@ -128,10 +128,12 @@ const Layers: FC = () => {
     if (componentList.length > 0 && containers.length !== componentList.length) {
       const _items: { [key: string]: Array<string> } = {}
       componentList.forEach((item: ComponentInfoType) => {
-        if (!_items[`${item.page}`]) {
-          _items[`${item.page}`] = [item.fe_id]
-        } else {
-          _items[`${item.page}`].push(item.fe_id)
+        if (item.page !== -1) {
+          if (!_items[`${item.page}`]) {
+            _items[`${item.page}`] = [item.fe_id]
+          } else {
+            _items[`${item.page}`].push(item.fe_id)
+          }
         }
       })
       setItems(_items)

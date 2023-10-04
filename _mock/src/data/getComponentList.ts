@@ -4,6 +4,15 @@
 
 function getComponentList() {
   return [
+    {
+      fe_id: 'last',
+      type: 'questionInfo', // 组件类型，不能重复，前后端统一好
+      title: '最后一页',
+      page: -1,
+      isHidden: false,
+      isLocked: false,
+      props: { title: '问卷到此结束，感谢您的参与！', desc: '问卷描述...' },
+    },
     // Info
     {
       fe_id: 'c1', // 注意，由于统计页，左侧和中间需要数据完全一直，所以要写死 fe_id ，不能用 Random.id()
