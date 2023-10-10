@@ -102,7 +102,12 @@ const EditToolbar: FC = () => {
             const currentPageComponent = componentList.filter(item => {
               return item.page === currentPage
             })
-            return !selectedId || currentPageComponent.length <= 1 || selectedPage !== currentPage
+            return (
+              !selectedId ||
+              currentPageComponent.length <= 1 ||
+              selectedPage !== currentPage ||
+              currentPage === -1
+            )
           })()}
           shape="circle"
           icon={<DeleteOutlined />}
@@ -113,7 +118,7 @@ const EditToolbar: FC = () => {
         <Button
           disabled={(() => {
             // 1.必须选中
-            return !selectedId
+            return !selectedId || currentPage === -1
           })()}
           shape="circle"
           icon={<EyeInvisibleOutlined />}
@@ -124,7 +129,7 @@ const EditToolbar: FC = () => {
         <Button
           disabled={(() => {
             // 1.必须选中
-            return !selectedId
+            return !selectedId || currentPage === -1
           })()}
           shape="circle"
           icon={<LockOutlined />}
@@ -136,7 +141,7 @@ const EditToolbar: FC = () => {
         <Button
           disabled={(() => {
             // 1.必须选中
-            return !selectedId
+            return !selectedId || currentPage === -1
           })()}
           shape="circle"
           icon={<CopyOutlined />}
@@ -148,7 +153,7 @@ const EditToolbar: FC = () => {
           shape="circle"
           icon={<BlockOutlined />}
           onClick={paste}
-          disabled={copiedComponent == null}
+          disabled={copiedComponent == null || currentPage === -1}
         ></Button>
       </Tooltip>
       <Tooltip title="上移">
@@ -165,7 +170,13 @@ const EditToolbar: FC = () => {
               c => c.fe_id === selectedId
             )
             const currentPageIsFirst = currentPageSelectedIndex <= 0
-            return !selectedId || isFirst || currentPageIsFirst || selectedPage !== currentPage
+            return (
+              !selectedId ||
+              isFirst ||
+              currentPageIsFirst ||
+              selectedPage !== currentPage ||
+              currentPage === -1
+            )
           })()}
           shape="circle"
           icon={<UpOutlined />}
@@ -187,7 +198,13 @@ const EditToolbar: FC = () => {
               c => c.fe_id === selectedId
             )
             const currentPageIsLast = currentPageSelectedIndex + 1 >= currentPageComponent.length
-            return !selectedId || isLast || currentPageIsLast || selectedPage !== currentPage
+            return (
+              !selectedId ||
+              isLast ||
+              currentPageIsLast ||
+              selectedPage !== currentPage ||
+              currentPage === -1
+            )
           })()}
           shape="circle"
           icon={<DownOutlined />}
