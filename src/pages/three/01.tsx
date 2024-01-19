@@ -2,6 +2,14 @@ import React, { useEffect, FC } from 'react'
 import * as THREE from 'three'
 // 导入轨道控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+// 导入lil.gui
+import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
+// // 导入hdr加载器
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
+// 导入顶点法向量辅助器
+import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHelper.js'
+// 导入gltf加载器
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 const Three: FC = () => {
   useEffect(() => {
@@ -21,32 +29,6 @@ const Three: FC = () => {
     renderer.setSize(window.innerWidth, window.innerHeight)
     document.body.appendChild(renderer.domElement)
 
-    // 创建几何体
-    const geometry = new THREE.BoxGeometry(1, 1, 1)
-    // 创建材质
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-    const parentMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 })
-    // 创建网格(物体)
-    const parentCube = new THREE.Mesh(geometry, parentMaterial)
-    const cube = new THREE.Mesh(geometry, material)
-    parentCube.add(cube)
-    // 物体位移
-    parentCube.position.set(-3, 0, 0)
-    // 物体旋转 2PI等于360度
-    parentCube.rotation.x = Math.PI / 4
-    // parentCube.scale.set(2, 2, 2)
-
-    // cube.position.x = 2;
-    cube.position.set(3, 0, 0)
-    // 设置立方体的放大
-    // cube.scale.set(2, 2, 2)
-
-    // 绕着x轴旋转
-    cube.rotation.x = Math.PI / 4
-
-    // 将网格添加到场景中
-    scene.add(parentCube)
-
     // 设置相机位置
     camera.position.z = 5
     camera.position.y = 2
@@ -64,16 +46,14 @@ const Three: FC = () => {
     controls.enableDamping = true
     // 设置阻尼系数
     controls.dampingFactor = 0.05
-    // 设置旋转速度
-    controls.autoRotate = true
+    // 设置旋转
+    // controls.autoRotate = true
 
     // 渲染函数
     function animate() {
       controls.update()
       requestAnimationFrame(animate)
-      // 旋转
-      // cube.rotation.x += 0.01
-      // cube.rotation.y += 0.01
+
       // 渲染
       renderer.render(scene, camera)
     }
@@ -89,35 +69,88 @@ const Three: FC = () => {
       camera.updateProjectionMatrix()
     })
 
-    const btn = document.createElement('button')
-    btn.innerHTML = '点击全屏'
-    btn.style.position = 'absolute'
-    btn.style.top = '10px'
-    btn.style.left = '10px'
-    btn.style.zIndex = '999'
-    btn.onclick = function () {
-      // 全屏
-      document.body.requestFullscreen()
-      console.log('全屏')
+    const eventObj = {
+      Fullscreen: function () {
+        // 全屏
+        document.body.requestFullscreen()
+        console.log('全屏')
+      },
+      ExitFullscreen: function () {
+        document.exitFullscreen()
+        console.log('退出全屏')
+      },
     }
-    document.body.appendChild(btn)
+    // 创建GUI
+    const gui = new GUI()
+    // 添加按钮
+    gui.add(eventObj, 'Fullscreen').name('全屏')
+    gui.add(eventObj, 'ExitFullscreen').name('退出全屏')
 
-    // 退出全屏的按钮
-    const exitBtn = document.createElement('button')
-    exitBtn.innerHTML = '退出全屏'
-    exitBtn.style.position = 'absolute'
-    exitBtn.style.top = '10px'
-    exitBtn.style.left = '100px'
-    exitBtn.style.zIndex = '999'
-    exitBtn.onclick = function () {
-      // 退出全屏
-      document.exitFullscreen()
-      console.log('退出全屏')
-    }
-    document.body.appendChild(exitBtn)
+    // rgbeLoader 加载hdr贴图
+    const rgbeLoader = new RGBELoader()
+    rgbeLoader.load('./texture/Alex_Hart-Nature_Lab_Bones_2k.hdr', envMap => {
+      // 设置球形贴图
+      envMap.mapping = THREE.EquirectangularReflectionMapping
+      // 设置环境贴图
+      scene.background = envMap
+      // 设置环境贴图
+      scene.environment = envMap
+    })
+
+    // 实例化加载器gltf
+    const gltfLoader = new GLTFLoader()
+    // 加载模型
+    gltfLoader.load(
+      // 模型路径
+      './model/Duck.glb',
+      // 加载完成回调
+      gltf => {
+        console.log(gltf, 'load duck')
+        scene.add(gltf.scene)
+
+        const duckMesh: any = gltf.scene.getObjectByName('LOD3spShape')
+        const duckGeometry = duckMesh?.geometry
+
+        // 计算包围盒
+        duckGeometry.computeBoundingBox()
+        // 设置几何体居中
+        // duckGeometry.center();
+        // 获取duck包围盒
+        const duckBox = duckGeometry.boundingBox
+
+        // 更新世界矩阵
+        duckMesh.updateWorldMatrix(true, true)
+        // 更新包围盒
+        duckBox.applyMatrix4(duckMesh.matrixWorld)
+        // 获取包围盒中心点
+        const center = duckBox.getCenter(new THREE.Vector3())
+        console.log(center, 'center')
+        // 创建包围盒辅助器
+        const boxHelper = new THREE.Box3Helper(duckBox, 0xffff00 as any)
+        // 添加包围盒辅助器
+        scene.add(boxHelper)
+        console.log(duckBox)
+        console.log(duckMesh)
+
+        // 获取包围球
+        const duckSphere = duckGeometry.boundingSphere
+        duckSphere.applyMatrix4(duckMesh.matrixWorld)
+
+        console.log(duckSphere)
+        // 创建包围球辅助器
+        const sphereGeometry = new THREE.SphereGeometry(duckSphere.radius, 16, 16)
+        const sphereMaterial = new THREE.MeshBasicMaterial({
+          color: 0xff0000,
+          wireframe: true,
+        })
+        const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
+        sphereMesh.position.copy(duckSphere.center)
+        scene.add(sphereMesh)
+      }
+    )
   }, [])
 
-  return <div className="App">11212</div>
+  return <div className="App">test</div>
 }
 
 export default Three

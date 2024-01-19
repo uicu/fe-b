@@ -168,7 +168,10 @@ const Layers: FC = () => {
   // 拖拽排序结束
   useEffect(() => {
     if (JSON.stringify(items) === '{}') return
-    let newComponent: Array<ComponentInfoType> = []
+    // 先把最后一页捞出来
+    let newComponent: Array<ComponentInfoType> = componentList.filter(c => {
+      return c.page === -1
+    })
     Object.keys(items).forEach((key: string) => {
       const pages = items[key].map(item => {
         const component = componentList.find(c => {
