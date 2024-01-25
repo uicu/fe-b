@@ -5,6 +5,7 @@
         "Appstore",
         "ctitle",
         "mockjs",
-        "Popconfirm"
+        "Popconfirm",
+        "svgr"
     ]
 }

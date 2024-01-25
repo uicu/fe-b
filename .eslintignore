@@ -3,4 +3,5 @@ config
 scripts
 public
 commitlint.config.js
+tailwind.config.js
 setupProxy.js
