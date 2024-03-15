@@ -15,8 +15,8 @@ function useLoadQuestionData() {
   const { data, loading, error, run } = useRequest(
     async (id: string) => {
       if (!id) throw new Error('没有问卷 id')
-      const data = await getQuestionService(id)
-      return data
+      const res = await getQuestionService(id)
+      return res.data
     },
     {
       manual: true,

@@ -2,8 +2,6 @@ import React, { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Spin } from 'antd'
 import BannerLayouts from '../components/BannerLayouts'
-// import Logo from '../components/Logo'
-// import UserInfo from '../components/UserInfo'
 import useLoadUserData from '../hooks/useLoadUserData'
 import useNavPage from '../hooks/useNavPage'
 

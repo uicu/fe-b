@@ -23,8 +23,8 @@ function useLoadQuestionListData(opt: Partial<OptionType> = {}) {
       const page = parseInt(searchParams.get(LIST_PAGE_PARAM_KEY) || '') || 1
       const pageSize = parseInt(searchParams.get(LIST_PAGE_SIZE_PARAM_KEY) || '') || LIST_PAGE_SIZE
 
-      const data = await getQuestionListService({ keyword, isStar, isDeleted, page, pageSize })
-      return data
+      const res = await getQuestionListService({ keyword, isStar, isDeleted, page, pageSize })
+      return res.data
     },
     {
       refreshDeps: [searchParams], // 刷新的依赖项

@@ -30,34 +30,30 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'login',
+        path: 'signin',
         element: <Login />,
       },
       {
-        path: 'register',
+        path: 'signup',
         element: <Register />,
       },
+    ],
+  },
+  {
+    path: 'manage',
+    element: <ManageLayout />,
+    children: [
       {
-        path: 'manage',
-        element: <ManageLayout />,
-        children: [
-          {
-            path: 'list',
-            element: <List />,
-          },
-          {
-            path: 'star',
-            element: <Star />,
-          },
-          {
-            path: 'trash',
-            element: <Trash />,
-          },
-        ],
+        path: 'list',
+        element: <List />,
       },
       {
-        path: '*', // 404 路由配置，都写在最后（兜底）
-        element: <NotFound />,
+        path: 'star',
+        element: <Star />,
+      },
+      {
+        path: 'trash',
+        element: <Trash />,
       },
     ],
   },
@@ -83,6 +79,10 @@ const router = createBrowserRouter([
     path: 'three',
     element: <Three />,
   },
+  {
+    path: '*', // 404 路由配置，都写在最后（兜底）
+    element: <NotFound />,
+  },
 ])
 
 export default router
@@ -91,8 +91,8 @@ export default router
 
 // 常用的路由常量
 export const HOME_PATHNAME = '/'
-export const LOGIN_PATHNAME = '/login'
-export const REGISTER_PATHNAME = '/register'
+export const LOGIN_PATHNAME = '/signin'
+export const REGISTER_PATHNAME = '/signup'
 export const MANAGE_INDEX_PATHNAME = '/manage/list'
 
 export function isLoginOrRegister(pathname: string) {

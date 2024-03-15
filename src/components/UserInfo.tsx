@@ -1,45 +1,72 @@
 import React, { FC } from 'react'
-import { Button, message } from 'antd'
+import { Avatar, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
-import { UserOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
-// import { useRequest } from 'ahooks'
+import { UserOutlined } from '@ant-design/icons'
 import { LOGIN_PATHNAME } from '../router'
-// import { getUserInfoService } from '../services/user'
-import { removeToken } from '../utils/user-token'
+
+import { USER_TOKEN, REFRESH_USER_TOKEN, USER_INFO, removeToken } from '../utils/local-storage'
 import useGetUserInfo from '../hooks/useGetUserInfo'
 import { logoutReducer } from '../store/userReducer'
+
+const url = 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg'
 
 const UserInfo: FC = () => {
   const nav = useNavigate()
   const dispatch = useDispatch()
 
-  // const { data } = useRequest(getUserInfoService) // ajax
-  // const { username, nickname } = data || {}
   const { username, nickname } = useGetUserInfo() // 从 redux 中获取用户信息
 
   function logout() {
     dispatch(logoutReducer()) // 清空了 redux user 数据
-    removeToken() // 清除 token 的存储
+    removeToken(USER_TOKEN) // 清除 token 的存储
+    removeToken(REFRESH_USER_TOKEN)
+    removeToken(USER_INFO)
     message.success('退出成功')
     nav(LOGIN_PATHNAME)
   }
 
   const UserInfo = (
     <>
-      <span style={{ color: '#e8e8e8' }}>
-        <UserOutlined />
-        {nickname}
-      </span>
-      <Button type="link" onClick={logout}>
+      <Link to="/" className="text-white">
+        <Avatar src={url ? url : <UserOutlined />} />
+        <span className="ml-1">{nickname}</span>
+      </Link>
+      <button onClick={logout} className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
         退出
-      </Button>
+      </button>
     </>
   )
 
-  const Login = <Link to={LOGIN_PATHNAME}>登录</Link>
+  {
+    /* Desktop sign in links */
+  }
 
-  return <div>{username ? UserInfo : Login}</div>
+  const Login = (
+    <>
+      <div>
+        <Link
+          to="/signin"
+          className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
+        >
+          登陆
+        </Link>
+      </div>
+      <div>
+        <Link to="/signup" className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
+          注册
+        </Link>
+      </div>
+    </>
+  )
+
+  return (
+    <nav className="hidden md:flex md:grow">
+      <div className="flex grow justify-end flex-wrap items-center">
+        {username ? UserInfo : Login}{' '}
+      </div>
+    </nav>
+  )
 }
 
 export default UserInfo

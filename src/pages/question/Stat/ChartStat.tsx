@@ -22,7 +22,7 @@ const ChartStat: FC<PropsType> = (props: PropsType) => {
     {
       manual: true,
       onSuccess(res) {
-        setStat(res.stat)
+        setStat(res.data.stat)
       },
     }
   )
