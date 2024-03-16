@@ -27,15 +27,13 @@ function getUserInfoFromStorage() {
 }
 
 const Login: FC = () => {
-  const [messageApi, contextHolder] = message.useMessage()
-
-  const nav = useNavigate()
-
   const [initData, setInitData] = useState({
     username: '',
     password: '',
     remember: false,
   })
+  const [messageApi, contextHolder] = message.useMessage()
+  const nav = useNavigate()
 
   useEffect(() => {
     const { username, password } = getUserInfoFromStorage()
@@ -86,7 +84,7 @@ const Login: FC = () => {
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-              <h1 className="h1">欢迎回来，我们的存在是为了让调查变得更容易。</h1>
+              <h1 className="h1">欢迎回来，我们的存在是为了让工作变得更容易。</h1>
             </div>
 
             {/* Form */}

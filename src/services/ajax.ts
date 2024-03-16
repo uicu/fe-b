@@ -27,7 +27,7 @@ instance.interceptors.response.use(
     return res.data
   },
   async error => {
-    return Promise.reject(error.response)
+    return Promise.reject(error.response.data)
   }
 )
 

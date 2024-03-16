@@ -11,11 +11,24 @@ export async function getUserInfoService(): Promise<ResDataType> {
 export async function registerService(
   username: string,
   password: string,
+  email: string,
+  captcha: string,
   nickname?: string
 ): Promise<ResDataType> {
-  const url = '/api/user/register'
-  const body = { username, password, nickname: nickname || username }
+  const url = '/v1/user/register'
+  const body = { username, password, email, captcha, nickName: nickname || username }
   const data = (await axios.post(url, body)) as ResDataType
+  return data
+}
+
+// 获取注册验证码
+export async function getUserRegisterCaptchaService(email: string): Promise<ResDataType> {
+  const url = '/v1/user/register-captcha'
+  const data = (await axios.get(url, {
+    params: {
+      address: email,
+    },
+  })) as ResDataType
   return data
 }
 
