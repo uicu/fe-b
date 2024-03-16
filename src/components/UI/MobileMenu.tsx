@@ -6,7 +6,7 @@ import { UserOutlined } from '@ant-design/icons'
 import { USER_TOKEN, REFRESH_USER_TOKEN, USER_INFO, removeToken } from '../../utils/local-storage'
 import useGetUserInfo from '../../hooks/useGetUserInfo'
 import { logoutReducer } from '../../store/userReducer'
-import { LOGIN_PATHNAME } from '../../router'
+import { LOGIN_PATHNAME, REGISTER_PATHNAME } from '../../router'
 
 const url = 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg'
 
@@ -79,7 +79,7 @@ const MobileMenu: FC = () => {
     <>
       <div>
         <Link
-          to="/login"
+          to={LOGIN_PATHNAME}
           className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center"
           onClick={() => setMobileNavOpen(false)}
         >
@@ -88,7 +88,7 @@ const MobileMenu: FC = () => {
       </div>
       <div>
         <Link
-          to="/register"
+          to={REGISTER_PATHNAME}
           className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-white bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out"
           onClick={() => setMobileNavOpen(false)}
         >

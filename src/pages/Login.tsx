@@ -2,7 +2,7 @@ import React, { FC, FormEvent, useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { message } from 'antd'
 import { useRequest } from 'ahooks'
-import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME } from '../router'
+import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME, RESET_PASSWORD_PATHNAME } from '../router'
 import { loginService } from '../services/user'
 import { USER_TOKEN, REFRESH_USER_TOKEN, USER_INFO, setToken } from '../utils/local-storage'
 
@@ -190,7 +190,7 @@ const Login: FC = () => {
                         <span className="text-gray-400 ml-2">保持登录状态</span>
                       </label>
                       <Link
-                        to="/reset-password"
+                        to={RESET_PASSWORD_PATHNAME}
                         className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out"
                       >
                         忘记密码？

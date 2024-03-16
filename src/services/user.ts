@@ -23,7 +23,7 @@ export async function registerService(
 
 // 获取注册验证码
 export async function getUserRegisterCaptchaService(email: string): Promise<ResDataType> {
-  const url = '/v1/user/register-captcha'
+  const url = '/v1/user/register/captcha'
   const data = (await axios.get(url, {
     params: {
       address: email,
@@ -36,6 +36,30 @@ export async function getUserRegisterCaptchaService(email: string): Promise<ResD
 export async function loginService(username: string, password: string): Promise<ResDataType> {
   const url = '/v1/user/login'
   const body = { username, password }
+  const data = (await axios.post(url, body)) as ResDataType
+  return data
+}
+
+// 获取重置密码验证码
+export async function getUserUpdatePasswordCaptchaService(email: string): Promise<ResDataType> {
+  const url = '/v1/user/update-password/captcha'
+  const data = (await axios.get(url, {
+    params: {
+      address: email,
+    },
+  })) as ResDataType
+  return data
+}
+
+// 重置密码
+export async function updatePasswordService(
+  username: string,
+  password: string,
+  email: string,
+  captcha: string
+): Promise<ResDataType> {
+  const url = '/v1/user/update-password'
+  const body = { username, password, email, captcha }
   const data = (await axios.post(url, body)) as ResDataType
   return data
 }

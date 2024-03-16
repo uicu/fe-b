@@ -3,7 +3,7 @@ import { Avatar, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { UserOutlined } from '@ant-design/icons'
-import { LOGIN_PATHNAME } from '../router'
+import { LOGIN_PATHNAME, REGISTER_PATHNAME } from '../router'
 
 import { USER_TOKEN, REFRESH_USER_TOKEN, USER_INFO, removeToken } from '../utils/local-storage'
 import useGetUserInfo from '../hooks/useGetUserInfo'
@@ -46,14 +46,17 @@ const UserInfo: FC = () => {
     <>
       <div>
         <Link
-          to="/login"
+          to={LOGIN_PATHNAME}
           className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
         >
           登陆
         </Link>
       </div>
       <div>
-        <Link to="/register" className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
+        <Link
+          to={REGISTER_PATHNAME}
+          className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3"
+        >
           注册
         </Link>
       </div>

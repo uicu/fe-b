@@ -7,6 +7,7 @@ import QuestionLayout from '../layouts/QuestionLayout'
 import Home from '../pages/home'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
+import ResetPassword from '../pages/ResetPassword'
 import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <Register />,
+      },
+      {
+        path: 'reset-password',
+        element: <ResetPassword />,
       },
     ],
   },
@@ -93,6 +98,7 @@ export default router
 export const HOME_PATHNAME = '/'
 export const LOGIN_PATHNAME = '/login'
 export const REGISTER_PATHNAME = '/register'
+export const RESET_PASSWORD_PATHNAME = '/reset-password'
 export const MANAGE_INDEX_PATHNAME = '/manage/list'
 
 export function isLoginOrRegister(pathname: string) {
@@ -101,6 +107,11 @@ export function isLoginOrRegister(pathname: string) {
 }
 
 export function isNoNeedUserInfo(pathname: string) {
-  if ([HOME_PATHNAME, LOGIN_PATHNAME, REGISTER_PATHNAME].includes(pathname)) return true
+  if (
+    [HOME_PATHNAME, LOGIN_PATHNAME, REGISTER_PATHNAME, RESET_PASSWORD_PATHNAME].includes(pathname)
+  ) {
+    return true
+  }
+
   return false
 }
