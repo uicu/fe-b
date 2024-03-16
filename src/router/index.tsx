@@ -30,11 +30,11 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'signin',
+        path: 'login',
         element: <Login />,
       },
       {
-        path: 'signup',
+        path: 'register',
         element: <Register />,
       },
     ],
@@ -91,8 +91,8 @@ export default router
 
 // 常用的路由常量
 export const HOME_PATHNAME = '/'
-export const LOGIN_PATHNAME = '/signin'
-export const REGISTER_PATHNAME = '/signup'
+export const LOGIN_PATHNAME = '/login'
+export const REGISTER_PATHNAME = '/register'
 export const MANAGE_INDEX_PATHNAME = '/manage/list'
 
 export function isLoginOrRegister(pathname: string) {

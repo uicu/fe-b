@@ -26,30 +26,6 @@ const MainLayout: FC = () => {
       </div>
     </div>
   )
-  // return (
-  //   <Layout>
-  //     <Header className={styles.header}>
-  //       <div className={styles.left}>
-  //         <Logo />
-  //       </div>
-  //       <div className={styles.right}>
-  //         <UserInfo />
-  //       </div>
-  //     </Header>
-  //     <Layout className={styles.main}>
-  //       <Content>
-  //         {waitingUserData ? (
-  //           <div style={{ textAlign: 'center', marginTop: '60px' }}>
-  //             <Spin />
-  //           </div>
-  //         ) : (
-  //           <Outlet />
-  //         )}
-  //       </Content>
-  //     </Layout>
-  //     <Footer className={styles.footer}>UICU &copy;2023 - present. Created by oo</Footer>
-  //   </Layout>
-  // )
 }
 
 export default MainLayout
