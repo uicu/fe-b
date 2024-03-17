@@ -3,19 +3,17 @@ import { Avatar, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { UserOutlined } from '@ant-design/icons'
-import { LOGIN_PATHNAME, REGISTER_PATHNAME } from '../router'
+import { LOGIN_PATHNAME, REGISTER_PATHNAME, UPDATE_INFO_PATHNAME } from '../router'
 
 import { USER_TOKEN, REFRESH_USER_TOKEN, USER_INFO, removeToken } from '../utils/local-storage'
 import useGetUserInfo from '../hooks/useGetUserInfo'
 import { logoutReducer } from '../store/userReducer'
 
-const url = 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg'
-
 const UserInfo: FC = () => {
   const nav = useNavigate()
   const dispatch = useDispatch()
 
-  const { username, nickname } = useGetUserInfo() // 从 redux 中获取用户信息
+  const { username, nickName, headPic } = useGetUserInfo() // 从 redux 中获取用户信息
 
   function logout() {
     dispatch(logoutReducer()) // 清空了 redux user 数据
@@ -28,9 +26,9 @@ const UserInfo: FC = () => {
 
   const UserInfo = (
     <>
-      <Link to="/" className="text-white">
-        <Avatar src={url ? url : <UserOutlined />} />
-        <span className="ml-1">{nickname}</span>
+      <Link to={UPDATE_INFO_PATHNAME} className="text-white">
+        <Avatar src={headPic ? `http://localhost:8888/${headPic}` : <UserOutlined />} />
+        <span className="ml-1">{nickName}</span>
       </Link>
       <button onClick={logout} className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
         退出

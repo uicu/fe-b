@@ -12,7 +12,7 @@
 
 - method `post`
 - path `/api/user/register`
-- request body `{ username, password, nickname }`
+- request body `{ username, password, nickName }`
 - response `{ errno: 0 }`
 
 ### 登录

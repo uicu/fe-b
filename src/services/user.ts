@@ -13,10 +13,10 @@ export async function registerService(
   password: string,
   email: string,
   captcha: string,
-  nickname?: string
+  nickName?: string
 ): Promise<ResDataType> {
   const url = '/v1/user/register'
-  const body = { username, password, email, captcha, nickName: nickname || username }
+  const body = { username, password, email, captcha, nickName: nickName || username }
   const data = (await axios.post(url, body)) as ResDataType
   return data
 }
@@ -60,6 +60,26 @@ export async function updatePasswordService(
 ): Promise<ResDataType> {
   const url = '/v1/user/update-password'
   const body = { username, password, email, captcha }
+  const data = (await axios.post(url, body)) as ResDataType
+  return data
+}
+
+// 获取修改用户信息验证码
+export async function getUserUpdateCaptchaService(): Promise<ResDataType> {
+  const url = '/v1/user/update/captcha'
+  const data = (await axios.get(url)) as ResDataType
+  return data
+}
+
+// 修改用户信息
+export async function updateService(
+  headPic: string,
+  nickName: string,
+  email: string,
+  captcha: string
+): Promise<ResDataType> {
+  const url = '/v1/user/update'
+  const body = { headPic, nickName, email, captcha }
   const data = (await axios.post(url, body)) as ResDataType
   return data
 }

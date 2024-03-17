@@ -8,6 +8,7 @@ import Home from '../pages/home'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import ResetPassword from '../pages/ResetPassword'
+import UpdateInfo from '../pages/UpdateInfo'
 import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: 'reset-password',
         element: <ResetPassword />,
+      },
+      {
+        path: 'update-info',
+        element: <UpdateInfo />,
       },
     ],
   },
@@ -99,6 +104,7 @@ export const HOME_PATHNAME = '/'
 export const LOGIN_PATHNAME = '/login'
 export const REGISTER_PATHNAME = '/register'
 export const RESET_PASSWORD_PATHNAME = '/reset-password'
+export const UPDATE_INFO_PATHNAME = '/update-info'
 export const MANAGE_INDEX_PATHNAME = '/manage/list'
 
 export function isLoginOrRegister(pathname: string) {

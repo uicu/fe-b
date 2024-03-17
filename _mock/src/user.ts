@@ -12,7 +12,7 @@ export default [
         errno: 0,
         data: {
           username: Random.title(),
-          nickname: Random.cname(),
+          nickName: Random.cname(),
         },
 
         // errno: 100,

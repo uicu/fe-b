@@ -6,15 +6,13 @@ import { UserOutlined } from '@ant-design/icons'
 import { USER_TOKEN, REFRESH_USER_TOKEN, USER_INFO, removeToken } from '../../utils/local-storage'
 import useGetUserInfo from '../../hooks/useGetUserInfo'
 import { logoutReducer } from '../../store/userReducer'
-import { LOGIN_PATHNAME, REGISTER_PATHNAME } from '../../router'
-
-const url = 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg'
+import { LOGIN_PATHNAME, REGISTER_PATHNAME, UPDATE_INFO_PATHNAME } from '../../router'
 
 const MobileMenu: FC = () => {
   const [messageApi, contextHolder] = message.useMessage()
   const dispatch = useDispatch()
   const nav = useNavigate()
-  const { username, nickname } = useGetUserInfo() // 从 redux 中获取用户信息
+  const { username, nickName, headPic } = useGetUserInfo() // 从 redux 中获取用户信息
 
   function logout() {
     dispatch(logoutReducer()) // 清空了 redux user 数据
@@ -59,9 +57,9 @@ const MobileMenu: FC = () => {
   const UserInfo = (
     <>
       <div>
-        <Link to="/" className="text-white">
-          <Avatar src={url ? url : <UserOutlined />} />
-          <span className="ml-1">{nickname}</span>
+        <Link to={UPDATE_INFO_PATHNAME} className="text-white">
+          <Avatar src={headPic ? `http://localhost:8888/${headPic}` : <UserOutlined />} />
+          <span className="ml-1">{nickName}</span>
         </Link>
       </div>
       <div>

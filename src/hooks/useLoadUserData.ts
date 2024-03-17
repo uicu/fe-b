@@ -13,8 +13,8 @@ function useLoadUserData() {
   const { run } = useRequest(getUserInfoService, {
     manual: true,
     onSuccess(result) {
-      const { username, nickName: nickname } = result.data
-      dispatch(loginReducer({ username, nickname })) // 存储到 redux store
+      const { username, nickName, email, headPic, phoneNumber } = result.data
+      dispatch(loginReducer({ username, nickName, email, headPic, phoneNumber })) // 存储到 redux store
     },
     onFinally() {
       setWaitingUserData(false)
