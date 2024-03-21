@@ -18,9 +18,10 @@ const Star: FC = () => {
   return (
     <>
       <div className={styles.header}>
-        <div className={styles.left}>
-          <Title level={3}>星标问卷</Title>
-        </div>
+        <Title level={3} className={styles.left}>
+          星标问卷
+        </Title>
+
         <div className={styles.right}>
           <ListSearch />
         </div>

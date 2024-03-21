@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { Link } from 'react-router-dom'
 import VideoThumb from '../../../assets/images/hero-image-01.jpg'
 import Video from '../../../assets/videos/video.mp4'
 import ModalVideo from '../../../components/ModalVideo'
@@ -57,20 +58,20 @@ const Hero: FC = () => {
             </p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
-                <a
+                <Link
                   className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                  href="#0"
+                  to="/manage/list"
                 >
-                  Start free trial
-                </a>
+                  开启免费体验
+                </Link>
               </div>
               <div data-aos="fade-up" data-aos-delay="600">
-                <a
+                <Link
                   className="btn text-white bg-gray-700 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
-                  href="#0"
+                  to="#0"
                 >
-                  Learn more
-                </a>
+                  了解更多
+                </Link>
               </div>
             </div>
           </div>

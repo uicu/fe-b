@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useState, useRef, useMemo } from 'react'
-import { Typography, Spin, Empty } from 'antd'
+import { Typography, Spin, Empty, Col, Row, Divider } from 'antd'
 import { useTitle, useDebounceFn, useRequest } from 'ahooks'
 import { useSearchParams } from 'react-router-dom'
+
 import { getQuestionListService } from '../../services/question'
 import QuestionCard from '../../components/QuestionCard'
-import ListSearch from '../../components/ListSearch'
+import QueryFilter from '../../components/QueryFilter'
 import { LIST_PAGE_SIZE, LIST_SEARCH_PARAM_KEY } from '../../constant/index'
 import styles from './common.module.scss'
 
@@ -96,21 +97,73 @@ const List: FC = () => {
 
   return (
     <>
-      <div className={styles.header}>
-        <div className={styles.left}>
-          <Title level={3}>我的问卷</Title>
+      <div className="bg-white rounded mb-4 py-6">
+        <div className={`${styles.header} px-6 pb-6`}>
+          <Title level={3} className={styles.left}>
+            我的问卷
+          </Title>
+          {/* <div className={styles.right}>
+            <ListSearch />
+          </div> */}
         </div>
-        <div className={styles.right}>
-          <ListSearch />
-        </div>
+        <Divider dashed className="m-0" />
+        {/* <QueryFilter layout="vertical">
+          <ProFormText name="name" label="这是一个超级超级长的名称" />
+          <ProFormDatePicker name="birth" label="创建时间" />
+          <ProFormText name="sex" label="应用状态" />
+          <ProFormRadio.Group
+            name="freq"
+            label="查询频度"
+            options={[
+              {
+                value: 'weekly',
+                label: '每周',
+              },
+              {
+                value: 'quarterly',
+                label: '每季度',
+              },
+              {
+                value: 'monthly',
+                label: '每月',
+              },
+              {
+                value: 'yearly',
+                label: '每年',
+              },
+            ]}
+          />
+          <ProFormCheckbox.Group
+            name="checkbox"
+            label="行业分布"
+            options={['农业', '制造业', '互联网']}
+          />
+        </QueryFilter> */}
+
+        <QueryFilter />
       </div>
+
       <div className={styles.content}>
         {/* 问卷列表 */}
-        {list.length > 0 &&
-          list.map((q: any) => {
-            const { _id } = q
-            return <QuestionCard key={_id} {...q} />
-          })}
+        {list.length > 0 && (
+          <Row gutter={[16, 24]}>
+            {list.map((item: any) => {
+              const { _id } = item
+              const key = `col-${_id}`
+              return (
+                <Col
+                  key={key}
+                  xs={{ flex: '100%' }}
+                  sm={{ flex: '50%' }}
+                  md={{ flex: '33.33%' }}
+                  lg={{ flex: '25%' }}
+                >
+                  <QuestionCard key={_id} {...item} />
+                </Col>
+              )
+            })}
+          </Row>
+        )}
       </div>
       <div className={styles.footer}>
         <div ref={containerRef}>{LoadMoreContentElem}</div>

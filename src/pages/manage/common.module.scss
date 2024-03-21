@@ -1,9 +1,9 @@
 .header {
     display: flex;
-    margin-bottom: 20px;
-
+    align-items: center;
     .left {
         flex: 1;
+        margin: 0;
     }
 
     .right {

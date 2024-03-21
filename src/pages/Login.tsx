@@ -1,10 +1,12 @@
 import React, { FC, FormEvent, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 import { message } from 'antd'
 import { useRequest } from 'ahooks'
 import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME, RESET_PASSWORD_PATHNAME } from '../router'
 import { loginService } from '../services/user'
 import { USER_TOKEN, REFRESH_USER_TOKEN, USER_INFO, setToken } from '../utils/local-storage'
+import { loginReducer } from '../store/userReducer'
 
 const USERNAME_KEY = 'USERNAME'
 const PASSWORD_KEY = 'PASSWORD'
@@ -27,6 +29,7 @@ function getUserInfoFromStorage() {
 }
 
 const Login: FC = () => {
+  const dispatch = useDispatch()
   const [initData, setInitData] = useState({
     username: '',
     password: '',
@@ -56,6 +59,9 @@ const Login: FC = () => {
         setToken(USER_TOKEN, accessToken)
         setToken(REFRESH_USER_TOKEN, refreshToken)
         setToken(USER_INFO, JSON.stringify(userInfo))
+        const { username, nickName, email, headPic, phoneNumber } = userInfo
+
+        dispatch(loginReducer({ username, nickName, email, headPic, phoneNumber }))
         messageApi.success('登录成功')
         nav(MANAGE_INDEX_PATHNAME)
       },

@@ -117,9 +117,10 @@ const Trash: FC = () => {
   return (
     <>
       <div className={styles.header}>
-        <div className={styles.left}>
-          <Title level={3}>回收站</Title>
-        </div>
+        <Title level={3} className={styles.left}>
+          回收站
+        </Title>
+
         <div className={styles.right}>
           <ListSearch />
         </div>

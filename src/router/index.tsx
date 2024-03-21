@@ -47,26 +47,27 @@ const router = createBrowserRouter([
         path: 'update-info',
         element: <UpdateInfo />,
       },
+      {
+        path: 'manage',
+        element: <ManageLayout />,
+        children: [
+          {
+            path: 'list',
+            element: <List />,
+          },
+          {
+            path: 'star',
+            element: <Star />,
+          },
+          {
+            path: 'trash',
+            element: <Trash />,
+          },
+        ],
+      },
     ],
   },
-  {
-    path: 'manage',
-    element: <ManageLayout />,
-    children: [
-      {
-        path: 'list',
-        element: <List />,
-      },
-      {
-        path: 'star',
-        element: <Star />,
-      },
-      {
-        path: 'trash',
-        element: <Trash />,
-      },
-    ],
-  },
+
   {
     path: 'question',
     element: <QuestionLayout />,
