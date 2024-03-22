@@ -32,13 +32,12 @@ const ListSearch: FC = () => {
 
   return (
     <Search
-      size="large"
       allowClear
       placeholder="输入关键字"
       value={value}
       onChange={handleChange}
       onSearch={handleSearch}
-      style={{ width: '260px' }}
+      style={{ width: '160px' }}
     />
   )
 }

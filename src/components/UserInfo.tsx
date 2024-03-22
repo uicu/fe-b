@@ -127,7 +127,7 @@ const UserInfo: FC = () => {
           >
             Support
             <svg
-              className="cursor-pointer text-stone-400 fill-current shrink-0 ml-1 h-3 w-3"
+              className="cursor-pointer text-stone-500 fill-current shrink-0 ml-1 h-3 w-3"
               viewBox="0 0 12 12"
               xmlns="http://www.w3.org/2000/svg"
             >

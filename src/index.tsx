@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { ConfigProvider } from 'antd'
+import zhCN from 'antd/locale/zh_CN'
 import store from './store'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
@@ -14,7 +15,13 @@ root.render(
         token: {
           colorPrimary: 'rgb(93 93 255)',
         },
+        components: {
+          Segmented: {
+            itemSelectedColor: 'rgb(93 93 255)',
+          },
+        },
       }}
+      locale={zhCN}
     >
       <Provider store={store}>
         <App />

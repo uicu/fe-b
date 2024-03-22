@@ -1,19 +1,21 @@
 import React, { FC, useEffect, useState, useRef, useMemo } from 'react'
-import { Typography, Spin, Empty, Col, Row, Divider } from 'antd'
+import { Typography, Spin, Empty, Col, Row, Divider, Button, message } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
 import { useTitle, useDebounceFn, useRequest } from 'ahooks'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 
-import { getQuestionListService } from '../../services/question'
+import { getQuestionListService, createQuestionService } from '../../services/question'
 import QuestionCard from '../../components/QuestionCard'
 import QueryFilter from '../../components/QueryFilter'
 import { LIST_PAGE_SIZE, LIST_SEARCH_PARAM_KEY } from '../../constant/index'
+
 import styles from './common.module.scss'
 
 const { Title } = Typography
 
 const List: FC = () => {
   useTitle('我的问卷')
-
+  const nav = useNavigate()
   const [started, setStarted] = useState(false) // 是否已经开始加载（防抖，有延迟时间）
   const [page, setPage] = useState(1) // List 内部的数据，不在 url 参数中体现
   const [list, setList] = useState([]) // 全部的列表数据，上划加载更多，累计
@@ -95,51 +97,34 @@ const List: FC = () => {
     return <span>开始加载下一页</span>
   }, [started, loading, haveMoreData])
 
+  // 新建问卷
+  const { run: handleCreateClick, loading: disabled } = useRequest(createQuestionService, {
+    manual: true,
+    onSuccess(result) {
+      const { id } = result.data
+      nav(`/question/edit/${id}`)
+      message.success('创建成功')
+    },
+  })
+
   return (
     <>
-      <div className="bg-white rounded mb-4 py-6">
+      <div className="bg-white rounded mb-6 py-6">
         <div className={`${styles.header} px-6 pb-6`}>
           <Title level={3} className={styles.left}>
             我的问卷
           </Title>
-          {/* <div className={styles.right}>
-            <ListSearch />
-          </div> */}
+          <Button
+            type="primary"
+            size="middle"
+            icon={<PlusOutlined />}
+            onClick={handleCreateClick}
+            disabled={disabled}
+          >
+            新建
+          </Button>
         </div>
         <Divider dashed className="m-0" />
-        {/* <QueryFilter layout="vertical">
-          <ProFormText name="name" label="这是一个超级超级长的名称" />
-          <ProFormDatePicker name="birth" label="创建时间" />
-          <ProFormText name="sex" label="应用状态" />
-          <ProFormRadio.Group
-            name="freq"
-            label="查询频度"
-            options={[
-              {
-                value: 'weekly',
-                label: '每周',
-              },
-              {
-                value: 'quarterly',
-                label: '每季度',
-              },
-              {
-                value: 'monthly',
-                label: '每月',
-              },
-              {
-                value: 'yearly',
-                label: '每年',
-              },
-            ]}
-          />
-          <ProFormCheckbox.Group
-            name="checkbox"
-            label="行业分布"
-            options={['农业', '制造业', '互联网']}
-          />
-        </QueryFilter> */}
-
         <QueryFilter />
       </div>
 
@@ -147,21 +132,30 @@ const List: FC = () => {
         {/* 问卷列表 */}
         {list.length > 0 && (
           <Row gutter={[16, 24]}>
-            {list.map((item: any) => {
-              const { _id } = item
-              const key = `col-${_id}`
-              return (
-                <Col
-                  key={key}
-                  xs={{ flex: '100%' }}
-                  sm={{ flex: '50%' }}
-                  md={{ flex: '33.33%' }}
-                  lg={{ flex: '25%' }}
-                >
-                  <QuestionCard key={_id} {...item} />
-                </Col>
-              )
-            })}
+            {list.map(
+              (item: {
+                _id: string
+                title: string
+                isStar: boolean
+                isPublished: boolean
+                answerCount: number
+                createdAt: string
+              }) => {
+                const { _id } = item
+                const key = `col-${_id}`
+                return (
+                  <Col
+                    key={key}
+                    xs={{ flex: '100%' }}
+                    sm={{ flex: '50%' }}
+                    md={{ flex: '33.33%' }}
+                    lg={{ flex: '25%' }}
+                  >
+                    <QuestionCard key={_id} {...item} />
+                  </Col>
+                )
+              }
+            )}
           </Row>
         )}
       </div>

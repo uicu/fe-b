@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useTitle } from 'ahooks'
-import { Typography, Empty, Spin } from 'antd'
+import { Typography, Empty, Spin, Row, Col } from 'antd'
 import QuestionCard from '../../components/QuestionCard'
 import ListSearch from '../../components/ListSearch'
 import ListPage from '../../components/ListPage'
@@ -17,15 +17,15 @@ const Star: FC = () => {
 
   return (
     <>
-      <div className={styles.header}>
-        <Title level={3} className={styles.left}>
+      <div className={`${styles.header} px-5 bg-white rounded mb-6 p-6`}>
+        <Title level={4} className={styles.left}>
           星标问卷
         </Title>
-
         <div className={styles.right}>
           <ListSearch />
         </div>
       </div>
+
       <div className={styles.content}>
         {loading && (
           <div style={{ textAlign: 'center' }}>
@@ -33,12 +33,37 @@ const Star: FC = () => {
           </div>
         )}
         {!loading && list.length === 0 && <Empty description="暂无数据" />}
-        {list.length > 0 &&
-          list.map((q: any) => {
-            const { _id } = q
-            return <QuestionCard key={_id} {...q} />
-          })}
+
+        {list.length > 0 && (
+          <Row gutter={[16, 24]}>
+            {list.map(
+              (item: {
+                _id: string
+                title: string
+                isStar: boolean
+                isPublished: boolean
+                answerCount: number
+                createdAt: string
+              }) => {
+                const { _id } = item
+                const key = `col-${_id}`
+                return (
+                  <Col
+                    key={key}
+                    xs={{ flex: '100%' }}
+                    sm={{ flex: '50%' }}
+                    md={{ flex: '33.33%' }}
+                    lg={{ flex: '25%' }}
+                  >
+                    <QuestionCard key={_id} {...item} />
+                  </Col>
+                )
+              }
+            )}
+          </Row>
+        )}
       </div>
+
       <div className={styles.footer}>
         <ListPage total={total} />
       </div>
