@@ -155,7 +155,12 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
     >
       <Meta
         title={
-          <Link to={isPublished ? `/question/stat/${_id}` : `/question/edit/${_id}`}>{title}</Link>
+          <Link
+            className="text-slate-950"
+            to={isPublished ? `/question/stat/${_id}` : `/question/edit/${_id}`}
+          >
+            {title}
+          </Link>
         }
         description={
           <Space>

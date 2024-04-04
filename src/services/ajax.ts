@@ -23,8 +23,8 @@ instance.interceptors.request.use(
 
 // response 拦截：统一处理 errno 和 msg
 instance.interceptors.response.use(
-  res => {
-    return res.data
+  response => {
+    return response
   },
   async error => {
     return Promise.reject(error.response.data)

@@ -1,19 +1,6 @@
 import React, { FC } from 'react'
 import { useTitle } from 'ahooks'
-import {
-  Typography,
-  Empty,
-  Table,
-  Tag,
-  Button,
-  Space,
-  Modal,
-  Spin,
-  message,
-  Row,
-  Col,
-  Card,
-} from 'antd'
+import { Typography, Empty, Button, Space, Modal, Spin, message, Row, Col, Card } from 'antd'
 import { ExclamationCircleOutlined, UndoOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import ListSearch from '../../components/ListSearch'
@@ -73,66 +60,6 @@ const Trash: FC = () => {
     })
   }
 
-  // const tableColumns = [
-  //   {
-  //     title: '标题',
-  //     dataIndex: 'title',
-  //     // key: 'title', // 循环列的 key ，它会默认取 dataIndex 的值
-  //   },
-  //   {
-  //     title: '是否发布',
-  //     dataIndex: 'isPublished',
-  //     render: (isPublished: boolean) => {
-  //       return isPublished ? <Tag color="processing">已发布</Tag> : <Tag>未发布</Tag>
-  //     },
-  //   },
-  //   {
-  //     title: '答卷',
-  //     dataIndex: 'answerCount',
-  //   },
-  //   {
-  //     title: '创建时间',
-  //     dataIndex: 'createdAt',
-  //   },
-  //   {
-  //     title: '操作',
-  //     key: 'action',
-  //     width: '144px',
-  //     render: (_: object, record: { _id: string }) => (
-  //       <Space size="middle">
-  //         <Button
-  //           size="small"
-  //           type="primary"
-  //           onClick={() => {
-  //             console.log(record)
-  //             recover(record._id)
-  //           }}
-  //         >
-  //           恢复
-  //         </Button>
-  //         <Button
-  //           size="small"
-  //           danger
-  //           onClick={() => {
-  //             del(record._id)
-  //           }}
-  //         >
-  //           删除
-  //         </Button>
-  //       </Space>
-  //     ),
-  //   },
-  // ]
-
-  // 可以把 JSX 片段定义为一个变量
-  // const TableElem = (
-  //   <>
-  //     <div style={{ border: '1px solid #e8e8e8' }}>
-  //       <Table dataSource={list} columns={tableColumns} pagination={false} rowKey={q => q._id} />
-  //     </div>
-  //   </>
-  // )
-
   return (
     <>
       {contextHolder}
@@ -164,7 +91,7 @@ const Trash: FC = () => {
                 answerCount: number
                 createdAt: string
               }) => {
-                const { _id, title, answerCount, createdAt } = item
+                const { _id, title, answerCount } = item
                 const key = `col-${_id}`
                 return (
                   <Col
@@ -174,8 +101,6 @@ const Trash: FC = () => {
                     md={{ flex: '33.33%' }}
                     lg={{ flex: '25%' }}
                   >
-                    {/* <QuestionCard key={_id} {...item} /> */}
-
                     <Card
                       style={{ width: '100%' }}
                       cover={

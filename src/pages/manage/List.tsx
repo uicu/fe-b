@@ -83,7 +83,6 @@ const List: FC = () => {
     if (haveMoreData) {
       window.addEventListener('scroll', tryLoadMore) // 防抖
     }
-
     return () => {
       window.removeEventListener('scroll', tryLoadMore) // 解绑事件，重要！！！
     }
