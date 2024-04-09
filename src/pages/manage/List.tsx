@@ -1,55 +1,72 @@
 import React, { FC, useEffect, useState, useRef, useMemo } from 'react'
-import { Typography, Spin, Empty, Col, Row, Divider, Button, message } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { Typography, Spin, Empty, Col, Row, Divider } from 'antd'
 import { useTitle, useDebounceFn, useRequest } from 'ahooks'
-import { useSearchParams, useNavigate } from 'react-router-dom'
-
-import { getQuestionListService, createQuestionService } from '../../services/question'
+import { useSearchParams } from 'react-router-dom'
+import { getQuestionListService } from '../../services/question'
 import QuestionCard from '../../components/QuestionCard'
 import QueryFilter from '../../components/QueryFilter'
-import { LIST_PAGE_SIZE, LIST_SEARCH_PARAM_KEY } from '../../constant/index'
+import {
+  LIST_PAGE_SIZE,
+  LIST_SEARCH_CHANNEL,
+  LIST_SEARCH_QUANTITY,
+  LIST_SEARCH_SORT,
+  LIST_SEARCH_STATUS,
+  LIST_SEARCH_TIME_SPAN,
+  LIST_SEARCH_TITLE,
+} from '../../constant/index'
 
 import styles from './common.module.scss'
+import CreateWork from '../../components/CreateWork'
 
 const { Title } = Typography
 
 const List: FC = () => {
   useTitle('我的问卷')
-  const nav = useNavigate()
+
   const [started, setStarted] = useState(false) // 是否已经开始加载（防抖，有延迟时间）
-  const [page, setPage] = useState(1) // List 内部的数据，不在 url 参数中体现
+  const [pageNo, setPage] = useState(1) // List 内部的数据，不在 url 参数中体现
   const [list, setList] = useState([]) // 全部的列表数据，上划加载更多，累计
   const [total, setTotal] = useState(0)
   const haveMoreData = total > list.length // 有没有更多的、为加载完成的数据
 
   const [searchParams] = useSearchParams() // url 参数，虽然没有 page pageSize ，但有 keyword
-  const keyword = searchParams.get(LIST_SEARCH_PARAM_KEY) || ''
+  const title = searchParams.get(LIST_SEARCH_TITLE) || undefined
+  const status = searchParams.get(LIST_SEARCH_STATUS) || undefined
+  const quantity = searchParams.get(LIST_SEARCH_QUANTITY) || undefined
+  const sort = searchParams.get(LIST_SEARCH_SORT) || undefined
+  const timeSpan = searchParams.get(LIST_SEARCH_TIME_SPAN) || undefined
+  const channel = searchParams.get(LIST_SEARCH_CHANNEL) || undefined
 
-  // keyword 变化时，重置信息
+  // 查询条件变化时，重置信息
   useEffect(() => {
     setStarted(false)
     setPage(1)
     setList([])
     setTotal(0)
-  }, [keyword])
+  }, [searchParams])
 
   // 真正加载
   const { run: load, loading } = useRequest(
     async () => {
       const data = await getQuestionListService({
-        page,
+        pageNo,
         pageSize: LIST_PAGE_SIZE,
-        keyword,
+        title,
+        status,
+        quantity,
+        sort,
+        timeSpan,
+        channel,
       })
       return data
     },
     {
       manual: true,
       onSuccess(result) {
-        const { list: l = [], total = 0 } = result.data
+        const { works: l = [], totalCount = 0 } = result.data
         setList(list.concat(l)) // 累计
-        setTotal(total)
-        setPage(page + 1)
+        setTotal(totalCount)
+        setPage(pageNo + 1)
       },
     }
   )
@@ -96,16 +113,6 @@ const List: FC = () => {
     return <span>开始加载下一页</span>
   }, [started, loading, haveMoreData])
 
-  // 新建问卷
-  const { run: handleCreateClick, loading: disabled } = useRequest(createQuestionService, {
-    manual: true,
-    onSuccess(result) {
-      const { id } = result.data
-      nav(`/question/edit/${id}`)
-      message.success('创建成功')
-    },
-  })
-
   return (
     <>
       <div className="bg-white rounded mb-6 py-6">
@@ -113,15 +120,7 @@ const List: FC = () => {
           <Title level={3} className={styles.left}>
             我的问卷
           </Title>
-          <Button
-            type="primary"
-            size="middle"
-            icon={<PlusOutlined />}
-            onClick={handleCreateClick}
-            disabled={disabled}
-          >
-            新建
-          </Button>
+          <CreateWork />
         </div>
         <Divider dashed className="m-0" />
         <QueryFilter />
@@ -133,15 +132,14 @@ const List: FC = () => {
           <Row gutter={[16, 24]}>
             {list.map(
               (item: {
-                _id: string
+                coverImg: string
+                id: string
                 title: string
                 isStar: boolean
-                isPublished: boolean
-                answerCount: number
-                createdAt: string
+                status: number
               }) => {
-                const { _id } = item
-                const key = `col-${_id}`
+                const { id } = item
+                const key = `col-${id}`
                 return (
                   <Col
                     key={key}
@@ -150,7 +148,7 @@ const List: FC = () => {
                     md={{ flex: '33.33%' }}
                     lg={{ flex: '25%' }}
                   >
-                    <QuestionCard key={_id} {...item} />
+                    <QuestionCard key={id} {...item} />
                   </Col>
                 )
               }

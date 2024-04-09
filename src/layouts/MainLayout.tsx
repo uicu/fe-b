@@ -4,7 +4,6 @@ import { Spin } from 'antd'
 import BannerLayouts from '../components/BannerLayouts'
 import useLoadUserData from '../hooks/useLoadUserData'
 import useNavPage from '../hooks/useNavPage'
-
 import HeaderLayouts from '../components/UI/HeaderLayouts'
 
 const MainLayout: FC = () => {

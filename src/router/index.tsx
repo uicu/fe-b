@@ -20,7 +20,6 @@ import Demo from '../pages/demo'
 // 路由懒加载，拆分 bundle ，优化首页体积
 const Edit = lazy(() => import(/* webpackChunkName: "editPage" */ '../pages/question/Edit'))
 const Stat = lazy(() => import(/* webpackChunkName: "statPage" */ '../pages/question/Stat'))
-const Three = lazy(() => import(/* webpackChunkName: "threePage" */ '../pages/three/index'))
 
 const router = createBrowserRouter([
   {
@@ -85,10 +84,6 @@ const router = createBrowserRouter([
   {
     path: 'demo',
     element: <Demo />,
-  },
-  {
-    path: 'three',
-    element: <Three />,
   },
   {
     path: '*', // 404 路由配置，都写在最后（兜底）

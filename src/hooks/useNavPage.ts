@@ -25,11 +25,10 @@ function useNavPage(waitingUserData: boolean) {
     }
 
     // 未登录
-    if (isNoNeedUserInfo(pathname)) {
-      return
-    } else {
+    if (!isNoNeedUserInfo(pathname)) {
       nav(LOGIN_PATHNAME)
     }
+    return
   }, [waitingUserData, username, pathname])
 }
 

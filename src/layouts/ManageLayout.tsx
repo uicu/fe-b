@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Segmented } from 'antd'
 import { SnippetsOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons'
@@ -8,10 +8,10 @@ const ManageLayout: FC = () => {
   const { pathname } = useLocation()
   const [value, setValue] = useState<string>(pathname)
 
-  useEffect(() => {
+  const onChange = (value: string) => {
+    setValue(value)
     nav(value)
-  }, [value])
-
+  }
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="bg-white h-20">{/* 导航样式 */}</div>
@@ -24,7 +24,7 @@ const ManageLayout: FC = () => {
               { label: '回收站', value: '/manage/trash', icon: <DeleteOutlined /> },
             ]}
             value={value}
-            onChange={setValue}
+            onChange={onChange}
           />
         </div>
         <div className="pt-3 pb-6">

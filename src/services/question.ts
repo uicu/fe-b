@@ -5,8 +5,14 @@ type SearchOption = {
   keyword: string
   isStar: boolean
   isDeleted: boolean
-  page: number
+  pageNo: number
   pageSize: number
+  title?: string
+  status?: string
+  quantity?: string
+  sort?: string
+  timeSpan?: string
+  channel?: string
 }
 
 // 获取单个问卷信息
@@ -17,9 +23,13 @@ export async function getQuestionService(id: string): Promise<ResDataType> {
 }
 
 // 创建问卷
-export async function createQuestionService(): Promise<ResDataType> {
-  const url = '/api/question'
-  const res = (await axios.post(url)) as ResDataType
+export async function createQuestionService(opt: {
+  title: string
+  channelId: number
+  desc: string
+}): Promise<ResDataType> {
+  const url = '/v1/work/create'
+  const res = (await axios.post(url, opt)) as ResDataType
   return res.data
 }
 
@@ -27,7 +37,7 @@ export async function createQuestionService(): Promise<ResDataType> {
 export async function getQuestionListService(
   opt: Partial<SearchOption> = {}
 ): Promise<ResDataType> {
-  const url = '/api/question'
+  const url = '/v1/work'
   const res = (await axios.get(url, { params: opt })) as ResDataType
   return res.data
 }

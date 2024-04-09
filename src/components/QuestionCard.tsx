@@ -17,23 +17,23 @@ const { Meta } = Card
 const { confirm } = Modal
 
 type PropsType = {
-  _id: string // 服务端 mongodb ，自动，_id 不重复
+  coverImg: string
+  id: string
   title: string
   isStar: boolean
-  isPublished: boolean
-  answerCount: number
-  createdAt: string
+  status: number
 }
 
 const QuestionCard: FC<PropsType> = (props: PropsType) => {
   const nav = useNavigate()
-  const { _id, title, answerCount, isPublished, isStar } = props
+  const { coverImg, id, title, isStar, status } = props
+  const isPublished = status === 2
 
   // 修改 标星
   const [isStarState, setIsStarState] = useState(isStar)
   const { loading: changeStarLoading, run: changeStar } = useRequest(
     async () => {
-      await updateQuestionService(_id, { isStar: !isStarState })
+      await updateQuestionService(id, { isStar: !isStarState })
     },
     {
       manual: true,
@@ -46,7 +46,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
 
   // 复制
   const { loading: duplicateLoading, run: duplicate } = useRequest(
-    async () => await duplicateQuestionService(_id),
+    async () => await duplicateQuestionService(id),
     {
       manual: true,
       onSuccess(result) {
@@ -60,7 +60,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
   // 删除
   const [isDeletedState, setIsDeletedState] = useState(false)
   const { loading: deleteLoading, run: deleteQuestion } = useRequest(
-    async () => await updateQuestionService(_id, { isDeleted: true }),
+    async () => await updateQuestionService(id, { isDeleted: true }),
     {
       manual: true,
       onSuccess() {
@@ -84,15 +84,10 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
   return (
     <Card
       style={{ width: '100%' }}
-      cover={
-        <img
-          alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-        />
-      }
+      cover={<img alt="封面图" src={coverImg} className="h-32" />}
       actions={[
         <Popconfirm
-          key={_id}
+          key={id}
           title="确定复制该问卷？"
           okText="确定"
           cancelText="取消"
@@ -103,16 +98,16 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
           </Button>
         </Popconfirm>,
         <Button
-          key={_id}
+          key={id}
           icon={<EditOutlined />}
           type="text"
           size="small"
-          onClick={() => nav(`/question/edit/${_id}`)}
+          onClick={() => nav(`/question/edit/${id}`)}
         >
           编辑
         </Button>,
         <Popover
-          key={_id}
+          key={id}
           placement="bottom"
           content={
             <Space direction="vertical">
@@ -131,7 +126,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                 icon={<LineChartOutlined />}
                 type="text"
                 size="small"
-                onClick={() => nav(`/question/stat/${_id}`)}
+                onClick={() => nav(`/question/stat/${id}`)}
                 disabled={!isPublished}
               >
                 统计
@@ -157,7 +152,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
         title={
           <Link
             className="text-slate-950"
-            to={isPublished ? `/question/stat/${_id}` : `/question/edit/${_id}`}
+            to={isPublished ? `/question/stat/${id}` : `/question/edit/${id}`}
           >
             {title}
           </Link>
@@ -165,7 +160,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
         description={
           <Space>
             {isPublished ? <Tag color="processing">已发布</Tag> : <Tag>未发布</Tag>}
-            <span>回收量: {answerCount}</span>
+            <span>回收量: 100</span>
           </Space>
         }
       />

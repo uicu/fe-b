@@ -38,15 +38,14 @@ const Star: FC = () => {
           <Row gutter={[16, 24]}>
             {list.map(
               (item: {
-                _id: string
+                coverImg: string
+                id: string
                 title: string
                 isStar: boolean
-                isPublished: boolean
-                answerCount: number
-                createdAt: string
+                status: number
               }) => {
-                const { _id } = item
-                const key = `col-${_id}`
+                const { id } = item
+                const key = `col-${id}`
                 return (
                   <Col
                     key={key}
@@ -55,7 +54,7 @@ const Star: FC = () => {
                     md={{ flex: '33.33%' }}
                     lg={{ flex: '25%' }}
                   >
-                    <QuestionCard key={_id} {...item} />
+                    <QuestionCard key={id} {...item} />
                   </Col>
                 )
               }
