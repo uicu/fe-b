@@ -134,8 +134,8 @@ const QueryFilter: React.FC = () => {
                   md={{ flex: '33.33%' }}
                   lg={{ flex: '25%' }}
                 >
-                  <Form.Item name="timeSpan" label="时间跨度">
-                    <Select placeholder="时间跨度" allowClear>
+                  <Form.Item name="timeSpan" label="创建时间">
+                    <Select placeholder="创建时间" allowClear>
                       <Option value="week">近一周</Option>
                       <Option value="moon">近一月</Option>
                       <Option value="quarter">近三月</Option>
@@ -151,7 +151,7 @@ const QueryFilter: React.FC = () => {
                   lg={{ flex: '25%' }}
                 >
                   <Form.Item name="quantity" label="回收数量">
-                    <Select placeholder="回收数量" allowClear>
+                    <Select placeholder="回收数量" allowClear disabled>
                       <Option value="1-99">1-99</Option>
                       <Option value="100-1000">100-1000</Option>
                       <Option value="999-5000">999-5000</Option>
