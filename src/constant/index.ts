@@ -4,7 +4,6 @@
 
 // 列表
 export const LIST_PAGE_SIZE = 10 // 默认的 pageSize
-export const LIST_SEARCH_PARAM_KEY = 'keyword'
 export const LIST_PAGE_PARAM_KEY = 'pageNo'
 export const LIST_PAGE_SIZE_PARAM_KEY = 'pageSize'
 export const LIST_SEARCH_TITLE = 'title'

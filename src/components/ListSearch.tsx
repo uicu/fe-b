@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom'
 import { Input } from 'antd'
-import { LIST_SEARCH_PARAM_KEY } from '../constant'
+import { LIST_SEARCH_TITLE } from '../constant'
 
 const { Search } = Input
 
@@ -18,7 +18,7 @@ const ListSearch: FC = () => {
   // 获取 url 参数，并设置到 input value
   const [searchParams] = useSearchParams()
   useEffect(() => {
-    const curVal = searchParams.get(LIST_SEARCH_PARAM_KEY) || ''
+    const curVal = searchParams.get(LIST_SEARCH_TITLE) || ''
     setValue(curVal)
   }, [searchParams])
 
@@ -26,7 +26,7 @@ const ListSearch: FC = () => {
     // 跳转页面，增加 url 参数
     nav({
       pathname,
-      search: `${LIST_SEARCH_PARAM_KEY}=${value}`, // 去掉了 page pageSize
+      search: `${LIST_SEARCH_TITLE}=${value}`, // 去掉了 page pageSize
     })
   }
 

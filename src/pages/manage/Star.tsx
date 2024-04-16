@@ -11,10 +11,8 @@ const { Title } = Typography
 
 const Star: FC = () => {
   useTitle('星标问卷')
-
   const { data = {}, loading } = useLoadQuestionListData({ isStar: true })
-  const { list = [], total = 0 } = data
-
+  const { works: list = [], totalCount: total = 0 } = data
   return (
     <>
       <div className={`${styles.header} px-5 bg-white rounded mb-6 p-6`}>

@@ -18,7 +18,7 @@ const Trash: FC = () => {
   const [messageApi, contextHolder] = message.useMessage()
 
   const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true })
-  const { list = [], total = 0 } = data
+  const { works: list = [], totalCount: total = 0 } = data
 
   // 恢复
   const { run: recover } = useRequest(
