@@ -27,7 +27,7 @@ function useLoadQuestionData() {
   useEffect(() => {
     if (!data) return
 
-    const { title = '', desc = '', content = [] } = data
+    const { title = '', desc = '', status, content = [] } = data
 
     const { components, props = {}, setting = {} } = content
     const _componentList = sortBy(components, ['page'])
@@ -59,7 +59,7 @@ function useLoadQuestionData() {
     )
 
     // 把 pageInfo 存储到 redux store
-    dispatch(resetPageInfo({ title, desc }))
+    dispatch(resetPageInfo({ title, desc, status }))
   }, [data])
 
   // 判断 id 变化，执行 ajax 加载问卷数据
