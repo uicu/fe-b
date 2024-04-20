@@ -12,6 +12,8 @@ function useGetComponentInfo() {
     copiedComponent,
     currentPage,
     pageTotal,
+    props,
+    setting,
   } = components.present
 
   const selectedComponent = componentList.find(c => c.fe_id === selectedId)
@@ -22,6 +24,8 @@ function useGetComponentInfo() {
     copiedComponent,
     currentPage,
     pageTotal,
+    props,
+    setting,
     selectedComponent,
     isPast: components.past.length > 0,
     isFuture: components.future.length > 0,

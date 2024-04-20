@@ -4,17 +4,11 @@ import produce from 'immer'
 export type PageInfoType = {
   title: string
   desc?: string
-  js?: string
-  css?: string
-  isPublished?: boolean
 }
 
 const INIT_STATE: PageInfoType = {
   title: '',
   desc: '',
-  js: '',
-  css: '',
-  isPublished: false,
 }
 
 const pageInfoSlice = createSlice({

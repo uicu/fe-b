@@ -18,7 +18,7 @@ import styles from './index.module.scss'
 
 const Edit: FC = () => {
   const { editorSelectedId } = useGetInteractionInfo()
-  // const { id = '' } = useParams()
+
   const dispatch = useDispatch()
 
   const { loading } = useLoadQuestionData()

@@ -1,14 +1,14 @@
 import React, { FC, useState, ChangeEvent } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Button, Typography, Space, Input, message } from 'antd'
+import { Button, Typography, Space, Input, message, Popconfirm } from 'antd'
 import { LeftOutlined, EditOutlined, LoadingOutlined } from '@ant-design/icons'
 import { useRequest, useKeyPress, useDebounceEffect } from 'ahooks'
 import EditToolbar from './EditToolbar'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import { changePageTitle } from '../../../store/pageInfoReducer'
-import { updateQuestionService } from '../../../services/question'
+import { updateQuestionService, publishQuestionService } from '../../../services/question'
 import styles from './EditHeader.module.scss'
 
 const { Title } = Typography
@@ -48,13 +48,16 @@ const TitleElem: FC = () => {
 // 保存按钮
 const SaveButton: FC = () => {
   const { id } = useParams()
-  const { componentList = [] } = useGetComponentInfo()
+  const { componentList = [], props = {}, setting = {} } = useGetComponentInfo()
   const pageInfo = useGetPageInfo()
 
   const { loading, run: save } = useRequest(
     async () => {
       if (!id) return
-      await updateQuestionService(id, { ...pageInfo, componentList })
+      await updateQuestionService(id, {
+        ...pageInfo,
+        content: { components: componentList, props, setting },
+      })
     },
     { manual: true }
   )
@@ -87,17 +90,11 @@ const SaveButton: FC = () => {
 const PublishButton: FC = () => {
   const nav = useNavigate()
   const { id } = useParams()
-  const { componentList = [] } = useGetComponentInfo()
-  const pageInfo = useGetPageInfo()
 
   const { loading, run: pub } = useRequest(
     async () => {
       if (!id) return
-      await updateQuestionService(id, {
-        ...pageInfo,
-        componentList,
-        isPublished: true, // 标志着问卷已经被发布
-      })
+      await publishQuestionService(id)
     },
     {
       manual: true,
@@ -109,9 +106,18 @@ const PublishButton: FC = () => {
   )
 
   return (
-    <Button type="primary" onClick={pub} disabled={loading}>
-      发布
-    </Button>
+    <Popconfirm
+      placement="bottomRight"
+      title="确定发布该问卷？"
+      description="此操作会将目前的修改推送给用户"
+      okText="确定"
+      cancelText="取消"
+      onConfirm={pub}
+    >
+      <Button type="primary" disabled={loading}>
+        发布
+      </Button>
+    </Popconfirm>
   )
 }
 

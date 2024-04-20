@@ -13,7 +13,8 @@ const StatHeader: FC = () => {
   const nav = useNavigate()
   const { id } = useParams()
 
-  const { title, isPublished } = useGetPageInfo()
+  const { title } = useGetPageInfo()
+  const isPublished = false
 
   // 拷贝链接
   const urlInputRef = useRef<InputRef>(null)

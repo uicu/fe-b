@@ -27,17 +27,12 @@ function useLoadQuestionData() {
   useEffect(() => {
     if (!data) return
 
-    const {
-      title = '',
-      desc = '',
-      js = '',
-      css = '',
-      isPublished = false,
-      pageTotal = 1,
-      componentList = [],
-    } = data
+    const { title = '', desc = '', content = [] } = data
 
-    const _componentList = sortBy(componentList, ['page'])
+    const { components, props = {}, setting = {} } = content
+    const _componentList = sortBy(components, ['page'])
+    // 页数
+    const pageTotal = _componentList[_componentList.length - 1]?.page
 
     // 获取默认的 selectedId
     let selectedId = ''
@@ -58,11 +53,13 @@ function useLoadQuestionData() {
         copiedComponent: null,
         pageTotal,
         currentPage: 1,
+        props,
+        setting,
       })
     )
 
     // 把 pageInfo 存储到 redux store
-    dispatch(resetPageInfo({ title, desc, js, css, isPublished }))
+    dispatch(resetPageInfo({ title, desc }))
   }, [data])
 
   // 判断 id 变化，执行 ajax 加载问卷数据

@@ -22,6 +22,8 @@ export type PresentType = {
   copiedComponent: ComponentInfoType | null
   currentPage: number
   pageTotal: number
+  props: Record<string, unknown>
+  setting: Record<string, unknown>
 }
 
 export type ComponentsStateType = {
@@ -42,6 +44,10 @@ const INIT_STATE: ComponentsStateType = {
     currentPage: 1,
     // 总page
     pageTotal: 1,
+    // 页面的属性，如页面背景图片
+    props: {},
+    // 页面的配置信息，如微信分享配置
+    setting: {},
   },
   past: [],
   future: [],

@@ -1,5 +1,4 @@
 import axios, { ResDataType } from './ajax'
-// import type { ResDataType } from './ajax'
 
 type SearchOption = {
   keyword: string
@@ -17,7 +16,7 @@ type SearchOption = {
 
 // 获取单个问卷信息
 export async function getQuestionService(id: string): Promise<ResDataType> {
-  const url = `/api/question/${id}`
+  const url = `/v1/work/${id}`
   const res = (await axios.get(url)) as ResDataType
   return res.data
 }
@@ -29,7 +28,51 @@ export async function createQuestionService(opt: {
   desc: string
 }): Promise<ResDataType> {
   const url = '/v1/work/create'
-  const res = (await axios.post(url, opt)) as ResDataType
+  // 组件默认值
+  const content = {
+    components: [
+      {
+        fe_id: 'c1',
+        type: 'questionInfo',
+        title: '问卷信息',
+        page: 1,
+        isHidden: false,
+        isLocked: false,
+        props: { title: '问卷标题', desc: '问卷描述...' },
+      },
+      {
+        fe_id: 'c2',
+        type: 'questionInput',
+        title: '输入框1',
+        page: 1,
+        isHidden: false,
+        isLocked: false,
+        props: { title: '你的姓名', placeholder: '请输入姓名...' },
+      },
+      {
+        fe_id: 'c3',
+        type: 'questionTextarea',
+        title: '多行输入',
+        page: 1,
+        isHidden: false,
+        isLocked: false,
+        props: { title: '你的爱好', placeholder: '请输入...' },
+      },
+      {
+        fe_id: 'last',
+        type: 'questionInfo',
+        title: '最后一页',
+        page: -1,
+        isHidden: false,
+        isLocked: false,
+        props: { title: '问卷到此结束，感谢您的参与！', desc: '问卷描述...' },
+      },
+    ],
+    props: {},
+    setting: {},
+  }
+
+  const res = (await axios.post(url, { ...opt, content })) as ResDataType
   return res.data
 }
 
@@ -45,10 +88,17 @@ export async function getQuestionListService(
 // 更新单个问卷
 export async function updateQuestionService(
   id: string,
-  opt: { [key: string]: any }
+  opt: Record<string, unknown>
 ): Promise<ResDataType> {
-  const url = `/api/question/${id}`
+  const url = `/v1/work/${id}`
   const res = (await axios.patch(url, opt)) as ResDataType
+  return res.data
+}
+
+// 发布问卷
+export async function publishQuestionService(id: string): Promise<ResDataType> {
+  const url = `/v1/work/publish/${id}`
+  const res = (await axios.post(url)) as ResDataType
   return res.data
 }
 
