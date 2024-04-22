@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { ConfigProvider } from 'antd'
@@ -24,7 +24,9 @@ root.render(
       locale={zhCN}
     >
       <Provider store={store}>
-        <App />
+        <Suspense>
+          <App />
+        </Suspense>
       </Provider>
     </ConfigProvider>
   </React.StrictMode>
