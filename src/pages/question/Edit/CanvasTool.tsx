@@ -53,25 +53,47 @@ const CanvasTool: FC = () => {
 
   return (
     <div className={styles.tool}>
-      <Pagination
-        size="small"
-        showLessItems
-        current={currentPage}
-        onChange={onChange}
-        total={pageTotal}
-        defaultPageSize={1}
-      />
+      {(() => {
+        if (pageTotal === 1) {
+          return (
+            <Button
+              size="small"
+              type={currentPage === 1 ? 'primary' : 'default'}
+              ghost={currentPage === 1}
+              onClick={() => {
+                onChange(1)
+              }}
+            >
+              1
+            </Button>
+          )
+        }
+        return (
+          <Pagination
+            simple={currentPage === -1}
+            size="small"
+            showLessItems
+            current={currentPage}
+            onChange={onChange}
+            total={pageTotal}
+            defaultPageSize={1}
+          />
+        )
+      })()}
       <Divider type="vertical" />
       <Button
         size="small"
-        type={currentPage === -1 ? 'link' : 'text'}
+        type={currentPage === -1 ? 'primary' : 'default'}
+        ghost={currentPage === -1}
         onClick={() => {
           onChange(-1)
         }}
       >
         结束页
       </Button>
-      <Divider type="vertical" />
+
+      {currentPage !== -1 && <Divider type="vertical" />}
+
       {(() => {
         if (menuItems.length) {
           return (

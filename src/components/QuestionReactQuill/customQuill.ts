@@ -119,6 +119,7 @@ export function customMatcher(node: HTMLElement) {
 
 //这是点击图片图标触发的事件
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// https://www.mulingyuer.com/archives/923/
 export function imageHandler(this: any) {
   const input = document.createElement('input')
   input.setAttribute('type', 'file')
