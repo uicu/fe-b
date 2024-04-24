@@ -19,21 +19,22 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
 
   const { id = '' } = useParams()
 
-  const [page, setPage] = useState(1)
+  const [pageNo, setPageNo] = useState(1)
   const [pageSize, setPageSize] = useState(STAT_PAGE_SIZE)
   const [total, setTotal] = useState(0)
   const [list, setList] = useState([])
+
   const { loading } = useRequest(
     async () => {
-      const res = await getQuestionStatListService(id, { page, pageSize })
+      const res = await getQuestionStatListService(id, { pageNo, pageSize })
       return res
     },
     {
-      refreshDeps: [id, page, pageSize],
+      refreshDeps: [id, pageNo, pageSize],
       onSuccess(res) {
-        const { total, list = [] } = res.data
-        setTotal(total)
-        setList(list)
+        const { totalCount, answer = [] } = res.data
+        setTotal(totalCount)
+        setList(answer)
       },
     }
   )
@@ -63,7 +64,16 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
     }
   })
 
-  const dataSource = list.map((i: any) => ({ ...i, key: i._id }))
+  const dataSource = list.map((i: any) => {
+    const answerContent = i.answerContent
+    const { answerList } = answerContent
+    const obj: any = {}
+    answerList.forEach((element: any) => {
+      obj[element.componentId] = element.value
+    })
+    return { ...i, key: i.id, ...obj }
+  })
+
   const TableElem = (
     <>
       <Table columns={columns} dataSource={dataSource} pagination={false}></Table>
@@ -71,10 +81,10 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
         <Pagination
           total={total}
           pageSize={pageSize}
-          current={page}
-          onChange={page => setPage(page)}
-          onShowSizeChange={(page, pageSize) => {
-            setPage(page)
+          current={pageNo}
+          onChange={pageNo => setPageNo(pageNo)}
+          onShowSizeChange={(pageNo, pageSize) => {
+            setPageNo(pageNo)
             setPageSize(pageSize)
           }}
         />

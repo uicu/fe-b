@@ -6,6 +6,7 @@
         "ctitle",
         "mockjs",
         "Popconfirm",
+        "Qrcode",
         "svgr"
     ]
 }
