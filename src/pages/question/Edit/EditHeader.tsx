@@ -90,6 +90,9 @@ const SaveButton: FC = () => {
 const PublishButton: FC = () => {
   const nav = useNavigate()
   const { id } = useParams()
+  const pageInfo = useGetPageInfo()
+
+  const { status } = pageInfo
 
   const { loading, run: pub } = useRequest(
     async () => {
@@ -109,13 +112,13 @@ const PublishButton: FC = () => {
     <Popconfirm
       placement="bottomRight"
       title="确定发布该问卷？"
-      description="此操作会将目前的修改推送给用户"
+      description="此操作会将目前的修改推送给正在答题的用户"
       okText="确定"
       cancelText="取消"
       onConfirm={pub}
     >
       <Button type="primary" disabled={loading}>
-        发布
+        {status === 2 ? '推送修改' : '发布'}
       </Button>
     </Popconfirm>
   )

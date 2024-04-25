@@ -126,7 +126,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                 icon={<LineChartOutlined />}
                 type="text"
                 size="small"
-                onClick={() => nav(`/question/stat/${id}`)}
+                onClick={() => nav(`/question/stat/${id}/overview`)}
                 disabled={!isPublished}
               >
                 统计
@@ -152,7 +152,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
         title={
           <Link
             className="text-slate-950"
-            to={isPublished ? `/question/stat/${id}` : `/question/edit/${id}`}
+            to={isPublished ? `/question/stat/${id}/overview` : `/question/edit/${id}`}
           >
             {title}
           </Link>
