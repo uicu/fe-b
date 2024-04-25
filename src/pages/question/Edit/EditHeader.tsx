@@ -100,7 +100,7 @@ const PublishButton: FC = () => {
       manual: true,
       onSuccess() {
         message.success('发布成功')
-        nav('/question/stat/' + id) // 发布成功，跳转到统计页面
+        nav(`/question/stat/${id}/overview`) // 发布成功，跳转到统计页面
       },
     }
   )
@@ -130,8 +130,8 @@ const EditHeader: FC = () => {
       <div className={styles.header}>
         <div className={styles.left}>
           <Space>
-            <Button type="link" icon={<LeftOutlined />} onClick={() => nav(-1)}>
-              返回
+            <Button type="link" icon={<LeftOutlined />} onClick={() => nav('/manage/list')}>
+              列表
             </Button>
             <TitleElem />
           </Space>

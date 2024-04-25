@@ -2,8 +2,8 @@ import React, { FC, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Typography } from 'antd'
 import { useRequest } from 'ahooks'
-import { getComponentStatService } from '../../../services/stat'
-import { getComponentConfByType } from '../../../components/QuestionComponents'
+import { getComponentStatService } from '../../../../services/stat'
+import { getComponentConfByType } from '../../../../components/QuestionComponents'
 
 const { Title } = Typography
 

@@ -1,0 +1,18 @@
+.main {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    .stat-overview-wrapper {
+        height: 100%;
+        overflow-y: auto;
+        padding-left: 110px;
+        .test{
+            background-color: #fff;
+            padding: 12px;
+            border-radius: 4px;
+        }
+    }
+}

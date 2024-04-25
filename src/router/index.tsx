@@ -13,13 +13,20 @@ import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
 import Star from '../pages/manage/Star'
+import Stat from '../pages/question/Stat'
 import Demo from '../pages/demo'
-// import Edit from '../pages/question/Edit'
-// import Stat from '../pages/question/Stat'
 
 // 路由懒加载，拆分 bundle ，优化首页体积
 const Edit = lazy(() => import(/* webpackChunkName: "editPage" */ '../pages/question/Edit'))
-const Stat = lazy(() => import(/* webpackChunkName: "statPage" */ '../pages/question/Stat'))
+
+// 统计页-数据概览
+const StatOverview = lazy(
+  () => import(/* webpackChunkName: "statOverviewPage" */ '../pages/question/Stat/StatOverview')
+)
+// 统计页-数据概览
+const StatDetails = lazy(
+  () => import(/* webpackChunkName: "statDetailsPage" */ '../pages/question/Stat/StatDetails')
+)
 
 const router = createBrowserRouter([
   {
@@ -76,8 +83,18 @@ const router = createBrowserRouter([
         element: <Edit />,
       },
       {
-        path: 'stat/:id', // statistic 统计
+        path: 'stat/:id',
         element: <Stat />,
+        children: [
+          {
+            path: 'overview',
+            element: <StatOverview />,
+          },
+          {
+            path: 'details',
+            element: <StatDetails />,
+          },
+        ],
       },
     ],
   },

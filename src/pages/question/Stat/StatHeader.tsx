@@ -58,8 +58,8 @@ const StatHeader: FC = () => {
       <div className={styles.header}>
         <div className={styles.left}>
           <Space>
-            <Button type="link" icon={<LeftOutlined />} onClick={() => nav(-1)}>
-              返回
+            <Button type="link" icon={<LeftOutlined />} onClick={() => nav('/manage/list')}>
+              列表
             </Button>
             <Title>{title}</Title>
           </Space>

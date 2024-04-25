@@ -1,13 +1,11 @@
-import React, { FC, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { FC } from 'react'
+import { Outlet, useNavigate, NavLink } from 'react-router-dom'
+import { DashboardOutlined, ProfileOutlined } from '@ant-design/icons'
 import { Spin, Result, Button } from 'antd'
 import { useTitle } from 'ahooks'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import StatHeader from './StatHeader'
-import ComponentList from './ComponentList'
-import PageStat from './PageStat'
-import ChartStat from './ChartStat'
 import styles from './index.module.scss'
 
 const Stat: FC = () => {
@@ -17,19 +15,8 @@ const Stat: FC = () => {
   // 是否发布
   const isPublished = status === 2
 
-  // 状态提升 selectedId type
-  const [selectedComponentId, setSelectedComponentId] = useState('')
-  const [selectedComponentType, setSelectedComponentType] = useState('')
-
   // 修改标题
   useTitle(`问卷统计 - ${title}`)
-
-  // loading 效果
-  const LoadingELem = (
-    <div style={{ textAlign: 'center', marginTop: '60px' }}>
-      <Spin />
-    </div>
-  )
 
   // Content Elem
   function genContentElem() {
@@ -40,8 +27,8 @@ const Stat: FC = () => {
             status="warning"
             title="该页面尚未发布"
             extra={
-              <Button type="primary" onClick={() => nav(-1)}>
-                返回
+              <Button type="primary" onClick={() => nav('/manage/list')}>
+                列表
               </Button>
             }
           ></Result>
@@ -52,25 +39,16 @@ const Stat: FC = () => {
     return (
       <>
         <div className={styles.left}>
-          <ComponentList
-            selectedComponentId={selectedComponentId}
-            setSelectedComponentId={setSelectedComponentId}
-            setSelectedComponentType={setSelectedComponentType}
-          />
+          <NavLink to={`overview`} className={styles.link}>
+            <DashboardOutlined className={styles.icon} />
+            <p className={styles.label}>数据概览</p>
+          </NavLink>
+          <NavLink to={`details`} className={styles.link}>
+            <ProfileOutlined className={styles.icon} />
+            <p className={styles.label}>数据详情</p>
+          </NavLink>
         </div>
-        <div className={styles.main}>
-          <PageStat
-            selectedComponentId={selectedComponentId}
-            setSelectedComponentId={setSelectedComponentId}
-            setSelectedComponentType={setSelectedComponentType}
-          />
-        </div>
-        <div className={styles.right}>
-          <ChartStat
-            selectedComponentId={selectedComponentId}
-            selectedComponentType={selectedComponentType}
-          />
-        </div>
+        <Outlet />
       </>
     )
   }
@@ -79,8 +57,13 @@ const Stat: FC = () => {
     <div className={styles.container}>
       <StatHeader />
       <div className={styles['content-wrapper']}>
-        {loading && LoadingELem}
-        {!loading && <div className={styles.content}>{genContentElem()}</div>}
+        {loading ? (
+          <div style={{ textAlign: 'center', marginTop: '60px' }}>
+            <Spin />
+          </div>
+        ) : (
+          <div className={styles.content}>{genContentElem()}</div>
+        )}
       </div>
     </div>
   )

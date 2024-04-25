@@ -14,6 +14,7 @@ root.render(
       theme={{
         token: {
           colorPrimary: 'rgb(93 93 255)',
+          colorLink: 'rgb(93 93 255)',
         },
         components: {
           Segmented: {

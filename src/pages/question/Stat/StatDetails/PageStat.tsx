@@ -2,9 +2,9 @@ import React, { FC, useState } from 'react'
 import { Typography, Spin, Table, Pagination } from 'antd'
 import { useRequest } from 'ahooks'
 import { useParams } from 'react-router-dom'
-import { getQuestionStatListService } from '../../../services/stat'
-import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-import { STAT_PAGE_SIZE } from '../../../constant'
+import { getQuestionStatListService } from '../../../../services/stat'
+import useGetComponentInfo from '../../../../hooks/useGetComponentInfo'
+import { STAT_PAGE_SIZE } from '../../../../constant'
 
 const { Title } = Typography
 
