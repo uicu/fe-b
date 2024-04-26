@@ -1,11 +1,11 @@
 import React, { FC, useRef, useMemo } from 'react'
-import { Space, Button, Typography, Input, Tooltip, message, Popover } from 'antd'
+import { Space, Button, Input, Tooltip, message, Popover, Typography } from 'antd'
 import type { InputRef } from 'antd'
-import { LeftOutlined, CopyOutlined, QrcodeOutlined } from '@ant-design/icons'
+import { CopyOutlined, QrcodeOutlined } from '@ant-design/icons'
 import { useNavigate, useParams } from 'react-router-dom'
 import QRCode from 'qrcode.react'
+// import MobileMenu from './MobileMenu'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
-import styles from './StatHeader.module.scss'
 
 const { Title } = Typography
 
@@ -42,7 +42,7 @@ const StatHeader: FC = () => {
 
     return (
       <Space>
-        <Input value={url} style={{ width: '300px' }} ref={urlInputRef} />
+        <Input value={url} style={{ width: '200px' }} ref={urlInputRef} />
         <Tooltip title="拷贝链接">
           <Button icon={<CopyOutlined />} onClick={copy}></Button>
         </Tooltip>
@@ -54,24 +54,22 @@ const StatHeader: FC = () => {
   }, [id, isPublished])
 
   return (
-    <div className={styles['header-wrapper']}>
-      <div className={styles.header}>
-        <div className={styles.left}>
+    <header className="absolute w-full z-30">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-20">
+          <h4 className="text-lg m-0">{title}</h4>
+
+          {LinkAndQRCodeElem}
+
           <Space>
-            <Button type="link" icon={<LeftOutlined />} onClick={() => nav('/manage/list')}>
-              列表
+            <Button onClick={() => nav('/manage/list')}>我的问卷</Button>
+            <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>
+              编辑
             </Button>
-            <Title>{title}</Title>
           </Space>
         </div>
-        <div className={styles.main}>{LinkAndQRCodeElem}</div>
-        <div className={styles.right}>
-          <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>
-            编辑问卷
-          </Button>
-        </div>
       </div>
-    </div>
+    </header>
   )
 }
 
