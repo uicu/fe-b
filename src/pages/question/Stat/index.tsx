@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Outlet, useNavigate, NavLink, useLocation, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { DashboardOutlined, ProfileOutlined } from '@ant-design/icons'
 import { Spin, Result, Button, Segmented } from 'antd'
 import { useTitle } from 'ahooks'

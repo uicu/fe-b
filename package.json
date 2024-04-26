@@ -89,6 +89,9 @@
   "dependencies": {
     "@ant-design/icons": "^5.1.2",
     "@ant-design/plots": "^2.2.1",
+    "@antv/l7": "^2.21.7",
+    "@antv/l7-maps": "^2.21.7",
+    "@antv/larkmap": "^1.4.16",
     "@dnd-kit/sortable": "^7.0.2",
     "@headlessui/react": "^1.7.17",
     "@logicflow/core": "^1.2.18",

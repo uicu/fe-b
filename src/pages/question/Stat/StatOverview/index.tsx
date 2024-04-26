@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Card, Col, Row } from 'antd'
 import TrendLine from './components/TrendLine'
+import StatMap from './components/StatMap'
 
 const StatOverview: FC = () => {
   return (
@@ -15,15 +16,10 @@ const StatOverview: FC = () => {
         sm={{ flex: '100%' }}
         md={{ flex: '50%' }}
         lg={{ flex: '33.33%' }}
-        xl={{ flex: '25%' }}
+        xl={{ flex: '33.33%' }}
       >
-        <Card title="Card title" bordered={false}>
-          <p>Card content</p>
-          <p>Card content</p>
-          <p>Card content</p>
-          <p>Card content</p>
-          <p>Card content</p>
-          <p>Card content</p>
+        <Card title="地域位置" bordered={false}>
+          <StatMap />
         </Card>
       </Col>
       <Col
@@ -31,9 +27,9 @@ const StatOverview: FC = () => {
         sm={{ flex: '100%' }}
         md={{ flex: '50%' }}
         lg={{ flex: '33.33%' }}
-        xl={{ flex: '25%' }}
+        xl={{ flex: '33.33%' }}
       >
-        <Card title="Card title" bordered={false}>
+        <Card title="常用设备" bordered={false}>
           Card content
         </Card>
       </Col>
@@ -42,9 +38,9 @@ const StatOverview: FC = () => {
         sm={{ flex: '100%' }}
         md={{ flex: '50%' }}
         lg={{ flex: '33.33%' }}
-        xl={{ flex: '25%' }}
+        xl={{ flex: '33.33%' }}
       >
-        <Card title="Card title" bordered={false}>
+        <Card title="常用系统" bordered={false}>
           Card content
         </Card>
       </Col>
@@ -53,9 +49,9 @@ const StatOverview: FC = () => {
         sm={{ flex: '100%' }}
         md={{ flex: '50%' }}
         lg={{ flex: '33.33%' }}
-        xl={{ flex: '25%' }}
+        xl={{ flex: '33.33%' }}
       >
-        <Card title="Card title" bordered={false}>
+        <Card title="渠道来源" bordered={false}>
           Card content
         </Card>
       </Col>
