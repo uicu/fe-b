@@ -2,7 +2,7 @@ import React, { FC, useState, ChangeEvent } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Button, Space, Input, message, Popconfirm } from 'antd'
-import { LeftOutlined, EditOutlined, LoadingOutlined } from '@ant-design/icons'
+import { LeftOutlined, EditOutlined, LoadingOutlined, SaveOutlined } from '@ant-design/icons'
 import { useRequest, useKeyPress, useDebounceEffect } from 'ahooks'
 import EditToolbar from './EditToolbar'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
@@ -82,7 +82,11 @@ const SaveButton: FC = () => {
   )
 
   return (
-    <Button onClick={save} disabled={loading} icon={loading ? <LoadingOutlined /> : null}>
+    <Button
+      onClick={save}
+      disabled={loading}
+      icon={loading ? <LoadingOutlined /> : <SaveOutlined />}
+    >
       保存
     </Button>
   )
