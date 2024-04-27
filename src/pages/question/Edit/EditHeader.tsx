@@ -1,7 +1,7 @@
 import React, { FC, useState, ChangeEvent } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Button, Typography, Space, Input, message, Popconfirm } from 'antd'
+import { Button, Space, Input, message, Popconfirm } from 'antd'
 import { LeftOutlined, EditOutlined, LoadingOutlined } from '@ant-design/icons'
 import { useRequest, useKeyPress, useDebounceEffect } from 'ahooks'
 import EditToolbar from './EditToolbar'
@@ -9,9 +9,6 @@ import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import { changePageTitle } from '../../../store/pageInfoReducer'
 import { updateQuestionService, publishQuestionService } from '../../../services/question'
-import styles from './EditHeader.module.scss'
-
-const { Title } = Typography
 
 // 显示和修改标题
 const TitleElem: FC = () => {
@@ -39,8 +36,13 @@ const TitleElem: FC = () => {
 
   return (
     <Space>
-      <Title>{title}</Title>
-      <Button icon={<EditOutlined />} type="text" onClick={() => SetEditState(true)} />
+      <h4 className="text-lg m-0">{title}</h4>
+      <Button
+        className="hidden md:block"
+        icon={<EditOutlined />}
+        type="text"
+        onClick={() => SetEditState(true)}
+      />
     </Space>
   )
 }
@@ -129,27 +131,27 @@ const EditHeader: FC = () => {
   const nav = useNavigate()
 
   return (
-    <div className={styles['header-wrapper']}>
-      <div className={styles.header}>
-        <div className={styles.left}>
+    <header className="absolute w-full z-30">
+      <div className="mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-20">
           <Space>
             <Button type="link" icon={<LeftOutlined />} onClick={() => nav('/manage/list')}>
               列表
             </Button>
             <TitleElem />
           </Space>
-        </div>
-        <div className={styles.main}>
-          <EditToolbar />
-        </div>
-        <div className={styles.right}>
+
+          <div className="hidden lg:block">
+            <EditToolbar />
+          </div>
+
           <Space>
             <SaveButton />
             <PublishButton />
           </Space>
         </div>
       </div>
-    </div>
+    </header>
   )
 }
 

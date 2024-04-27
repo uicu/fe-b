@@ -13,14 +13,12 @@ import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
 import Star from '../pages/manage/Star'
-import StatOverview from '../pages/question/Stat/StatOverview'
-import StatDetails from '../pages/question/Stat/StatDetails'
 import Demo from '../pages/demo'
-
 // 路由懒加载，拆分 bundle ，优化首页体积
 const Edit = lazy(() => import(/* webpackChunkName: "editPage" */ '../pages/question/Edit'))
-
 const Stat = lazy(() => import(/* webpackChunkName: "statPage" */ '../pages/question/Stat'))
+import StatOverview from '../pages/question/Stat/StatOverview'
+import StatDetails from '../pages/question/Stat/StatDetails'
 
 const router = createBrowserRouter([
   {

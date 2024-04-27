@@ -37,6 +37,7 @@ const Edit: FC = () => {
   const containerClassName = classNames({
     [containerDefaultClassName]: true,
     [editorSelectedClassName]: !!editorSelectedId,
+    'bg-gray-50': true,
   })
 
   return (
@@ -44,20 +45,31 @@ const Edit: FC = () => {
       <div className={styles.head}>
         <EditHeader />
       </div>
-      <div className={styles['content-wrapper']}>
-        <div className={styles.content}>
-          <div className={styles.left}>
+      <div className="bg-white h-20">{/* 导航样式 */}</div>
+      <div className="flex-auto py-4 px-4 sm:px-6">
+        {/* pc端 */}
+        <div className="h-full relative">
+          <div className={classNames({ [styles.left]: true, 'hidden lg:block': true })}>
             <LeftPanel />
           </div>
           <div className={styles.main}>
-            <div className={styles['canvas-tool']}>
+            <div className="px-0 pb-3 lg:px-80">
               <CanvasTool />
             </div>
-            <div className={styles['canvas-wrapper']} onClick={clearSelectedId}>
+            <div
+              className="px-0 lg:px-80 overflow-y-auto overflow-x-hidden"
+              style={{ height: 'calc(100% - 60px)' }}
+              onClick={clearSelectedId}
+            >
               <EditCanvas loading={loading} />
             </div>
           </div>
-          <div className={styles.right}>
+          <div
+            className={classNames({
+              [styles.right]: true,
+              'hidden lg:block': true,
+            })}
+          >
             <RightPanel />
           </div>
         </div>

@@ -94,6 +94,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
               [wrapperDefaultClassName]: true,
               [selectedClassName]: fe_id === selectedId,
               [lockedClassName]: isLocked,
+              'py-3 px-6 lg:px-14': true,
             })
 
             return (
@@ -103,9 +104,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
                   id={`component-key-${fe_id}`}
                   onClick={e => handleClick(e, fe_id)}
                 >
-                  <div className={styles.component} data-no-drag="true">
-                    {genComponent(c)}
-                  </div>
+                  <div data-no-drag="true">{genComponent(c)}</div>
                 </div>
               </SortableItem>
             )
