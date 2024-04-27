@@ -1,13 +1,10 @@
 import React, { FC, useRef, useMemo } from 'react'
-import { Space, Button, Input, Tooltip, message, Popover, Typography } from 'antd'
+import { Space, Button, Input, Tooltip, message, Popover } from 'antd'
 import type { InputRef } from 'antd'
 import { CopyOutlined, QrcodeOutlined } from '@ant-design/icons'
 import { useNavigate, useParams } from 'react-router-dom'
 import QRCode from 'qrcode.react'
-// import MobileMenu from './MobileMenu'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
-
-const { Title } = Typography
 
 const StatHeader: FC = () => {
   const nav = useNavigate()
@@ -59,7 +56,7 @@ const StatHeader: FC = () => {
         <div className="flex items-center justify-between h-20">
           <h4 className="text-lg m-0">{title}</h4>
 
-          {LinkAndQRCodeElem}
+          <div className="hidden md:block">{LinkAndQRCodeElem}</div>
 
           <Space>
             <Button onClick={() => nav('/manage/list')}>我的问卷</Button>

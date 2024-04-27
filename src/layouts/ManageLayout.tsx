@@ -16,8 +16,9 @@ const ManageLayout: FC = () => {
     <div className="bg-gray-50 min-h-screen">
       <div className="bg-white h-20">{/* 导航样式 */}</div>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="pt-6 pb-3">
+        <div className="pt-6 pb-3 block min-w-[256px] md:inline-block">
           <Segmented
+            block
             options={[
               { label: '我的', value: '/manage/list', icon: <SnippetsOutlined /> },
               { label: '星标', value: '/manage/star', icon: <StarOutlined /> },

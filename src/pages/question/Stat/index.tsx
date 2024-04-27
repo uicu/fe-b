@@ -31,16 +31,21 @@ const Stat: FC = () => {
   function genContentElem() {
     if (typeof isPublished === 'boolean' && !isPublished) {
       return (
-        <div style={{ flex: '1' }}>
-          <Result
-            status="warning"
-            title="该页面尚未发布"
-            extra={
-              <Button type="primary" onClick={() => nav('/manage/list')}>
-                列表
-              </Button>
-            }
-          ></Result>
+        <div className="bg-gray-50 min-h-screen">
+          <div className="bg-white h-20">{/* 导航样式 */}</div>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <div style={{ flex: '1' }}>
+              <Result
+                status="warning"
+                title="该页面尚未发布"
+                extra={
+                  <Button type="primary" onClick={() => nav('/manage/list')}>
+                    列表
+                  </Button>
+                }
+              ></Result>
+            </div>
+          </div>
         </div>
       )
     }
@@ -49,8 +54,9 @@ const Stat: FC = () => {
       <div className="bg-gray-50 min-h-screen">
         <div className="bg-white h-20">{/* 导航样式 */}</div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="pt-6 pb-3">
+          <div className="pt-6 pb-3 block md:inline-block">
             <Segmented
+              block
               options={[
                 {
                   label: '概览',

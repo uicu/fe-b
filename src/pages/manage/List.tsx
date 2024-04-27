@@ -123,7 +123,7 @@ const List: FC = () => {
           <CreateWork />
         </div>
         <Divider dashed className="m-0" />
-        <QueryFilter />
+        {!!list.length && <QueryFilter />}
       </div>
 
       <div className={styles.content}>
