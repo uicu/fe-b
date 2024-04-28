@@ -4,10 +4,32 @@ import moment from 'moment'
 
 const TrendLine: FC = () => {
   const config = {
-    data: {
-      type: 'fetch',
-      value: 'https://render.alipay.com/p/yuyan/180020010001215413/antd-charts/line-slider.json',
-    },
+    data: [
+      {
+        date: '2007-04-23',
+        close: 93.24,
+      },
+      {
+        date: '2007-04-24',
+        close: 95.35,
+      },
+      {
+        date: '2007-04-25',
+        close: 98.84,
+      },
+      {
+        date: '2007-04-26',
+        close: 99.92,
+      },
+      {
+        date: '2007-04-29',
+        close: 99.8,
+      },
+      {
+        date: '2007-05-01',
+        close: 99.47,
+      },
+    ],
     tooltip: {
       items: [{ name: '回收量', channel: 'y' }],
     },

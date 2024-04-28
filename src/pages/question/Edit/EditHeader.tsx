@@ -1,5 +1,5 @@
 import React, { FC, useState, ChangeEvent } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Button, Space, Input, message, Popconfirm } from 'antd'
 import { LeftOutlined, EditOutlined, LoadingOutlined, SaveOutlined } from '@ant-design/icons'
@@ -139,9 +139,10 @@ const EditHeader: FC = () => {
       <div className="mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
           <Space>
-            <Button type="link" icon={<LeftOutlined />} onClick={() => nav('/manage/list')}>
+            <Link to={'/manage/list'}>
+              <LeftOutlined />
               列表
-            </Button>
+            </Link>
             <TitleElem />
           </Space>
 

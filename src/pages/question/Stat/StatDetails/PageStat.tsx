@@ -59,7 +59,7 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
 
   // 构造表格列
   const { componentList } = useGetComponentInfo()
-  const columns = componentList.map((c, index) => {
+  const columns = componentList.map(c => {
     const { fe_id, title, props = {}, type } = c
     const colTitle = props!.title || title
     return {
@@ -91,15 +91,16 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
   })
 
   // 表格数据处理
-  const dataSource = list.map((i: any) => {
-    const answerContent = i.answerContent
-    const { answerList } = answerContent
-    const obj: any = {}
-    answerList.forEach((element: any) => {
-      obj[element.componentId] = element.value
-    })
-    return { ...i, key: i.id, ...obj }
-  })
+  const dataSource = list.map(
+    (i: { id: number; answerContent: Array<{ value: string; componentId: string }> }) => {
+      const { answerContent } = i
+      const obj: Record<string, unknown> = {}
+      answerContent.forEach((element: { value: string; componentId: string }) => {
+        obj[element.componentId] = element.value
+      })
+      return { ...i, key: i.id, ...obj }
+    }
+  )
 
   const TableElem = (
     <>
@@ -128,7 +129,7 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
           fixed: true,
         }}
         columns={columns}
-        dataSource={dataSource}
+        dataSource={dataSource as any}
         pagination={false}
         scroll={{ x: 120 * columns.length }}
       />

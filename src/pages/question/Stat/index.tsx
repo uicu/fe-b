@@ -59,12 +59,12 @@ const Stat: FC = () => {
               block
               options={[
                 {
-                  label: '概览',
+                  label: '数据概览',
                   value: `/question/stat/${id}/overview`,
                   icon: <DashboardOutlined />,
                 },
                 {
-                  label: '详情',
+                  label: '统计详情',
                   value: `/question/stat/${id}/details`,
                   icon: <ProfileOutlined />,
                 },

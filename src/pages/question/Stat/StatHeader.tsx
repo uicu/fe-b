@@ -59,7 +59,7 @@ const StatHeader: FC = () => {
           <div className="hidden md:block">{LinkAndQRCodeElem}</div>
 
           <Space>
-            <Button onClick={() => nav('/manage/list')}>我的问卷</Button>
+            <Button onClick={() => nav('/manage/list')}>列表</Button>
             <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>
               编辑
             </Button>
