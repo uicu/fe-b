@@ -87,7 +87,7 @@ const SaveButton: FC = () => {
       disabled={loading}
       icon={loading ? <LoadingOutlined /> : <SaveOutlined />}
     >
-      保存
+      暂存
     </Button>
   )
 }
@@ -118,13 +118,17 @@ const PublishButton: FC = () => {
     <Popconfirm
       placement="bottomRight"
       title="确定发布该问卷？"
-      description="此操作会将目前的修改推送给正在答题的用户"
+      description={
+        status === 2
+          ? '此操作会将目前的修改推送给正在答题的用户'
+          : '此操作会生成答题链接，可以用于投放'
+      }
       okText="确定"
       cancelText="取消"
       onConfirm={pub}
     >
       <Button type="primary" disabled={loading}>
-        {status === 2 ? '推送修改' : '发布'}
+        {status === 2 ? '更新发布' : '发布'}
       </Button>
     </Popconfirm>
   )
