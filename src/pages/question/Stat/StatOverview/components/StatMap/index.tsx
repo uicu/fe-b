@@ -14,12 +14,14 @@ const StatMap: FC = () => {
       map: new Map({
         style: 'light',
         center: [107.054293, 35.246265],
-        zoom: 1.7,
+        zoom: 1.6,
+        minZoom: 1.6,
+        maxZoom: 3,
       }),
       logoVisible: false,
     })
     scene.on('loaded', () => {
-      fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json')
+      fetch('/geo/100000_full.json')
         .then(res => res.json())
         .then(data => {
           data.features = data.features.map((item: { properties: any }) => {

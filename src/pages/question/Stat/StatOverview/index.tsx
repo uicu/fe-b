@@ -3,6 +3,8 @@ import { Card, Col, Row } from 'antd'
 import TrendLine from './components/TrendLine'
 import StatMap from './components/StatMap'
 import DemoPie from './components/DemoPie'
+import EquipmentPie from './components/EquipmentPie'
+import DevicePie from './components/DevicePie'
 
 const StatOverview: FC = () => {
   return (
@@ -19,12 +21,12 @@ const StatOverview: FC = () => {
       </Col>
       <Col xs={24} sm={24} md={12} lg={8} xl={8}>
         <Card title="常用设备" bordered={false}>
-          <DemoPie />
+          <DevicePie />
         </Card>
       </Col>
       <Col xs={24} sm={24} md={12} lg={8} xl={8}>
         <Card title="常用系统" bordered={false}>
-          <DemoPie />
+          <EquipmentPie />
         </Card>
       </Col>
       <Col xs={24} sm={24} md={12} lg={8} xl={8}>

@@ -19,7 +19,13 @@ const TrendLine: FC = () => {
     {
       refreshDeps: [id],
       onSuccess(res) {
-        setList(res.data)
+        const data = res.data.map((item: { count: string }) => {
+          return {
+            ...item,
+            count: Number(item.count),
+          }
+        })
+        setList(data)
       },
     }
   )

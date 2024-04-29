@@ -17,6 +17,20 @@ export async function getQuestionStatTrendService(questionId: string): Promise<R
   return res.data
 }
 
+//常用系统
+export async function getQuestionStatOsService(questionId: string): Promise<ResDataType> {
+  const url = `/v1/stat/os/${questionId}`
+  const res = (await axios.get(url)) as ResDataType
+  return res.data
+}
+
+//常用系统
+export async function getQuestionStatDeviceService(questionId: string): Promise<ResDataType> {
+  const url = `/v1/stat/device/${questionId}`
+  const res = (await axios.get(url)) as ResDataType
+  return res.data
+}
+
 // 获取组件统计数据汇总
 export async function getComponentStatService(
   questionId: string,
