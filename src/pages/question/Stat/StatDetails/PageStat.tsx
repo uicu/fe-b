@@ -14,9 +14,13 @@ import {
 import { useRequest } from 'ahooks'
 import { useParams } from 'react-router-dom'
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons'
-import { getQuestionStatListService } from '../../../../services/stat'
+import {
+  getQuestionStatAverageTimeService,
+  getQuestionStatListService,
+} from '../../../../services/stat'
 import useGetComponentInfo from '../../../../hooks/useGetComponentInfo'
 import { STAT_PAGE_SIZE } from '../../../../constant'
+import { timeConversion } from '../../../../utils/time'
 const { Text } = Typography
 
 interface DataType {
@@ -37,6 +41,8 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
 
   const { id = '' } = useParams()
 
+  const [averageTime, setAverageTime] = useState('')
+
   const [pageNo, setPageNo] = useState(1)
   const [pageSize, setPageSize] = useState(STAT_PAGE_SIZE)
   const [total, setTotal] = useState(0)
@@ -53,6 +59,20 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
         const { totalCount, answer = [] } = res.data
         setTotal(totalCount)
         setList(answer)
+      },
+    }
+  )
+
+  const { loading: loadingAverageTime } = useRequest(
+    async () => {
+      const res = await getQuestionStatAverageTimeService(id)
+      return res
+    },
+    {
+      refreshDeps: [id, pageNo, pageSize],
+      onSuccess(res) {
+        const { averageDuration } = res.data
+        setAverageTime(timeConversion(Math.floor(Number(averageDuration))))
       },
     }
   )
@@ -111,8 +131,8 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
 
           <Divider type="vertical" />
 
-          <Text type="secondary">浏览量</Text>
-          <Text strong>0</Text>
+          <Text type="secondary">平均完成时间：</Text>
+          {!loadingAverageTime && <Text strong>{averageTime}</Text>}
         </Space>
       </div>
 

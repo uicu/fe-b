@@ -31,6 +31,20 @@ export async function getQuestionStatDeviceService(questionId: string): Promise<
   return res.data
 }
 
+//地域位置
+export async function getQuestionStatLocationService(questionId: string): Promise<ResDataType> {
+  const url = `/v1/stat/location/${questionId}`
+  const res = (await axios.get(url)) as ResDataType
+  return res.data
+}
+
+//平均完成时间
+export async function getQuestionStatAverageTimeService(questionId: string): Promise<ResDataType> {
+  const url = `/v1/stat/average/time/${questionId}`
+  const res = (await axios.get(url)) as ResDataType
+  return res.data
+}
+
 // 获取组件统计数据汇总
 export async function getComponentStatService(
   questionId: string,

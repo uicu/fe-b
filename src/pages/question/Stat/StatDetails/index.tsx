@@ -12,13 +12,6 @@ const StatDetails: FC = () => {
   }
   return (
     <>
-      <Drawer title="图表统计" onClose={onClose} open={!!selectedComponentId} destroyOnClose>
-        <ChartStat
-          selectedComponentId={selectedComponentId}
-          selectedComponentType={selectedComponentType}
-        />
-      </Drawer>
-
       <Row gutter={[16, 24]}>
         <Col span={24}>
           <PageStat
@@ -28,6 +21,12 @@ const StatDetails: FC = () => {
           />
         </Col>
       </Row>
+      <Drawer title="图表统计" onClose={onClose} open={!!selectedComponentId} destroyOnClose>
+        <ChartStat
+          selectedComponentId={selectedComponentId}
+          selectedComponentType={selectedComponentType}
+        />
+      </Drawer>
     </>
   )
 }
