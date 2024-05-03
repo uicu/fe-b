@@ -45,6 +45,15 @@ export async function getQuestionStatAverageTimeService(questionId: string): Pro
   return res.data
 }
 
+// 导出
+export async function exportAnswer(questionId: string): Promise<ArrayBuffer> {
+  const url = `/v1/stat/export/${questionId}`
+  const res = (await axios.get(url, {
+    responseType: 'arraybuffer',
+  })) as { data: ArrayBuffer }
+  return res.data
+}
+
 // 获取组件统计数据汇总
 export async function getComponentStatService(
   questionId: string,

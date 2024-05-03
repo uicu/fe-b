@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Card, Col, Row } from 'antd'
 import TrendLine from './components/TrendLine'
 import StatMap from './components/StatMap'
-import DemoPie from './components/DemoPie'
+// import DemoPie from './components/DemoPie'
 import EquipmentPie from './components/EquipmentPie'
 import DevicePie from './components/DevicePie'
 
@@ -29,11 +29,11 @@ const StatOverview: FC = () => {
           <EquipmentPie />
         </Card>
       </Col>
-      <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+      {/* <Col xs={24} sm={24} md={12} lg={8} xl={8}>
         <Card title="渠道来源" bordered={false}>
           <DemoPie />
         </Card>
-      </Col>
+      </Col> */}
     </Row>
   )
 }

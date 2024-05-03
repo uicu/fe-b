@@ -17,10 +17,12 @@ import { SyncOutlined, DeleteOutlined } from '@ant-design/icons'
 import {
   getQuestionStatAverageTimeService,
   getQuestionStatListService,
+  exportAnswer,
 } from '../../../../services/stat'
 import useGetComponentInfo from '../../../../hooks/useGetComponentInfo'
 import { STAT_PAGE_SIZE } from '../../../../constant'
 import { timeConversion } from '../../../../utils/time'
+import useGetPageInfo from '../../../../hooks/useGetPageInfo'
 const { Text } = Typography
 
 interface DataType {
@@ -48,7 +50,8 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
   const [total, setTotal] = useState(0)
   const [list, setList] = useState([])
 
-  const { loading } = useRequest(
+  // 加载列表
+  const { loading, run: runGetQuestionStatListService } = useRequest(
     async () => {
       const res = await getQuestionStatListService(id, { pageNo, pageSize })
       return res
@@ -63,19 +66,50 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
     }
   )
 
-  const { loading: loadingAverageTime } = useRequest(
+  // 加载平均完成时间
+  const { loading: loadingAverageTime, run: runGetQuestionStatAverageTimeService } = useRequest(
     async () => {
       const res = await getQuestionStatAverageTimeService(id)
       return res
     },
     {
-      refreshDeps: [id, pageNo, pageSize],
+      refreshDeps: [id],
       onSuccess(res) {
         const { averageDuration } = res.data
         setAverageTime(timeConversion(Math.floor(Number(averageDuration))))
       },
     }
   )
+
+  // 导出答案
+  const { title } = useGetPageInfo()
+  const { run: handelExportAnswer } = useRequest(
+    async () => {
+      const data = await exportAnswer(id)
+      return data
+    },
+    {
+      manual: true,
+      onSuccess(result) {
+        const url = window.URL.createObjectURL(new Blob([result], { type: 'text/csv' }))
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `${title}-${new Date().getTime()}.csv`
+        a.click()
+        window.URL.revokeObjectURL(url)
+      },
+    }
+  )
+
+  // 刷新
+  const handelRefresh = () => {
+    if (pageNo !== 1) {
+      setPageNo(1)
+    } else {
+      runGetQuestionStatListService()
+    }
+    runGetQuestionStatAverageTimeService()
+  }
 
   // 构造表格列
   const { componentList } = useGetComponentInfo()
@@ -122,6 +156,18 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
     }
   )
 
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    console.log('selectedRowKeys changed: ', newSelectedRowKeys)
+    setSelectedRowKeys(newSelectedRowKeys)
+  }
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  }
+  const hasSelected = selectedRowKeys.length > 0
+
   const TableElem = (
     <>
       <div className="py-4">
@@ -139,13 +185,7 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
       <Table
         rowSelection={{
           type: 'checkbox',
-          onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
-          },
-          getCheckboxProps: (record: DataType) => ({
-            disabled: record.name === 'Disabled User', // Column configuration not to be checked
-            name: record.name,
-          }),
+          ...rowSelection,
           fixed: true,
         }}
         columns={columns}
@@ -174,10 +214,17 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
       title="数据详情"
       extra={
         <Flex gap="small" wrap="wrap">
-          <Button icon={<SyncOutlined />} />
-          <Button icon={<DeleteOutlined />} />
+          <Button icon={<SyncOutlined />} onClick={handelRefresh} />
+          <Button icon={<DeleteOutlined />} disabled={!hasSelected} />
           <Button>导入</Button>
-          <Button type="primary">导出</Button>
+          <Button
+            type="primary"
+            onClick={() => {
+              handelExportAnswer()
+            }}
+          >
+            导出
+          </Button>
         </Flex>
       }
       bordered={false}
