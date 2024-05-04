@@ -46,9 +46,15 @@ export async function getQuestionStatAverageTimeService(questionId: string): Pro
 }
 
 // 导出
-export async function exportAnswer(questionId: string): Promise<ArrayBuffer> {
+export async function exportAnswerOrTemplate(
+  questionId: string,
+  type: 'answer' | 'template'
+): Promise<ArrayBuffer> {
   const url = `/v1/stat/export/${questionId}`
   const res = (await axios.get(url, {
+    params: {
+      type,
+    },
     responseType: 'arraybuffer',
   })) as { data: ArrayBuffer }
   return res.data

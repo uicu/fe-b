@@ -14,23 +14,16 @@ import {
 import { useRequest } from 'ahooks'
 import { useParams } from 'react-router-dom'
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons'
+import Import from './Import'
+import Export from './Export'
 import {
   getQuestionStatAverageTimeService,
   getQuestionStatListService,
-  exportAnswer,
 } from '../../../../services/stat'
 import useGetComponentInfo from '../../../../hooks/useGetComponentInfo'
 import { STAT_PAGE_SIZE } from '../../../../constant'
 import { timeConversion } from '../../../../utils/time'
-import useGetPageInfo from '../../../../hooks/useGetPageInfo'
 const { Text } = Typography
-
-interface DataType {
-  key: React.Key
-  name: string
-  age: number
-  address: string
-}
 
 type PropsType = {
   selectedComponentId: string
@@ -39,12 +32,9 @@ type PropsType = {
 }
 
 const PageStat: FC<PropsType> = (props: PropsType) => {
-  const { selectedComponentId, setSelectedComponentId, setSelectedComponentType } = props
-
   const { id = '' } = useParams()
-
+  const { selectedComponentId, setSelectedComponentId, setSelectedComponentType } = props
   const [averageTime, setAverageTime] = useState('')
-
   const [pageNo, setPageNo] = useState(1)
   const [pageSize, setPageSize] = useState(STAT_PAGE_SIZE)
   const [total, setTotal] = useState(0)
@@ -77,26 +67,6 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
       onSuccess(res) {
         const { averageDuration } = res.data
         setAverageTime(timeConversion(Math.floor(Number(averageDuration))))
-      },
-    }
-  )
-
-  // 导出答案
-  const { title } = useGetPageInfo()
-  const { run: handelExportAnswer } = useRequest(
-    async () => {
-      const data = await exportAnswer(id)
-      return data
-    },
-    {
-      manual: true,
-      onSuccess(result) {
-        const url = window.URL.createObjectURL(new Blob([result], { type: 'text/csv' }))
-        const a = document.createElement('a')
-        a.href = url
-        a.download = `${title}-${new Date().getTime()}.csv`
-        a.click()
-        window.URL.revokeObjectURL(url)
       },
     }
   )
@@ -156,27 +126,26 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
     }
   )
 
+  // 选择行
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     console.log('selectedRowKeys changed: ', newSelectedRowKeys)
     setSelectedRowKeys(newSelectedRowKeys)
   }
-
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
   }
   const hasSelected = selectedRowKeys.length > 0
 
+  // 表格
   const TableElem = (
     <>
       <div className="py-4">
         <Space direction="horizontal">
           <Text type="secondary">回收量：</Text>
           <Text strong>{total}</Text>
-
           <Divider type="vertical" />
-
           <Text type="secondary">平均完成时间：</Text>
           {!loadingAverageTime && <Text strong>{averageTime}</Text>}
         </Space>
@@ -189,7 +158,7 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
           fixed: true,
         }}
         columns={columns}
-        dataSource={dataSource as any}
+        dataSource={dataSource}
         pagination={false}
         scroll={{ x: 120 * columns.length }}
       />
@@ -216,15 +185,8 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
         <Flex gap="small" wrap="wrap">
           <Button icon={<SyncOutlined />} onClick={handelRefresh} />
           <Button icon={<DeleteOutlined />} disabled={!hasSelected} />
-          <Button>导入</Button>
-          <Button
-            type="primary"
-            onClick={() => {
-              handelExportAnswer()
-            }}
-          >
-            导出
-          </Button>
+          <Import id={id} onUploadDone={handelRefresh} />
+          <Export id={id} />
         </Flex>
       }
       bordered={false}
