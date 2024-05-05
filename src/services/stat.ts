@@ -60,6 +60,13 @@ export async function exportAnswerOrTemplate(
   return res.data
 }
 
+// 批量删除答案
+export async function deleteAnswers(questionId: string, answerIds: number[]): Promise<ResDataType> {
+  const url = `/v1/stat/delete/answers/${questionId}`
+  const res = (await axios.delete(url, { data: { answerIds } })) as ResDataType
+  return res.data
+}
+
 // 获取组件统计数据汇总
 export async function getComponentStatService(
   questionId: string,

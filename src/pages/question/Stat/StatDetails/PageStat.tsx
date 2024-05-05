@@ -13,7 +13,7 @@ import {
 } from 'antd'
 import { useRequest } from 'ahooks'
 import { useParams } from 'react-router-dom'
-import { SyncOutlined, DeleteOutlined } from '@ant-design/icons'
+import { SyncOutlined } from '@ant-design/icons'
 import Import from './Import'
 import Export from './Export'
 import {
@@ -23,6 +23,7 @@ import {
 import useGetComponentInfo from '../../../../hooks/useGetComponentInfo'
 import { STAT_PAGE_SIZE } from '../../../../constant'
 import { timeConversion } from '../../../../utils/time'
+import Delete from './Delete'
 const { Text } = Typography
 
 type PropsType = {
@@ -72,8 +73,8 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
   )
 
   // 刷新
-  const handelRefresh = () => {
-    if (pageNo !== 1) {
+  const handelRefresh = (initPageNo = true) => {
+    if (pageNo !== 1 && initPageNo) {
       setPageNo(1)
     } else {
       runGetQuestionStatListService()
@@ -183,8 +184,18 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
       title="数据详情"
       extra={
         <Flex gap="small" wrap="wrap">
-          <Button icon={<SyncOutlined />} onClick={handelRefresh} />
-          <Button icon={<DeleteOutlined />} disabled={!hasSelected} />
+          <Button
+            icon={<SyncOutlined />}
+            onClick={() => {
+              handelRefresh()
+            }}
+          />
+          <Delete
+            id={id}
+            disabled={!hasSelected}
+            selectedRowKeys={selectedRowKeys}
+            onUploadDone={handelRefresh}
+          />
           <Import id={id} onUploadDone={handelRefresh} />
           <Export id={id} />
         </Flex>

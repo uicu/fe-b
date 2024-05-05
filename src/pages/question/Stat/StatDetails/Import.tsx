@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { Dropdown, Modal, Upload, message } from 'antd'
-import type { MenuProps, UploadProps } from 'antd'
+import type { MenuProps, UploadProps, GetProp } from 'antd'
 import { ContainerOutlined, InboxOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { exportAnswerOrTemplate } from '../../../../services/stat'
@@ -13,6 +13,7 @@ type PropsType = {
   id: string
   onUploadDone: () => void
 }
+type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0]
 
 const Import: FC<PropsType> = (props: PropsType) => {
   const { id, onUploadDone } = props
@@ -29,6 +30,19 @@ const Import: FC<PropsType> = (props: PropsType) => {
     action: `http://localhost:8888/v1/stat/import/${id}`,
     headers: {
       Authorization: `Bearer ${getToken(USER_TOKEN)}`,
+    },
+    beforeUpload: (file: FileType) => {
+      const isCsv = file.type === 'text/csv'
+      if (!isCsv) {
+        messageApi.error('您只能上传 CSV 文件')
+        return false
+      }
+      const isLt2M = file.size / 1024 / 1024 < 5
+      if (!isLt2M) {
+        messageApi.error('CSV必须小于5MB！')
+        return false
+      }
+      return isCsv && isLt2M
     },
     onChange(info) {
       const { status } = info.file
