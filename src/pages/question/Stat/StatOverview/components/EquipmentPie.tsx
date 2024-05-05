@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Pie } from '@ant-design/plots'
 import { useParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
-import { Spin } from 'antd'
+import { Spin, Empty } from 'antd'
 import { getQuestionStatOsService } from '../../../../../services/stat'
 
 const EquipmentPie = () => {
@@ -68,13 +68,21 @@ const EquipmentPie = () => {
   }
   return (
     <>
-      {loading ? (
-        <div style={{ textAlign: 'center' }}>
-          <Spin />
-        </div>
-      ) : (
-        <Pie {...config} />
-      )}
+      {(() => {
+        if (loading) {
+          return (
+            <div style={{ textAlign: 'center' }}>
+              <Spin />
+            </div>
+          )
+        } else {
+          if (list.length) {
+            return <Pie {...config} />
+          } else {
+            return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          }
+        }
+      })()}
     </>
   )
 }

@@ -3,7 +3,7 @@ import { Line } from '@ant-design/plots'
 import moment from 'moment'
 import { useRequest } from 'ahooks'
 import { useParams } from 'react-router-dom'
-import { Spin } from 'antd'
+import { Spin, Empty } from 'antd'
 import { getQuestionStatTrendService } from '../../../../../services/stat'
 
 const TrendLine: FC = () => {
@@ -46,13 +46,21 @@ const TrendLine: FC = () => {
   }
   return (
     <>
-      {loading ? (
-        <div style={{ textAlign: 'center' }}>
-          <Spin />
-        </div>
-      ) : (
-        <Line {...config} />
-      )}
+      {(() => {
+        if (loading) {
+          return (
+            <div style={{ textAlign: 'center' }}>
+              <Spin />
+            </div>
+          )
+        } else {
+          if (list.length) {
+            return <Line {...config} />
+          } else {
+            return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          }
+        }
+      })()}
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React, { FC, useRef, useMemo } from 'react'
 import { Space, Button, Input, Tooltip, message, Popover } from 'antd'
 import type { InputRef } from 'antd'
-import { CopyOutlined, QrcodeOutlined } from '@ant-design/icons'
+import { CopyOutlined, QrcodeOutlined, LeftOutlined } from '@ant-design/icons'
 import { useNavigate, useParams } from 'react-router-dom'
 import QRCode from 'qrcode.react'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
@@ -54,8 +54,13 @@ const StatHeader: FC = () => {
     <header className="absolute w-full z-30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
-          <h4 className="text-lg m-0">{title}</h4>
-
+          <Space>
+            <a onClick={() => nav(-1)}>
+              <LeftOutlined />
+              返回
+            </a>
+            <h4 className="text-lg m-0">{title}</h4>
+          </Space>
           <div className="hidden md:block">{LinkAndQRCodeElem}</div>
 
           <Space>

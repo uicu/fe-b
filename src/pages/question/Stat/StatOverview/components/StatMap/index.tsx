@@ -2,6 +2,7 @@ import React, { FC, useEffect, useRef, useState } from 'react'
 import { LineLayer, PolygonLayer, Popup, Scene, Fullscreen, Zoom } from '@antv/l7'
 import { Map } from '@antv/l7-maps'
 import { useRequest } from 'ahooks'
+import { Empty } from 'antd'
 import { getQuestionStatLocationService } from '../../../../../../services/stat'
 import { useParams } from 'react-router-dom'
 
@@ -119,7 +120,7 @@ const StatMap: FC = () => {
             'rgb(12,44,132)',
           ]
 
-          const coefficient = (color.length - 1) / list[0].count
+          const coefficient = (color.length - 1) / (list[0]?.count || 1)
           const layer = new PolygonLayer({})
             .source(data)
             .scale('density', {
@@ -175,7 +176,15 @@ const StatMap: FC = () => {
     }
   }, [loading, list])
 
-  return <div ref={mapRef} className="h-80 justify-center relative" id="map" />
+  return (
+    <>
+      {list.length ? (
+        <div ref={mapRef} className="h-80 justify-center relative" id="map" />
+      ) : (
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      )}
+    </>
+  )
 }
 
 export default StatMap
