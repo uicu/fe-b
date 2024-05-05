@@ -194,7 +194,10 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
             id={id}
             disabled={!hasSelected}
             selectedRowKeys={selectedRowKeys}
-            onUploadDone={handelRefresh}
+            onDeleteDone={initPageNo => {
+              setSelectedRowKeys([])
+              handelRefresh(initPageNo)
+            }}
           />
           <Import id={id} onUploadDone={handelRefresh} />
           <Export id={id} />

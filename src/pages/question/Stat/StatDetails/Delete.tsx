@@ -8,11 +8,11 @@ type PropsType = {
   id: string
   disabled: boolean
   selectedRowKeys: React.Key[]
-  onUploadDone: (initPageNo: boolean) => void
+  onDeleteDone: (initPageNo: boolean) => void
 }
 
 const Delete: FC<PropsType> = (props: PropsType) => {
-  const { id, disabled, selectedRowKeys, onUploadDone } = props
+  const { id, disabled, selectedRowKeys, onDeleteDone } = props
 
   // 批量删除
   const { loading, run: deleteAnswer } = useRequest(
@@ -23,7 +23,7 @@ const Delete: FC<PropsType> = (props: PropsType) => {
     {
       manual: true,
       onSuccess() {
-        onUploadDone(false)
+        onDeleteDone(false)
       },
     }
   )
