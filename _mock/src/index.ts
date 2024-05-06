@@ -1,9 +1,9 @@
 import test from './test'
-import question from './question'
+import work from './work'
 import user from './user'
 import stat from './stat'
 import answer from './answer'
 
-const mockList = [...test, ...question, ...user, ...stat, ...answer]
+const mockList = [...test, ...work, ...user, ...stat, ...answer]
 
 export default mockList

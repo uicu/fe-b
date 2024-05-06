@@ -3,7 +3,7 @@ import { Button, Modal, message, Form, Space, Input, Select } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { useNavigate } from 'react-router-dom'
-import { createQuestionService } from '../../services/question'
+import { createWorkService } from '../../services/work'
 import useLoadChannelData from '../../hooks/useLoadChannelData'
 
 const { TextArea } = Input
@@ -32,14 +32,14 @@ const CreateWork: FC = () => {
   // 新建问卷
   const { run: onFinish, loading: disabled } = useRequest(
     async (values: { title: string; channelId: number; desc: string }) => {
-      const data = await createQuestionService(values)
+      const data = await createWorkService(values)
       return data
     },
     {
       manual: true,
       onSuccess(result) {
         const { id } = result.data
-        nav(`/question/edit/${id}`)
+        nav(`/work/edit/${id}`)
         messageApi.success('创建成功')
       },
     }

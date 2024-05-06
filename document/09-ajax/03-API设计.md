@@ -27,26 +27,26 @@
 ### 创建问卷
 
 - method `post`
-- path `/api/question`
+- path `/api/work`
 - request body - 无 （点击一个按钮即可创建，title 自动生成）
 - response `{ errno: 0, data: { id } }`
 
 ### 获取单个问卷
 
 - method `get`
-- path `/api/question/:id`
+- path `/api/work/:id`
 - response `{ errno: 0, data: { id, title ... } }`
 
 ### 获取问卷列表
 
 - method `get`
-- path `/api/question`
+- path `/api/work`
 - response: `{ errno: 0, data: { list: [ ... ], total } }`
 
 ### 更新问卷信息
 
 - method `patch`
-- path `/api/question/:id`
+- path `/api/work/:id`
 - request body `{ title, isStar ... }` （之前忘记了，现补上）
 - response: `{ errno: 0 }`
 
@@ -55,14 +55,14 @@ PS：删除是`假删除`，实际是更新 `isDeleted` 属性
 ### 批量彻底删除问卷
 
 - method `delete`
-- path `/api/question`
+- path `/api/work`
 - request body `{ ids: [ ... ] }`
 - response: `{ errno: 0 }`
 
 ### 复制问卷
 
 - method `post`
-- path `/api/question/duplicate/:id`
+- path `/api/work/duplicate/:id`
 - response: `{ errno: 0, data: { id } }`
 
 ## 小结

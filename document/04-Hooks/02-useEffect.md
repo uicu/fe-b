@@ -21,13 +21,13 @@
 
 ## 某些 state 更新时
 
-代码演示：QuestionCard 监听 `isPublished` 的更新
+代码演示：WorkCard 监听 `isPublished` 的更新
 
 ## 组件销毁时
 
 有创建就有销毁，有生就有死
 
-代码演示：增加 `isDeleted` 属性和 `delete` 事件，看 QuestionCard 组件的销毁
+代码演示：增加 `isDeleted` 属性和 `delete` 事件，看 WorkCard 组件的销毁
 
 【重要】如果有定时任务，或者 DOM 事件，组件销毁时一定要解绑
 

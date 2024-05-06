@@ -20,7 +20,7 @@ React apps are made out of components. A component is a piece of the UI (user in
 
 ## 实战：List 页面抽离组件
 
-代码参考 react-ts-demo 中 `components/QuestionCard1.tsx`
+代码参考 react-ts-demo 中 `components/WorkCard1.tsx`
 
 - props 类型
 - TS 泛型

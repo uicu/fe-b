@@ -7,7 +7,7 @@ function getComponentList() {
     // Info
     {
       fe_id: 'c1', // 注意，由于统计页，左侧和中间需要数据完全一直，所以要写死 fe_id ，不能用 Random.id()
-      type: 'questionInfo', // 组件类型，不能重复，前后端统一好
+      type: 'workInfo', // 组件类型，不能重复，前后端统一好
       title: '问卷信息',
       page: 1,
       isHidden: false,
@@ -17,7 +17,7 @@ function getComponentList() {
     // Title
     {
       fe_id: 'c2',
-      type: 'questionTitle', // 组件类型，不能重复，前后端统一好
+      type: 'workTitle', // 组件类型，不能重复，前后端统一好
       title: '标题',
       page: 1,
       isHidden: false,
@@ -27,7 +27,7 @@ function getComponentList() {
     // Input
     {
       fe_id: 'c3',
-      type: 'questionInput',
+      type: 'workInput',
       title: '输入框1',
       page: 1,
       isHidden: false,
@@ -37,7 +37,7 @@ function getComponentList() {
     // Input
     {
       fe_id: 'c4',
-      type: 'questionInput',
+      type: 'workInput',
       title: '输入框2',
       page: 1,
       isHidden: false,
@@ -47,7 +47,7 @@ function getComponentList() {
     // Textarea
     {
       fe_id: 'c5',
-      type: 'questionTextarea',
+      type: 'workTextarea',
       title: '多行输入',
       page: 1,
       isHidden: false,
@@ -57,7 +57,7 @@ function getComponentList() {
     // Paragraph
     {
       fe_id: 'c6',
-      type: 'questionParagraph',
+      type: 'workParagraph',
       title: '段落',
       page: 1,
       isHidden: false,
@@ -70,7 +70,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c7',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 1,
       isHidden: false,
@@ -89,7 +89,7 @@ function getComponentList() {
     // Checkbox
     {
       fe_id: 'c8',
-      type: 'questionCheckbox',
+      type: 'workCheckbox',
       title: '多选',
       page: 1,
       isHidden: false,
@@ -107,7 +107,7 @@ function getComponentList() {
     // Textarea
     {
       fe_id: 'c9',
-      type: 'questionTextarea',
+      type: 'workTextarea',
       title: '多行输入',
       page: 2,
       isHidden: false,
@@ -117,7 +117,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c10',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -136,7 +136,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c11',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -155,7 +155,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c12',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -174,7 +174,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c13',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -193,7 +193,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c14',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -212,7 +212,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c15',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -231,7 +231,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c16',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -250,7 +250,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c17',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -269,7 +269,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c18',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -288,7 +288,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c19',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -307,7 +307,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c20',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -326,7 +326,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c21',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -345,7 +345,7 @@ function getComponentList() {
     // Radio
     {
       fe_id: 'c22',
-      type: 'questionRadio',
+      type: 'workRadio',
       title: '单选',
       page: 2,
       isHidden: false,
@@ -364,7 +364,7 @@ function getComponentList() {
     // Input
     {
       fe_id: 'c23',
-      type: 'questionInput',
+      type: 'workInput',
       title: '输入框1',
       page: 3,
       isHidden: false,
@@ -373,7 +373,7 @@ function getComponentList() {
     },
     {
       fe_id: 'last',
-      type: 'questionInfo', // 组件类型，不能重复，前后端统一好
+      type: 'workInfo', // 组件类型，不能重复，前后端统一好
       title: '最后一页',
       page: -1,
       isHidden: false,

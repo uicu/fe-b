@@ -18,9 +18,9 @@ PS：期间会咨询是否使用 eslint 插件，选择否。因为我们已经�
 
 ## 代码演示
 
-新建 `stories/question` 目录，在这里新建组件
+新建 `stories/work` 目录，在这里新建组件
 
-- QuestionInfo.stories.tsx
-- QuestionTitle.stories.tsx
-- QuestionParagraph.stories.tsx
-- QuestionInput.stories.tsx
+- WorkInfo.stories.tsx
+- WorkTitle.stories.tsx
+- WorkParagraph.stories.tsx
+- WorkInput.stories.tsx

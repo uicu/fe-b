@@ -3,7 +3,7 @@ import getStatList from './data/getStatList'
 export default [
   // 答卷列表
   {
-    url: '/api/stat/:questionId',
+    url: '/api/stat/:workId',
     method: 'get',
     response() {
       return {
@@ -17,7 +17,7 @@ export default [
   },
   // 获取单个组件的统计数据汇总
   {
-    url: '/api/stat/:questionId/:componentId',
+    url: '/api/stat/:workId/:componentId',
     method: 'get',
     response() {
       return {

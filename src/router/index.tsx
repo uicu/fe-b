@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import MainLayout from '../layouts/MainLayout'
 import ManageLayout from '../layouts/ManageLayout'
-import QuestionLayout from '../layouts/QuestionLayout'
+import WorkLayout from '../layouts/WorkLayout'
 import Home from '../pages/home'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
@@ -15,10 +15,10 @@ import Trash from '../pages/manage/Trash'
 import Star from '../pages/manage/Star'
 import Demo from '../pages/demo'
 // 路由懒加载，拆分 bundle ，优化首页体积
-const Edit = lazy(() => import(/* webpackChunkName: "editPage" */ '../pages/question/Edit'))
-const Stat = lazy(() => import(/* webpackChunkName: "statPage" */ '../pages/question/Stat'))
-import StatOverview from '../pages/question/Stat/StatOverview'
-import StatDetails from '../pages/question/Stat/StatDetails'
+const Edit = lazy(() => import(/* webpackChunkName: "editPage" */ '../pages/work/Edit'))
+const Stat = lazy(() => import(/* webpackChunkName: "statPage" */ '../pages/work/Stat'))
+import StatOverview from '../pages/work/Stat/StatOverview'
+import StatDetails from '../pages/work/Stat/StatDetails'
 
 const router = createBrowserRouter([
   {
@@ -67,8 +67,8 @@ const router = createBrowserRouter([
   },
 
   {
-    path: 'question',
-    element: <QuestionLayout />,
+    path: 'work',
+    element: <WorkLayout />,
     children: [
       {
         path: 'edit/:id',

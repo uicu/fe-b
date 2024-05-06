@@ -1,0 +1,30 @@
+// import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useRequest } from 'ahooks'
+import { getWorkService } from '../services/work'
+
+function useLoadWorkData() {
+  const { id = '' } = useParams()
+
+  // const [loading, setLoading] = useState(true)
+  // const [workData, setWorkData] = useState({})
+  // useEffect(() => {
+  //   async function fn() {
+  //     const data = await getWorkService(id)
+  //     setWorkData(data)
+  //     setLoading(false)
+  //   }
+  //   fn()
+  // }, [])
+  // return { loading, workData }
+
+  async function load() {
+    const data = await getWorkService(id)
+    return data
+  }
+  const { loading, data, error } = useRequest(load)
+
+  return { loading, data, error }
+}
+
+export default useLoadWorkData

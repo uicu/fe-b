@@ -22,6 +22,6 @@
 - 保存 token
 - 给 src/services/ajax.ts 增加 request 拦截器
 
-获取用户信息 MainLayout QuestionLayout（两者平等） —— 抽离 hooks/userLoadUserData.ts
+获取用户信息 MainLayout WorkLayout（两者平等） —— 抽离 hooks/userLoadUserData.ts
 
 退出（ UserInfo 组件）—— 删除 token

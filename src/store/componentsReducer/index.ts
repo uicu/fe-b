@@ -3,7 +3,7 @@ import produce from 'immer'
 import cloneDeep from 'lodash.clonedeep'
 import { nanoid } from 'nanoid'
 import { arrayMove } from '@dnd-kit/sortable'
-import { ComponentPropsType } from '../../components/QuestionComponents'
+import { ComponentPropsType } from '../../components/WorkComponents'
 import { getNextSelectedId, insertNewComponent } from './utils'
 
 export type ComponentInfoType = {

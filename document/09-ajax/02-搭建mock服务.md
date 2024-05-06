@@ -37,7 +37,7 @@ Mock.js 的强大之处：
 
 ## nodejs 搭建 Mock 服务
 
-代码参考 question-mock
+代码参考 work-mock
 
 - 刻意延迟 1s ，模拟真实效果
 - 使用 Mock.js 的 `Random` 功能

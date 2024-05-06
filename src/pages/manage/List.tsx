@@ -2,8 +2,8 @@ import React, { FC, useEffect, useState, useRef, useMemo } from 'react'
 import { Typography, Spin, Empty, Col, Row, Divider } from 'antd'
 import { useTitle, useDebounceFn, useRequest } from 'ahooks'
 import { useSearchParams } from 'react-router-dom'
-import { getQuestionListService } from '../../services/question'
-import QuestionCard from '../../components/QuestionCard'
+import { getWorkListService } from '../../services/work'
+import WorkCard from '../../components/WorkCard'
 import QueryFilter from '../../components/QueryFilter'
 import {
   LIST_PAGE_SIZE,
@@ -48,7 +48,7 @@ const List: FC = () => {
   // 真正加载
   const { run: load, loading } = useRequest(
     async () => {
-      const data = await getQuestionListService({
+      const data = await getWorkListService({
         pageNo,
         pageSize: LIST_PAGE_SIZE,
         title,
@@ -148,7 +148,7 @@ const List: FC = () => {
                     md={{ flex: '33.33%' }}
                     lg={{ flex: '25%' }}
                   >
-                    <QuestionCard key={id} {...item} />
+                    <WorkCard key={id} {...item} />
                   </Col>
                 )
               }

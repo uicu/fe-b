@@ -187,7 +187,7 @@ function useChangeComponentInfo() {
     const currentComponent = [
       {
         fe_id: nanoid(), // 前端生成的 id
-        type: 'questionInput', // 要和后端统一好
+        type: 'workInput', // 要和后端统一好
         title: '单行输入',
         page: currentPage + 1,
         isHidden: false,

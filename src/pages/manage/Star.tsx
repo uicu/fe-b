@@ -1,17 +1,17 @@
 import React, { FC } from 'react'
 import { useTitle } from 'ahooks'
 import { Typography, Empty, Spin, Row, Col } from 'antd'
-import QuestionCard from '../../components/QuestionCard'
+import WorkCard from '../../components/WorkCard'
 import ListSearch from '../../components/ListSearch'
 import ListPage from '../../components/ListPage'
-import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
+import useLoadWorkListData from '../../hooks/useLoadWorkListData'
 import styles from './common.module.scss'
 
 const { Title } = Typography
 
 const Star: FC = () => {
   useTitle('星标问卷')
-  const { data = {}, loading } = useLoadQuestionListData({ isStar: true })
+  const { data = {}, loading } = useLoadWorkListData({ isStar: true })
   const { works: list = [], totalCount: total = 0 } = data
   return (
     <>
@@ -52,7 +52,7 @@ const Star: FC = () => {
                     md={{ flex: '33.33%' }}
                     lg={{ flex: '25%' }}
                   >
-                    <QuestionCard key={id} {...item} />
+                    <WorkCard key={id} {...item} />
                   </Col>
                 )
               }

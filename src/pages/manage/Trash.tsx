@@ -5,8 +5,8 @@ import { ExclamationCircleOutlined, UndoOutlined, DeleteOutlined } from '@ant-de
 import { useRequest } from 'ahooks'
 import ListSearch from '../../components/ListSearch'
 import ListPage from '../../components/ListPage'
-import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
-import { updateQuestionService, deleteQuestionsService } from '../../services/question'
+import useLoadWorkListData from '../../hooks/useLoadWorkListData'
+import { updateWorkService, deleteWorkService } from '../../services/work'
 import styles from './common.module.scss'
 
 const { Title } = Typography
@@ -17,13 +17,13 @@ const Trash: FC = () => {
   useTitle('回收站')
   const [messageApi, contextHolder] = message.useMessage()
 
-  const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true })
+  const { data = {}, loading, refresh } = useLoadWorkListData({ isDeleted: true })
   const { works: list = [], totalCount: total = 0 } = data
 
   // 恢复
   const { run: recover } = useRequest(
     async (id: string) => {
-      await updateQuestionService(id, { isDeleted: false })
+      await updateWorkService(id, { isDeleted: false })
     },
     {
       manual: true,
@@ -36,16 +36,13 @@ const Trash: FC = () => {
   )
 
   // 删除
-  const { run: deleteQuestion } = useRequest(
-    async (id: string) => await deleteQuestionsService([id]),
-    {
-      manual: true,
-      onSuccess() {
-        messageApi.success('删除成功')
-        refresh()
-      },
-    }
-  )
+  const { run: deleteWork } = useRequest(async (id: string) => await deleteWorkService([id]), {
+    manual: true,
+    onSuccess() {
+      messageApi.success('删除成功')
+      refresh()
+    },
+  })
 
   function del(id: string) {
     confirm({
@@ -55,7 +52,7 @@ const Trash: FC = () => {
       okText: '确定',
       cancelText: '取消',
       onOk: () => {
-        deleteQuestion(id)
+        deleteWork(id)
       },
     })
   }

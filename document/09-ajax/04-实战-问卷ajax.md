@@ -4,7 +4,7 @@
 
 创建 src/services/ajax.ts ，**先不写 request 拦截器**
 
-创建 src/services/question.ts
+创建 src/services/work.ts
 - 即用即添加 service
 - 即用即增加 mock
 
@@ -12,7 +12,7 @@
 
 创建问卷 ManageLayout.tsx
 
-获取单个问卷 Edit Stat（ 虽先不做，但可先获取数据 ） —— 抽离为 hooks/useLoadQuestionData.ts
+获取单个问卷 Edit Stat（ 虽先不做，但可先获取数据 ） —— 抽离为 hooks/useLoadWorkData.ts
 
 ## 使用 useRequest
 
@@ -24,11 +24,11 @@ https://ahooks.js.org/zh-CN
 
 ## 问卷功能2
 
-获取问卷列表 List Star Trash —— 抽离为 hooks/useLoadQuestionListData.ts
+获取问卷列表 List Star Trash —— 抽离为 hooks/useLoadWorkListData.ts
 
 问卷操作
 - Trash 恢复、彻底删除
-- QuestionCard.tsx 星标、删除、复制
+- WorkCard.tsx 星标、删除、复制
 
 ## 分页和搜索
 
@@ -37,7 +37,7 @@ https://ahooks.js.org/zh-CN
 分页 url 参数 `page` 和 `pageSize`
 
 - Antd 分页组件
-- 修改 hooks/useLoadQuestionListData.ts
+- 修改 hooks/useLoadWorkListData.ts
 
 ## LoadMore
 

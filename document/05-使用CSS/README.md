@@ -19,6 +19,6 @@
 - css-in-js
     - Styled-components
     - Styled-jsx
-- 【实战】为 List 和 QuestionCard 增加样式
+- 【实战】为 List 和 WorkCard 增加样式
 
 ## 注意事项

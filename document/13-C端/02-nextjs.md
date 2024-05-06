@@ -57,7 +57,7 @@ PS：如果就一个普通的 React 组件，也会默认使用这种方式，�
 
 想访问 `/blog/1` 这种动态路由，还需要继续调整。
 
-- 新建 `pages/question/[id].tsx`
+- 新建 `pages/work/[id].tsx`
 - 在 `getServerSideProps` 获取动态参数 `id`
 
 回顾：B 端发布以后的 URL 拼接规则
