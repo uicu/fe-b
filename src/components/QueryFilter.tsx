@@ -35,7 +35,7 @@ const QueryFilter: React.FC = () => {
     form.setFieldsValue({ title, status, quantity, sort, timeSpan, channel })
 
     // 如果折叠的表单下选择了值
-    if (timeSpan || channel) {
+    if (timeSpan || quantity) {
       setExpand(true)
     }
   }, [searchParams])

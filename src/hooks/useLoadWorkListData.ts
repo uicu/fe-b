@@ -10,11 +10,11 @@ import {
 
 type OptionType = {
   isStar: boolean
-  isDeleted: boolean
+  status: number
 }
 
 function useLoadWorkListData(opt: Partial<OptionType> = {}) {
-  const { isStar, isDeleted } = opt
+  const { isStar, status } = opt
   const [searchParams] = useSearchParams()
 
   const { data, loading, error, refresh } = useRequest(
@@ -22,7 +22,7 @@ function useLoadWorkListData(opt: Partial<OptionType> = {}) {
       const title = searchParams.get(LIST_SEARCH_TITLE) || undefined
       const pageNo = parseInt(searchParams.get(LIST_PAGE_PARAM_KEY) || '') || 1
       const pageSize = parseInt(searchParams.get(LIST_PAGE_SIZE_PARAM_KEY) || '') || LIST_PAGE_SIZE
-      const res = await getWorkListService({ title, isStar, isDeleted, pageNo, pageSize })
+      const res = await getWorkListService({ title, isStar, status, pageNo, pageSize })
       return res.data
     },
     {

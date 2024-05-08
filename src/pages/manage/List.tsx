@@ -52,7 +52,7 @@ const List: FC = () => {
         pageNo,
         pageSize: LIST_PAGE_SIZE,
         title,
-        status,
+        status: status ? Number(status) : undefined,
         quantity,
         sort,
         timeSpan,

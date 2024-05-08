@@ -3,11 +3,10 @@ import axios, { ResDataType } from './ajax'
 type SearchOption = {
   keyword: string
   isStar: boolean
-  isDeleted: boolean
   pageNo: number
   pageSize: number
   title?: string
-  status?: string
+  status?: number
   quantity?: string
   sort?: string
   timeSpan?: string

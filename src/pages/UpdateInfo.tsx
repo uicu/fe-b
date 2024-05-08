@@ -106,7 +106,7 @@ const UpdateInfo: FC = () => {
                       })
                     }}
                   />
-                  <p className="text-center w-full"> 姓名: {userInfo.username}</p>
+                  <p className="text-center w-full">{userInfo.username}</p>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3">

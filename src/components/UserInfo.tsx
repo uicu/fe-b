@@ -58,7 +58,11 @@ const UserInfo: FC = () => {
         to={UPDATE_INFO_PATHNAME}
         className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
       >
-        <Avatar src={headPic ? `http://localhost:8888/${headPic}` : <UserOutlined />} />
+        {headPic ? (
+          <Avatar size="small" src={`http://localhost:8888/${headPic}`} />
+        ) : (
+          <Avatar size="small" icon={<UserOutlined />} />
+        )}
         <span className="ml-1">{nickName}</span>
       </Link>
       <button onClick={logout} className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
@@ -104,7 +108,7 @@ const UserInfo: FC = () => {
 
   return (
     <nav className="hidden md:flex md:grow">
-      <div className="justify-end items-center flex-wrap flex grow">
+      <div className="justify-start items-center flex-wrap flex grow">
         <a
           className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
           href="features.html"

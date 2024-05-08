@@ -1,6 +1,5 @@
 import React, { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-
 import DefaultLayout from '../layouts/DefaultLayout'
 import AuthLayout from '../layouts/AuthLayout'
 import ManageLayout from '../layouts/ManageLayout'
@@ -32,26 +31,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
-  {
-    path: 'manage',
-    element: <ManageLayout />,
-    children: [
-      {
-        path: 'list',
-        element: <List />,
-      },
-      {
-        path: 'star',
-        element: <Star />,
-      },
-      {
-        path: 'trash',
-        element: <Trash />,
-      },
-    ],
-  },
-
   {
     path: 'auth',
     element: <AuthLayout />,
@@ -71,6 +50,25 @@ const router = createBrowserRouter([
       {
         path: 'update-info',
         element: <UpdateInfo />,
+      },
+    ],
+  },
+
+  {
+    path: 'manage',
+    element: <ManageLayout />,
+    children: [
+      {
+        path: 'list',
+        element: <List />,
+      },
+      {
+        path: 'star',
+        element: <Star />,
+      },
+      {
+        path: 'trash',
+        element: <Trash />,
       },
     ],
   },

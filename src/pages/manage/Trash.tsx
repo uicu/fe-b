@@ -17,13 +17,13 @@ const Trash: FC = () => {
   useTitle('回收站')
   const [messageApi, contextHolder] = message.useMessage()
 
-  const { data = {}, loading, refresh } = useLoadWorkListData({ isDeleted: true })
+  const { data = {}, loading, refresh } = useLoadWorkListData({ status: 0 })
   const { works: list = [], totalCount: total = 0 } = data
 
   // 恢复
   const { run: recover } = useRequest(
     async (id: string) => {
-      await updateWorkService(id, { isDeleted: false })
+      await updateWorkService(id, { status: 1 })
     },
     {
       manual: true,
