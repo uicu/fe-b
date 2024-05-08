@@ -82,14 +82,14 @@ const UpdateInfo: FC = () => {
   return (
     <>
       {contextHolder}
-      <section className="relative">
+      <section className="bg-gradient-to-b from-gray-100 to-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
               <h1 className="h1 mb-4">个人信息修改</h1>
               <p className="text-xl text-gray-400">
-                在此过程中我们将向您的邮箱发送一封验证个人信息修改的邮件，请注意查收。
+                在此过程中我们将向您的邮箱发送一封验证个人信息修改的邮件，请注意查收
               </p>
             </div>
 
@@ -106,15 +106,15 @@ const UpdateInfo: FC = () => {
                       })
                     }}
                   />
-                  <p className="text-center w-full"> User Name: {userInfo.username}</p>
+                  <p className="text-center w-full"> 姓名: {userInfo.username}</p>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3">
                     <label
-                      className="block text-gray-300 text-sm font-medium mb-1"
+                      className="block text-gray-800 text-sm font-medium mb-1"
                       htmlFor="nickName"
                     >
-                      Nick Name <span className="text-red-600">*</span>
+                      昵称 <span className="text-red-600">*</span>
                     </label>
                     <input
                       value={initData.nickName}
@@ -126,8 +126,8 @@ const UpdateInfo: FC = () => {
                       }
                       id="nickName"
                       type="text"
-                      className="form-input w-full text-gray-300"
-                      placeholder="First and last name"
+                      className="form-input w-full text-gray-800"
+                      placeholder="请输入昵称"
                       required
                     />
                   </div>
@@ -135,8 +135,8 @@ const UpdateInfo: FC = () => {
 
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3">
-                    <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">
-                      Email
+                    <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="email">
+                      电子邮箱
                     </label>
                     <input
                       value={initData.email}
@@ -148,8 +148,8 @@ const UpdateInfo: FC = () => {
                       }
                       id="email"
                       type="email"
-                      className="form-input w-full text-gray-300"
-                      placeholder="you@yourcompany.com"
+                      className="form-input w-full text-gray-800"
+                      placeholder="请输入电子邮箱"
                       required
                       disabled
                     />
@@ -171,7 +171,7 @@ const UpdateInfo: FC = () => {
                   <div className="w-full px-3">
                     <button
                       type="submit"
-                      className="btn text-white bg-purple-600 hover:bg-purple-700 w-full"
+                      className="btn text-white bg-blue-600 hover:bg-blue-700 w-full"
                     >
                       修改
                     </button>

@@ -34,7 +34,7 @@ module.exports = {
       },
       fontFamily: {
         inter: ['var(--font-inter)', 'sans-serif'],
-        'architects-daughter': ['var(--font-architects-daughter)', 'sans-serif'],
+        'architects-daughter': ['var(--font-architects-daughter)', 'sans-serif']
       },
       fontSize: {
         xs: '0.75rem',
@@ -49,7 +49,7 @@ module.exports = {
         '6xl': '4rem',
       },
       inset: {
-        full: '100%',
+        'full': '100%',
       },
       letterSpacing: {
         tighter: '-0.02em',
@@ -63,9 +63,11 @@ module.exports = {
         '10': '2.5rem',
       },
       scale: {
-        '98': '.98',
+        '98': '.98'
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }

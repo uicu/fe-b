@@ -72,7 +72,7 @@ const ResetPassword: FC = () => {
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-              <h1 className="h1 mb-4">忘记密码了吗？</h1>
+              <h1 className="h1 mb-4">忘记密码了吗</h1>
               <p className="text-xl text-gray-400">
                 在此过程中我们将向您的邮箱发送一封验证重置密码的邮件，请注意查收。
               </p>
@@ -84,10 +84,10 @@ const ResetPassword: FC = () => {
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3">
                     <label
-                      className="block text-gray-300 text-sm font-medium mb-1"
+                      className="block text-gray-800 text-sm font-medium mb-1"
                       htmlFor="username"
                     >
-                      Name <span className="text-red-600">*</span>
+                      姓名 <span className="text-red-600">*</span>
                     </label>
                     <input
                       value={initData.username}
@@ -99,8 +99,8 @@ const ResetPassword: FC = () => {
                       }
                       id="username"
                       type="text"
-                      className="form-input w-full text-gray-300"
-                      placeholder="First and last name"
+                      className="form-input w-full text-gray-800"
+                      placeholder="请输入姓名"
                       required
                     />
                   </div>
@@ -108,8 +108,8 @@ const ResetPassword: FC = () => {
 
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3">
-                    <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">
-                      Email
+                    <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="email">
+                      电子邮件
                     </label>
                     <input
                       value={initData.email}
@@ -121,8 +121,8 @@ const ResetPassword: FC = () => {
                       }
                       id="email"
                       type="email"
-                      className="form-input w-full text-gray-300"
-                      placeholder="you@yourcompany.com"
+                      className="form-input w-full text-gray-800"
+                      placeholder="请输入电子邮件"
                       required
                     />
                   </div>
@@ -141,10 +141,10 @@ const ResetPassword: FC = () => {
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3">
                     <label
-                      className="block text-gray-300 text-sm font-medium mb-1"
+                      className="block text-gray-800 text-sm font-medium mb-1"
                       htmlFor="password"
                     >
-                      Password <span className="text-red-600">*</span>
+                      新密码 <span className="text-red-600">*</span>
                     </label>
                     <input
                       value={initData.password}
@@ -156,8 +156,8 @@ const ResetPassword: FC = () => {
                       }
                       id="password"
                       type="password"
-                      className="form-input w-full text-gray-300"
-                      placeholder="Password (at least 10 characters)"
+                      className="form-input w-full text-gray-800"
+                      placeholder="请输入新密码"
                       required
                     />
                   </div>
@@ -166,10 +166,10 @@ const ResetPassword: FC = () => {
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3">
                     <label
-                      className="block text-gray-300 text-sm font-medium mb-1"
+                      className="block text-gray-800 text-sm font-medium mb-1"
                       htmlFor="confirm-password"
                     >
-                      Confirm Password <span className="text-red-600">*</span>
+                      再次输入新密码 <span className="text-red-600">*</span>
                     </label>
                     <input
                       value={initData.confirmPassword}
@@ -181,8 +181,8 @@ const ResetPassword: FC = () => {
                       }
                       id="confirm-password"
                       type="password"
-                      className="form-input w-full text-gray-300"
-                      placeholder="Password (at least 10 characters)"
+                      className="form-input w-full text-gray-800"
+                      placeholder="请再次输入新密码"
                       required
                     />
                   </div>
@@ -192,7 +192,7 @@ const ResetPassword: FC = () => {
                   <div className="w-full px-3">
                     <button
                       type="submit"
-                      className="btn text-white bg-purple-600 hover:bg-purple-700 w-full"
+                      className="btn text-white bg-blue-600 hover:bg-blue-700 w-full"
                     >
                       重设密码
                     </button>
@@ -202,7 +202,7 @@ const ResetPassword: FC = () => {
               <div className="text-gray-400 text-center mt-6">
                 <Link
                   to={LOGIN_PATHNAME}
-                  className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out"
+                  className="text-blue-600 hover:underline transition duration-150 ease-in-out"
                 >
                   取消
                 </Link>

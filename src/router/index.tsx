@@ -1,7 +1,8 @@
 import React, { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
-import MainLayout from '../layouts/MainLayout'
+import DefaultLayout from '../layouts/DefaultLayout'
+import AuthLayout from '../layouts/AuthLayout'
 import ManageLayout from '../layouts/ManageLayout'
 import WorkLayout from '../layouts/WorkLayout'
 import Home from '../pages/home'
@@ -23,12 +24,38 @@ import StatDetails from '../pages/work/Stat/StatDetails'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: <DefaultLayout />,
     children: [
       {
         path: '/',
         element: <Home />,
       },
+    ],
+  },
+
+  {
+    path: 'manage',
+    element: <ManageLayout />,
+    children: [
+      {
+        path: 'list',
+        element: <List />,
+      },
+      {
+        path: 'star',
+        element: <Star />,
+      },
+      {
+        path: 'trash',
+        element: <Trash />,
+      },
+    ],
+  },
+
+  {
+    path: 'auth',
+    element: <AuthLayout />,
+    children: [
       {
         path: 'login',
         element: <Login />,
@@ -44,24 +71,6 @@ const router = createBrowserRouter([
       {
         path: 'update-info',
         element: <UpdateInfo />,
-      },
-      {
-        path: 'manage',
-        element: <ManageLayout />,
-        children: [
-          {
-            path: 'list',
-            element: <List />,
-          },
-          {
-            path: 'star',
-            element: <Star />,
-          },
-          {
-            path: 'trash',
-            element: <Trash />,
-          },
-        ],
       },
     ],
   },
@@ -106,10 +115,10 @@ export default router
 
 // 常用的路由常量
 export const HOME_PATHNAME = '/'
-export const LOGIN_PATHNAME = '/login'
-export const REGISTER_PATHNAME = '/register'
-export const RESET_PASSWORD_PATHNAME = '/reset-password'
-export const UPDATE_INFO_PATHNAME = '/update-info'
+export const LOGIN_PATHNAME = '/auth/login'
+export const REGISTER_PATHNAME = '/auth/register'
+export const RESET_PASSWORD_PATHNAME = '/auth/reset-password'
+export const UPDATE_INFO_PATHNAME = '/auth/update-info'
 export const MANAGE_INDEX_PATHNAME = '/manage/list'
 
 export function isLoginOrRegister(pathname: string) {

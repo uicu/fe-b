@@ -57,7 +57,7 @@ const MobileMenu: FC = () => {
   const UserInfo = (
     <>
       <div>
-        <Link to={UPDATE_INFO_PATHNAME} className="text-white">
+        <Link to={UPDATE_INFO_PATHNAME} className="flex text-gray-600 hover:text-gray-900 py-2">
           <Avatar src={headPic ? `http://localhost:8888/${headPic}` : <UserOutlined />} />
           <span className="ml-1">{nickName}</span>
         </Link>
@@ -65,9 +65,20 @@ const MobileMenu: FC = () => {
       <div>
         <button
           onClick={logout}
-          className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-white bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out"
+          className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2"
         >
           退出
+          <svg
+            className="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1"
+            viewBox="0 0 12 12"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
+              fill="#999"
+              fillRule="nonzero"
+            />
+          </svg>
         </button>
       </div>
     </>
@@ -78,7 +89,7 @@ const MobileMenu: FC = () => {
       <div>
         <Link
           to={LOGIN_PATHNAME}
-          className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center"
+          className="flex font-medium w-full text-gray-600 hover:text-gray-900 py-2 justify-center"
           onClick={() => setMobileNavOpen(false)}
         >
           登陆
@@ -87,10 +98,21 @@ const MobileMenu: FC = () => {
       <div>
         <Link
           to={REGISTER_PATHNAME}
-          className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-white bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out"
+          className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2"
           onClick={() => setMobileNavOpen(false)}
         >
           注册
+          <svg
+            className="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1"
+            viewBox="0 0 12 12"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
+              fill="#999"
+              fillRule="nonzero"
+            />
+          </svg>
         </Link>
       </div>
     </>
@@ -103,20 +125,20 @@ const MobileMenu: FC = () => {
         {/* Hamburger button */}
         <button
           ref={trigger}
-          className={`bg-transparent border-none hamburger ${mobileNavOpen && 'active'}`}
+          className={`hamburger ${mobileNavOpen && 'active'}`}
           aria-controls="mobile-nav"
           aria-expanded={mobileNavOpen}
           onClick={() => setMobileNavOpen(!mobileNavOpen)}
         >
           <span className="sr-only">Menu</span>
           <svg
-            className="w-6 h-6 fill-current text-gray-300 hover:text-gray-200 transition duration-150 ease-in-out"
+            className="w-6 h-6 fill-current text-gray-900"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect y="4" width="24" height="2" rx="1" />
-            <rect y="11" width="24" height="2" rx="1" />
-            <rect y="18" width="24" height="2" rx="1" />
+            <rect y="4" width="24" height="2" />
+            <rect y="11" width="24" height="2" />
+            <rect y="18" width="24" height="2" />
           </svg>
         </button>
 
@@ -124,14 +146,89 @@ const MobileMenu: FC = () => {
         <nav
           id="mobile-nav"
           ref={mobileNav}
-          className="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out"
+          className="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out bg-white"
           style={
             mobileNavOpen
               ? { maxHeight: mobileNav.current?.scrollHeight, opacity: 1 }
               : { maxHeight: 0, opacity: 0.8 }
           }
         >
-          <div className="bg-gray-800 px-4 py-2">{username ? UserInfo : Login}</div>
+          <ul className="px-5 py-2">
+            <li>
+              <Link
+                to="/pricing"
+                className="flex text-gray-600 hover:text-gray-900 py-2"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                Pricing
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/about"
+                className="flex text-gray-600 hover:text-gray-900 py-2"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                About us
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/tutorials"
+                className="flex text-gray-600 hover:text-gray-900 py-2"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                Tutorials
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/blog"
+                className="flex text-gray-600 hover:text-gray-900 py-2"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                Blog
+              </Link>
+            </li>
+            <li className="py-2 my-2 border-t border-b border-gray-200">
+              <span
+                className="flex text-gray-600 hover:text-gray-900 py-2"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                Resources
+              </span>
+              <ul className="pl-4">
+                <li>
+                  <Link
+                    to="/documentation"
+                    className="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2"
+                    onClick={() => setMobileNavOpen(false)}
+                  >
+                    Documentation
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/support"
+                    className="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2"
+                    onClick={() => setMobileNavOpen(false)}
+                  >
+                    Support center
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/404"
+                    className="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2"
+                    onClick={() => setMobileNavOpen(false)}
+                  >
+                    404
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <div className="px-5 py-2">{username ? UserInfo : Login}</div>
         </nav>
       </div>
     </>

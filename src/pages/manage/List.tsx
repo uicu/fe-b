@@ -115,15 +115,24 @@ const List: FC = () => {
 
   return (
     <>
-      <div className="bg-white rounded mb-6 py-6">
-        <div className={`${styles.header} px-6 pb-6`}>
+      <div className="mb-6">
+        <div className={`${styles.header}`}>
           <Title level={3} className={styles.left}>
             我的问卷
           </Title>
           <CreateWork />
         </div>
         <Divider dashed className="m-0" />
-        {!!list.length && <QueryFilter />}
+        {(() => {
+          if (started) {
+            return (
+              <>
+                <QueryFilter />
+                <Divider dashed className="m-0" />
+              </>
+            )
+          }
+        })()}
       </div>
 
       <div className={styles.content}>

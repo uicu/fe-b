@@ -1,35 +1,20 @@
-import React, { FC, useEffect } from 'react'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-import PageIllustration from '../../components/PageIllustration'
-import FooterLayouts from '../../components/UI/FooterLayouts'
-import Hero from './components/hero'
-import Features from './components/features'
-import Newsletter from './components/newsletter'
-import Zigzag from './components/zigzag'
-import Testimonials from './components/testimonials'
+import React, { FC } from 'react'
+
+import Hero from './components/hero-home'
+import Features from './components/features-home'
+import FeaturesBlocks from './components/features-blocks'
+import FeaturesWorld from './components/features-world'
+import News from './components/news'
+import Cta from './components/cta'
 const Home: FC = () => {
-  useEffect(() => {
-    AOS.init({
-      once: true,
-      disable: 'phone',
-      duration: 600,
-      easing: 'ease-out-sine',
-    })
-  })
   return (
     <>
-      <main className="grow">
-        <PageIllustration />
-
-        <Hero />
-        <Features />
-        <Zigzag />
-        <Testimonials />
-        <Newsletter />
-      </main>
-
-      <FooterLayouts />
+      <Hero />
+      <Features />
+      <FeaturesBlocks />
+      <FeaturesWorld />
+      <News />
+      <Cta />
     </>
   )
 }

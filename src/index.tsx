@@ -2,10 +2,13 @@ import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { ConfigProvider } from 'antd'
+import { StyleProvider } from '@ant-design/cssinjs'
 import zhCN from 'antd/locale/zh_CN'
 import store from './store'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import 'antd/dist/reset.css'
+import './css/style.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
@@ -26,7 +29,9 @@ root.render(
     >
       <Provider store={store}>
         <Suspense>
-          <App />
+          <StyleProvider hashPriority="high">
+            <App />
+          </StyleProvider>
         </Suspense>
       </Provider>
     </ConfigProvider>

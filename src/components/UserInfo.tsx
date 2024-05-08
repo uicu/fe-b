@@ -54,11 +54,14 @@ const UserInfo: FC = () => {
 
   const UserInfo = (
     <>
-      <Link to={UPDATE_INFO_PATHNAME} className="text-slate-500 no-underline">
+      <Link
+        to={UPDATE_INFO_PATHNAME}
+        className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
+      >
         <Avatar src={headPic ? `http://localhost:8888/${headPic}` : <UserOutlined />} />
         <span className="ml-1">{nickName}</span>
       </Link>
-      <button onClick={logout} className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
+      <button onClick={logout} className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
         退出
       </button>
     </>
@@ -73,7 +76,7 @@ const UserInfo: FC = () => {
       <div>
         <Link
           to={LOGIN_PATHNAME}
-          className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out no-underline"
+          className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
         >
           登陆
         </Link>
@@ -81,9 +84,19 @@ const UserInfo: FC = () => {
       <div>
         <Link
           to={REGISTER_PATHNAME}
-          className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3 no-underline"
+          className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3"
         >
           注册
+          <svg
+            className="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1"
+            viewBox="0 0 12 12"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
+              fillRule="nonzero"
+            />
+          </svg>
         </Link>
       </div>
     </>
@@ -93,25 +106,25 @@ const UserInfo: FC = () => {
     <nav className="hidden md:flex md:grow">
       <div className="justify-end items-center flex-wrap flex grow">
         <a
-          className="justify-end duration-150 ease-in-out transition flex px-4 py-2 text-slate-500 hover:text-purple-700 no-underline"
+          className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
           href="features.html"
         >
           Features
         </a>
         <a
-          className=" justify-end duration-150 ease-in-out transition flex px-4 py-2 text-slate-500 hover:text-purple-700 no-underline"
+          className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
           href="pricing.html"
         >
           Pricing
         </a>
         <a
-          className=" justify-end duration-150 ease-in-out transition flex px-4 py-2 text-slate-500 hover:text-purple-700 no-underline"
+          className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
           href="blog.html"
         >
           Blog
         </a>
         <a
-          className=" justify-end duration-150 ease-in-out transition flex px-4 py-2 text-slate-500 hover:text-purple-700 no-underline"
+          className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
           href="about.html"
         >
           About us
@@ -122,16 +135,16 @@ const UserInfo: FC = () => {
             ref={trigger}
             aria-controls="pc-nav"
             aria-expanded={open}
-            className="bg-transparent border-none justify-end duration-150 ease-in-out transition flex px-4 py-2 items-center text-slate-500 hover:text-purple-700"
+            className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
             onClick={() => setOpen(!open)}
           >
             Support
             <svg
-              className="cursor-pointer text-stone-500 fill-current shrink-0 ml-1 h-3 w-3"
+              className="w-3 h-3 fill-current text-gray-500 cursor-pointer ml-1 shrink-0"
               viewBox="0 0 12 12"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M10.28 4.305L5.989 8.598 1.695 4.305A1 1 0 00.28 5.72l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z"></path>
+              <path d="M10.28 4.305L5.989 8.598 1.695 4.305A1 1 0 00.28 5.72l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z" />
             </svg>
           </button>
 
@@ -147,19 +160,19 @@ const UserInfo: FC = () => {
           >
             <div className="py-2">
               <a
-                className="flex px-4 py-2 text-slate-500 hover:text-purple-700 no-underline"
+                className="font-medium text-sm text-gray-600 hover:text-gray-900 flex py-2 px-5 leading-tight"
                 href="contact.html"
               >
                 Contact us
               </a>
               <a
-                className="flex px-4 py-2 text-slate-500 hover:text-purple-700 no-underline"
+                className="font-medium text-sm text-gray-600 hover:text-gray-900 flex py-2 px-5 leading-tight"
                 href="help.html"
               >
                 Help center
               </a>
               <a
-                className="flex px-4 py-2 text-slate-500 hover:text-purple-700 no-underline"
+                className="font-medium text-sm text-gray-600 hover:text-gray-900 flex py-2 px-5 leading-tight"
                 href="404.html"
               >
                 404

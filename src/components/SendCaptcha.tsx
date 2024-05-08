@@ -42,8 +42,8 @@ const SendCaptcha: FC<SendCaptchaPropsType> = props => {
   return (
     <div className="flex flex-wrap -mx-3 mb-4">
       <div className="w-full px-3">
-        <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="captcha">
-          Captcha <span className="text-red-600">*</span>
+        <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="captcha">
+          验证码 <span className="text-red-600">*</span>
         </label>
         <div className="flex justify-between">
           <input
@@ -51,15 +51,15 @@ const SendCaptcha: FC<SendCaptchaPropsType> = props => {
             onChange={e => onChange(e.target.value)}
             id="captcha"
             type="text"
-            className="form-input w-full text-gray-300"
-            placeholder="Captcha (10 characters)"
+            className="form-input w-full text-gray-800"
+            placeholder="请输入验证码"
             required
           />
 
           <button
             onClick={getCode}
             type="button"
-            className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-2 whitespace-nowrap"
+            className="btn-sm text-white bg-blue-600 hover:bg-blue-700 ml-2 min-w-[116px]"
           >
             {time ? `${time}秒后获取` : '获取验证码'}
           </button>
