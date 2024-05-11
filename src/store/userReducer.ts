@@ -3,7 +3,7 @@ import produce from 'immer'
 
 export type UserStateType = {
   username: string
-  nickName: string
+  nickname: string
   email: string
   headPic: string
   phoneNumber: string
@@ -11,7 +11,7 @@ export type UserStateType = {
 
 const INIT_STATE: UserStateType = {
   username: '',
-  nickName: '',
+  nickname: '',
   email: '',
   headPic: '',
   phoneNumber: '',
@@ -22,7 +22,7 @@ export const userSlice = createSlice({
   initialState: INIT_STATE,
   reducers: {
     loginReducer: (state: UserStateType, action: PayloadAction<UserStateType>) => {
-      return action.payload // 设置 username nickName 到 redux store
+      return action.payload // 设置 username nickname 到 redux store
     },
     // 修改头像
     changeHeadPic: produce((draft: UserStateType, action: PayloadAction<string>) => {
@@ -31,7 +31,7 @@ export const userSlice = createSlice({
 
     // 修改昵称
     changeNickName: produce((draft: UserStateType, action: PayloadAction<string>) => {
-      draft.nickName = action.payload
+      draft.nickname = action.payload
     }),
 
     logoutReducer: () => INIT_STATE,

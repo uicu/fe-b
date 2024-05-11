@@ -2,7 +2,7 @@ import React, { useState, FC, useEffect } from 'react'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { message, Upload } from 'antd'
 import type { GetProp, UploadProps } from 'antd'
-import { USER_TOKEN, getToken } from '../utils/local-storage'
+import Cookie from 'js-cookie'
 
 interface HeadPicUploadProps {
   value: string
@@ -68,7 +68,7 @@ const HeadPicUpload: FC<HeadPicUploadProps> = props => {
       showUploadList={false}
       action="http://localhost:8888/v1/user/upload"
       headers={{
-        Authorization: `Bearer ${getToken(USER_TOKEN)}`,
+        Authorization: `Bearer ${Cookie.get('USER_TOKEN')}`,
       }}
       beforeUpload={beforeUpload}
       onChange={handleChange}

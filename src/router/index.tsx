@@ -1,14 +1,7 @@
 import React, { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import DefaultLayout from '../layouts/DefaultLayout'
-import AuthLayout from '../layouts/AuthLayout'
 import ManageLayout from '../layouts/ManageLayout'
 import WorkLayout from '../layouts/WorkLayout'
-import Home from '../pages/home'
-import Login from '../pages/Login'
-import Register from '../pages/Register'
-import ResetPassword from '../pages/ResetPassword'
-import UpdateInfo from '../pages/UpdateInfo'
 import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
@@ -21,39 +14,6 @@ import StatOverview from '../pages/work/Stat/StatOverview'
 import StatDetails from '../pages/work/Stat/StatDetails'
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <DefaultLayout />,
-    children: [
-      {
-        path: '/',
-        element: <Home />,
-      },
-    ],
-  },
-  {
-    path: 'auth',
-    element: <AuthLayout />,
-    children: [
-      {
-        path: 'login',
-        element: <Login />,
-      },
-      {
-        path: 'register',
-        element: <Register />,
-      },
-      {
-        path: 'reset-password',
-        element: <ResetPassword />,
-      },
-      {
-        path: 'update-info',
-        element: <UpdateInfo />,
-      },
-    ],
-  },
-
   {
     path: 'manage',
     element: <ManageLayout />,
@@ -113,10 +73,10 @@ export default router
 
 // 常用的路由常量
 export const HOME_PATHNAME = '/'
-export const LOGIN_PATHNAME = '/auth/login'
-export const REGISTER_PATHNAME = '/auth/register'
+export const LOGIN_PATHNAME = '/auth/signin'
+export const REGISTER_PATHNAME = '/auth/signup'
 export const RESET_PASSWORD_PATHNAME = '/auth/reset-password'
-export const UPDATE_INFO_PATHNAME = '/auth/update-info'
+export const UPDATE_INFO_PATHNAME = '/auth/update'
 export const MANAGE_INDEX_PATHNAME = '/manage/list'
 
 export function isLoginOrRegister(pathname: string) {

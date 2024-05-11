@@ -3,9 +3,9 @@ import { Dropdown, Modal, Upload, message } from 'antd'
 import type { MenuProps, UploadProps, GetProp } from 'antd'
 import { ContainerOutlined, InboxOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
+import Cookie from 'js-cookie'
 import { exportAnswerOrTemplate } from '../../../../services/stat'
 import useGetPageInfo from '../../../../hooks/useGetPageInfo'
-import { USER_TOKEN, getToken } from '../../../../utils/local-storage'
 
 const { Dragger } = Upload
 
@@ -29,7 +29,7 @@ const Import: FC<PropsType> = (props: PropsType) => {
     multiple: false,
     action: `http://localhost:8888/v1/stat/import/${id}`,
     headers: {
-      Authorization: `Bearer ${getToken(USER_TOKEN)}`,
+      Authorization: `Bearer ${Cookie.get('USER_TOKEN')}`,
     },
     beforeUpload: (file: FileType) => {
       const isCsv = file.type === 'text/csv'

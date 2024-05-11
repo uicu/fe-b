@@ -4,7 +4,7 @@ import { Segmented, Spin } from 'antd'
 import { SnippetsOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons'
 import useLoadUserData from '../hooks/useLoadUserData'
 import useNavPage from '../hooks/useNavPage'
-import HeaderLayouts from '../components/UI/HeaderLayouts'
+import HeaderLayouts from '../components/UI/Header'
 
 const ManageLayout: FC = () => {
   const { waitingUserData } = useLoadUserData()
@@ -13,6 +13,7 @@ const ManageLayout: FC = () => {
   const nav = useNavigate()
   const { pathname } = useLocation()
   const [value, setValue] = useState<string>(pathname)
+
   const onChange = (value: string) => {
     setValue(value)
     nav(value)
