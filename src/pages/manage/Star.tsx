@@ -46,18 +46,7 @@ const Star: FC = () => {
                 answerCount: number
               }) => {
                 const { id } = item
-                const key = `col-${id}`
-                return (
-                  <Col
-                    key={key}
-                    xs={{ flex: '100%' }}
-                    sm={{ flex: '50%' }}
-                    md={{ flex: '33.33%' }}
-                    lg={{ flex: '25%' }}
-                  >
-                    <WorkCard key={id} {...item} />
-                  </Col>
-                )
+                return <WorkCard key={id} {...item} />
               }
             )}
           </Row>

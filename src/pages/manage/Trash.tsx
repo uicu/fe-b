@@ -1,21 +1,33 @@
 import React, { FC } from 'react'
 import { useTitle } from 'ahooks'
-import { Typography, Empty, Button, Space, Modal, Spin, message, Row, Col, Card } from 'antd'
+import {
+  Typography,
+  Empty,
+  Button,
+  Space,
+  Modal,
+  Spin,
+  message,
+  Row,
+  Col,
+  Card,
+  Popconfirm,
+} from 'antd'
 import { ExclamationCircleOutlined, UndoOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import ListSearch from '../../components/ListSearch'
 import ListPage from '../../components/ListPage'
 import useLoadWorkListData from '../../hooks/useLoadWorkListData'
-import { updateWorkService, deleteWorkService } from '../../services/work'
+import { updateWorkService, deleteThoroughWorkService } from '../../services/work'
 import styles from './common.module.scss'
 
 const { Title } = Typography
-const { confirm } = Modal
 const { Meta } = Card
 
 const Trash: FC = () => {
   useTitle('回收站')
-  const [messageApi, contextHolder] = message.useMessage()
+  const [modal, contextHolder] = Modal.useModal()
+  const [messageApi, contextHolderMessage] = message.useMessage()
 
   const { data = {}, loading, refresh } = useLoadWorkListData({ status: 0 })
   const { works: list = [], totalCount: total = 0 } = data
@@ -35,20 +47,23 @@ const Trash: FC = () => {
     }
   )
 
-  // 删除
-  const { run: deleteWork } = useRequest(async (id: string) => await deleteWorkService([id]), {
-    manual: true,
-    onSuccess() {
-      messageApi.success('删除成功')
-      refresh()
-    },
-  })
+  // 彻底删除
+  const { run: deleteWork } = useRequest(
+    async (id: string) => await deleteThoroughWorkService(id),
+    {
+      manual: true,
+      onSuccess() {
+        messageApi.success('删除成功')
+        refresh()
+      },
+    }
+  )
 
   function del(id: string) {
-    confirm({
+    modal.confirm({
       title: '确认彻底删除该问卷？',
       icon: <ExclamationCircleOutlined />,
-      content: '删除以后不可以找回',
+      content: '删除后不可以找回，请谨慎操作',
       okText: '确定',
       cancelText: '取消',
       onOk: () => {
@@ -60,6 +75,7 @@ const Trash: FC = () => {
   return (
     <>
       {contextHolder}
+      {contextHolderMessage}
       <div className="mb-6 p-6 bg-white rounded">
         <div className={`${styles.header}`}>
           <Title level={4} className={styles.left}>
@@ -83,15 +99,16 @@ const Trash: FC = () => {
           <Row gutter={[16, 24]}>
             {list.map(
               (item: {
-                _id: string
+                id: string
                 title: string
                 isStar: boolean
                 isPublished: boolean
                 answerCount: number
                 createdAt: string
+                coverImg: string
               }) => {
-                const { _id, title, answerCount } = item
-                const key = `col-${_id}`
+                const { id, title, answerCount, coverImg } = item
+                const key = `col-${id}`
                 return (
                   <Col
                     key={key}
@@ -104,29 +121,36 @@ const Trash: FC = () => {
                       style={{ width: '100%' }}
                       cover={
                         <img
-                          alt="example"
-                          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                          alt="封面图"
+                          src={
+                            coverImg
+                              ? `https://uicu-1252254586.cos.ap-guangzhou.myqcloud.com/${coverImg}`
+                              : '/images/tutorial-01.jpg'
+                          }
+                          className="h-32"
                         />
                       }
                       actions={[
-                        <Button
-                          key={_id}
-                          type="text"
-                          icon={<UndoOutlined />}
-                          size="small"
-                          onClick={() => {
-                            recover(_id)
+                        <Popconfirm
+                          key={id}
+                          title="确定恢复该问卷？"
+                          okText="确定"
+                          cancelText="取消"
+                          onConfirm={() => {
+                            recover(id)
                           }}
                         >
-                          恢复
-                        </Button>,
+                          <Button type="text" icon={<UndoOutlined />} size="small">
+                            恢复
+                          </Button>
+                        </Popconfirm>,
                         <Button
-                          key={_id}
+                          key={id}
                           icon={<DeleteOutlined />}
                           type="text"
                           size="small"
                           onClick={() => {
-                            del(_id)
+                            del(id)
                           }}
                         >
                           彻底删除

@@ -106,9 +106,16 @@ export async function copyWorkService(id: string): Promise<ResDataType> {
   return res.data
 }
 
-// 批量彻底删除
-export async function deleteWorkService(ids: string[]): Promise<ResDataType> {
-  const url = '/api/work'
-  const res = (await axios.delete(url, { data: { ids } })) as ResDataType
+// 删除 status=0
+export async function deleteWorkService(id: string): Promise<ResDataType> {
+  const url = `/v1/work/${id}`
+  const res = (await axios.delete(url)) as ResDataType
+  return res.data
+}
+
+// 彻底删除 status=4
+export async function deleteThoroughWorkService(id: string): Promise<ResDataType> {
+  const url = `/v1/work/thorough/${id}`
+  const res = (await axios.delete(url)) as ResDataType
   return res.data
 }

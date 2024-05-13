@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Button, Space, Tag, Popconfirm, Modal, message, Card, Popover } from 'antd'
+import { Button, Space, Tag, Popconfirm, Modal, message, Card, Popover, Col } from 'antd'
 import {
   LineChartOutlined,
   StarOutlined,
@@ -12,7 +12,7 @@ import {
   EditOutlined,
 } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
-import { updateWorkService, copyWorkService } from '../services/work'
+import { updateWorkService, copyWorkService, deleteWorkService } from '../services/work'
 
 const { Meta } = Card
 
@@ -27,6 +27,7 @@ type PropsType = {
 
 const WorkCard: FC<PropsType> = (props: PropsType) => {
   const [modal, contextHolder] = Modal.useModal()
+  const [messageApi, contextHolderMessage] = message.useMessage()
 
   const nav = useNavigate()
   const { coverImg, id, title, isStar, status, answerCount } = props
@@ -42,7 +43,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
       manual: true,
       onSuccess() {
         setIsStarState(!isStarState) // 更新 state
-        message.success('已更新')
+        messageApi.success('已更新')
       },
     }
   )
@@ -54,7 +55,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
       manual: true,
       onSuccess(result) {
         const { id } = result.data
-        message.success('复制成功')
+        messageApi.success('复制成功')
         nav(`/work/edit/${id}`) // 跳转到问卷编辑页
       },
     }
@@ -63,11 +64,11 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
   // 删除
   const [isDeletedState, setIsDeletedState] = useState(false)
   const { loading: deleteLoading, run: deleteWork } = useRequest(
-    async () => await updateWorkService(id, { status: 0 }),
+    async () => await deleteWorkService(id),
     {
       manual: true,
       onSuccess() {
-        message.success('删除成功')
+        messageApi.success('删除成功')
         setIsDeletedState(true)
       },
     }
@@ -85,8 +86,9 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
   if (isDeletedState) return null
 
   return (
-    <>
+    <Col xs={{ flex: '100%' }} sm={{ flex: '50%' }} md={{ flex: '33.33%' }} lg={{ flex: '25%' }}>
       {contextHolder}
+      {contextHolderMessage}
       <Card
         style={{ width: '100%' }}
         cover={
@@ -168,7 +170,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
         <Meta
           title={
             <Link
-              className="!text-slate-950"
+              className="!text-slate-950 max-w-40 inline-block whitespace-nowrap text-ellipsis overflow-hidden"
               to={isPublished ? `/work/stat/${id}/overview` : `/work/edit/${id}`}
             >
               {title}
@@ -182,7 +184,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
           }
         />
       </Card>
-    </>
+    </Col>
   )
 }
 

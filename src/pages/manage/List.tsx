@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, useRef, useMemo } from 'react'
-import { Typography, Spin, Empty, Col, Row, Divider } from 'antd'
+import { Typography, Spin, Empty, Row, Divider } from 'antd'
 import { useTitle, useDebounceFn, useRequest } from 'ahooks'
 import { useSearchParams } from 'react-router-dom'
 import { getWorkListService } from '../../services/work'
@@ -144,18 +144,7 @@ const List: FC = () => {
                 answerCount: number
               }) => {
                 const { id } = item
-                const key = `col-${id}`
-                return (
-                  <Col
-                    key={key}
-                    xs={{ flex: '100%' }}
-                    sm={{ flex: '50%' }}
-                    md={{ flex: '33.33%' }}
-                    lg={{ flex: '25%' }}
-                  >
-                    <WorkCard key={id} {...item} />
-                  </Col>
-                )
+                return <WorkCard key={id} {...item} />
               }
             )}
           </Row>
