@@ -4,6 +4,7 @@ import { Button, Space, Tag, Popconfirm, Modal, message, Card, Popover } from 'a
 import {
   LineChartOutlined,
   StarOutlined,
+  StarFilled,
   CopyOutlined,
   DeleteOutlined,
   EllipsisOutlined,
@@ -128,7 +129,9 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
                 <Button
                   block
                   type="text"
-                  icon={<StarOutlined />}
+                  icon={
+                    isStarState ? <StarFilled style={{ color: '#faad14' }} /> : <StarOutlined />
+                  }
                   size="small"
                   onClick={changeStar}
                   disabled={changeStarLoading}
@@ -165,7 +168,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
         <Meta
           title={
             <Link
-              className="text-slate-950"
+              className="!text-slate-950"
               to={isPublished ? `/work/stat/${id}/overview` : `/work/edit/${id}`}
             >
               {title}
