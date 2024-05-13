@@ -20,29 +20,37 @@ const ManageLayout: FC = () => {
   }
   return (
     <div className="font-inter antialiased bg-white text-gray-900 tracking-tight">
-      <HeaderLayouts />
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="pt-24 pb-4 md:pt-28 md:pb-4 block min-w-[256px] md:inline-block">
-          <Segmented
-            block
-            options={[
-              { label: '我的', value: '/manage/list', icon: <SnippetsOutlined /> },
-              { label: '星标', value: '/manage/star', icon: <StarOutlined /> },
-              { label: '回收站', value: '/manage/trash', icon: <DeleteOutlined /> },
-            ]}
-            value={value}
-            onChange={onChange}
-          />
-        </div>
-        <div className="pt-3 pb-6">
-          {waitingUserData ? (
-            <div style={{ textAlign: 'center', marginTop: '60px' }}>
-              <Spin />
+      <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+        <HeaderLayouts />
+        <main className="grow">
+          <section className="bg-gradient-to-b from-gray-100 to-white">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6">
+              <div className="pt-24 pb-12 md:pt-24 md:pb-20">
+                <div className="pb-6 md:pb-6 block min-w-[256px] md:inline-block">
+                  <Segmented
+                    block
+                    options={[
+                      { label: '我的', value: '/manage/list', icon: <SnippetsOutlined /> },
+                      { label: '星标', value: '/manage/star', icon: <StarOutlined /> },
+                      { label: '回收站', value: '/manage/trash', icon: <DeleteOutlined /> },
+                    ]}
+                    value={value}
+                    onChange={onChange}
+                  />
+                </div>
+                <div>
+                  {waitingUserData ? (
+                    <div style={{ textAlign: 'center', marginTop: '60px' }}>
+                      <Spin />
+                    </div>
+                  ) : (
+                    <Outlet />
+                  )}
+                </div>
+              </div>
             </div>
-          ) : (
-            <Outlet />
-          )}
-        </div>
+          </section>
+        </main>
       </div>
     </div>
   )

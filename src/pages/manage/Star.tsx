@@ -15,12 +15,14 @@ const Star: FC = () => {
   const { works: list = [], totalCount: total = 0 } = data
   return (
     <>
-      <div className={`${styles.header} px-5 bg-white rounded mb-6 p-6`}>
-        <Title level={4} className={styles.left}>
-          星标问卷
-        </Title>
-        <div className={styles.right}>
-          <ListSearch />
+      <div className="mb-6 p-6 bg-white rounded">
+        <div className={`${styles.header}`}>
+          <Title level={4} className={styles.left}>
+            星标问卷
+          </Title>
+          <div className={styles.right}>
+            <ListSearch />
+          </div>
         </div>
       </div>
 
@@ -41,6 +43,7 @@ const Star: FC = () => {
                 title: string
                 isStar: boolean
                 status: number
+                answerCount: number
               }) => {
                 const { id } = item
                 const key = `col-${id}`

@@ -115,7 +115,7 @@ const List: FC = () => {
 
   return (
     <>
-      <div className="mb-6">
+      <div className="mb-6 p-6 bg-white rounded">
         <div className={`${styles.header}`}>
           <Title level={3} className={styles.left}>
             我的问卷
@@ -125,12 +125,7 @@ const List: FC = () => {
         <Divider dashed className="m-0" />
         {(() => {
           if (started) {
-            return (
-              <>
-                <QueryFilter />
-                <Divider dashed className="m-0" />
-              </>
-            )
+            return <QueryFilter />
           }
         })()}
       </div>
@@ -146,6 +141,7 @@ const List: FC = () => {
                 title: string
                 isStar: boolean
                 status: number
+                answerCount: number
               }) => {
                 const { id } = item
                 const key = `col-${id}`

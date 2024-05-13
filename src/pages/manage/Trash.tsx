@@ -60,12 +60,14 @@ const Trash: FC = () => {
   return (
     <>
       {contextHolder}
-      <div className={`${styles.header} px-5 bg-white rounded mb-6 p-6`}>
-        <Title level={4} className={styles.left}>
-          回收站
-        </Title>
-        <div className={styles.right}>
-          <ListSearch />
+      <div className="mb-6 p-6 bg-white rounded">
+        <div className={`${styles.header}`}>
+          <Title level={4} className={styles.left}>
+            回收站
+          </Title>
+          <div className={styles.right}>
+            <ListSearch />
+          </div>
         </div>
       </div>
 

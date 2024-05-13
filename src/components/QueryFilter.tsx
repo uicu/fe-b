@@ -151,12 +151,12 @@ const QueryFilter: React.FC = () => {
                   lg={{ flex: '25%' }}
                 >
                   <Form.Item name="quantity" label="回收数量">
-                    <Select placeholder="回收数量" allowClear disabled>
-                      <Option value="1-99">1-99</Option>
-                      <Option value="100-1000">100-1000</Option>
-                      <Option value="999-5000">999-5000</Option>
-                      <Option value="4999-10000">4999-10000</Option>
-                      <Option value="10000">10000以上</Option>
+                    <Select placeholder="回收数量" allowClear>
+                      <Option value="1">1-99</Option>
+                      <Option value="2">100-999</Option>
+                      <Option value="3">1000-4999</Option>
+                      <Option value="4">5000-10000</Option>
+                      <Option value="5">10000以上</Option>
                     </Select>
                   </Form.Item>
                 </Col>

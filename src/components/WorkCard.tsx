@@ -21,13 +21,14 @@ type PropsType = {
   title: string
   isStar: boolean
   status: number
+  answerCount: number
 }
 
 const WorkCard: FC<PropsType> = (props: PropsType) => {
   const [modal, contextHolder] = Modal.useModal()
 
   const nav = useNavigate()
-  const { coverImg, id, title, isStar, status } = props
+  const { coverImg, id, title, isStar, status, answerCount } = props
   const isPublished = status === 2
 
   // 修改标星
@@ -87,7 +88,17 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
       {contextHolder}
       <Card
         style={{ width: '100%' }}
-        cover={<img alt="封面图" src={coverImg} className="h-32" />}
+        cover={
+          <img
+            alt="封面图"
+            src={
+              coverImg
+                ? `https://uicu-1252254586.cos.ap-guangzhou.myqcloud.com/${coverImg}`
+                : '/images/tutorial-01.jpg'
+            }
+            className="h-32"
+          />
+        }
         actions={[
           <Popconfirm
             key={id}
@@ -163,7 +174,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
           description={
             <Space>
               {isPublished ? <Tag color="processing">已发布</Tag> : <Tag>未发布</Tag>}
-              <span>回收量: 100</span>
+              <span>回收量: {answerCount}</span>
             </Space>
           }
         />

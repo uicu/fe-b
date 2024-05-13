@@ -22,7 +22,7 @@ function useLoadChannelData() {
 
   const channelList = useGetChannelInfo()
   useEffect(() => {
-    if (channelList.length) {
+    if (channelList.length || !waitingChannelData) {
       setWaitingChannelData(false)
       return
     }
