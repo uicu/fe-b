@@ -6,7 +6,6 @@ import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
 import Star from '../pages/manage/Star'
-import Demo from '../pages/demo'
 // 路由懒加载，拆分 bundle ，优化首页体积
 const Edit = lazy(() => import(/* webpackChunkName: "editPage" */ '../pages/work/Edit'))
 const Stat = lazy(() => import(/* webpackChunkName: "statPage" */ '../pages/work/Stat'))
@@ -56,10 +55,6 @@ const router = createBrowserRouter([
         ],
       },
     ],
-  },
-  {
-    path: 'demo',
-    element: <Demo />,
   },
   {
     path: '*', // 404 路由配置，都写在最后（兜底）

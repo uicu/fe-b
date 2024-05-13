@@ -13,7 +13,7 @@ const NotFound: FC = () => {
       subTitle="抱歉，您访问的页面不存在"
       extra={
         <Button type="primary" onClick={() => nav(MANAGE_INDEX_PATHNAME)}>
-          返回首页
+          返回工作台
         </Button>
       }
     ></Result>

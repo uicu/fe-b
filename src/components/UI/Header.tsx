@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Cookie from 'js-cookie'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Avatar, message } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import Logo from '../Logo'
-import Dropdown from '../Dropdown'
 import MobileMenu from './MobileMenu'
 import useGetUserInfo from '../../hooks/useGetUserInfo'
 import { logoutReducer } from '../../store/userReducer'
 
 export default function Header() {
-  const nav = useNavigate()
   const dispatch = useDispatch()
   const [messageApi, contextHolder] = message.useMessage()
   const userInfo = useGetUserInfo()
@@ -36,14 +33,13 @@ export default function Header() {
       Cookie.remove('USER_TOKEN')
       Cookie.remove('REFRESH_USER_TOKEN')
       messageApi.success('退出成功')
-      nav('/auth/signin')
     }
   }
 
   const UserInfo = (
     <>
-      <Link
-        to="/auth/update"
+      <a
+        href="/auth/update"
         className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
       >
         {userInfo?.headPic ? (
@@ -52,25 +48,29 @@ export default function Header() {
           <Avatar size="small" icon={<UserOutlined />} />
         )}
         <span className="ml-1">{userInfo?.nickname}</span>
-      </Link>
-      <button onClick={logout} className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
+      </a>
+      <a
+        href="/auth/signin"
+        onClick={logout}
+        className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3"
+      >
         退出
-      </button>
+      </a>
     </>
   )
 
   const Login = (
     <ul className="flex grow justify-end flex-wrap items-center">
       <li>
-        <Link
-          to="/auth/signin"
+        <a
+          href="/auth/signin"
           className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
         >
           登陆
-        </Link>
+        </a>
       </li>
       <li>
-        <Link to="/auth/signup" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
+        <a href="/auth/signup" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
           <span>注册</span>
           <svg
             className="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1"
@@ -82,7 +82,7 @@ export default function Header() {
               fillRule="nonzero"
             />
           </svg>
-        </Link>
+        </a>
       </li>
     </ul>
   )
@@ -106,65 +106,37 @@ export default function Header() {
               {/* Desktop menu links */}
               <ul className="flex grow justify-start flex-wrap items-center">
                 <li>
-                  <Link
-                    to="/pricing"
-                    className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
+                  <NavLink
+                    to="/manage/list"
+                    className={({ isActive }) => {
+                      const styles =
+                        'text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out'
+                      return isActive ? `text-purple-600 ${styles}` : `${styles}`
+                    }}
                   >
-                    Pricing
-                  </Link>
+                    工作台
+                  </NavLink>
                 </li>
                 <li>
-                  <Link
-                    to="/about"
-                    className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) => {
+                      const styles =
+                        'text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out'
+                      return isActive ? `text-purple-600 ${styles}` : `${styles}`
+                    }}
                   >
-                    About us
-                  </Link>
+                    模版库
+                  </NavLink>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     to="/tutorials"
                     className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
                   >
                     Tutorials
                   </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/blog"
-                    className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
-                  >
-                    Blog
-                  </Link>
-                </li>
-                {/* 1st level: hover */}
-                <Dropdown title="Resources">
-                  {/* 2nd level: hover */}
-                  <li>
-                    <Link
-                      to="/documentation"
-                      className="font-medium text-sm text-gray-600 hover:text-gray-900 flex py-2 px-5 leading-tight"
-                    >
-                      Documentation
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/support"
-                      className="font-medium text-sm text-gray-600 hover:text-gray-900 flex py-2 px-5 leading-tight"
-                    >
-                      Support center
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/404"
-                      className="font-medium text-sm text-gray-600 hover:text-gray-900 flex py-2 px-5 leading-tight"
-                    >
-                      404
-                    </Link>
-                  </li>
-                </Dropdown>
+                </li> */}
               </ul>
               {userInfo?.username ? UserInfo : Login}
             </nav>
