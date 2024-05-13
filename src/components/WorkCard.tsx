@@ -12,7 +12,7 @@ import {
   EditOutlined,
 } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
-import { updateWorkService, duplicateWorkService } from '../services/work'
+import { updateWorkService, copyWorkService } from '../services/work'
 
 const { Meta } = Card
 
@@ -49,7 +49,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
 
   // 复制
   const { loading: duplicateLoading, run: duplicate } = useRequest(
-    async () => await duplicateWorkService(id),
+    async () => await copyWorkService(id),
     {
       manual: true,
       onSuccess(result) {

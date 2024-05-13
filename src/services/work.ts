@@ -100,8 +100,8 @@ export async function publishWorkService(id: string): Promise<ResDataType> {
 }
 
 // 复制问卷
-export async function duplicateWorkService(id: string): Promise<ResDataType> {
-  const url = `/api/work/duplicate/${id}`
+export async function copyWorkService(id: string): Promise<ResDataType> {
+  const url = `/v1/work/copy/${id}`
   const res = (await axios.post(url)) as ResDataType
   return res.data
 }
