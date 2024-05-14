@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Cookie from 'js-cookie'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Avatar, message } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
@@ -10,6 +10,7 @@ import useGetUserInfo from '../../hooks/useGetUserInfo'
 import { logoutReducer } from '../../store/userReducer'
 
 export default function Header() {
+  const { pathname } = useLocation()
   const dispatch = useDispatch()
   const [messageApi, contextHolder] = message.useMessage()
   const userInfo = useGetUserInfo()
@@ -108,7 +109,10 @@ export default function Header() {
                 <li>
                   <NavLink
                     to="/manage/list"
-                    className={({ isActive }) => {
+                    className={() => {
+                      const isActive = ['/manage/list', '/manage/star', '/manage/trash'].some(
+                        route => pathname.includes(route)
+                      )
                       const styles =
                         'text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out'
                       return isActive ? `text-purple-600 ${styles}` : `${styles}`

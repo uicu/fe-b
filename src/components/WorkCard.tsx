@@ -17,12 +17,14 @@ import { updateWorkService, copyWorkService, deleteWorkService } from '../servic
 const { Meta } = Card
 
 type PropsType = {
+  tab: string
   coverImg: string
   id: string
   title: string
   isStar: boolean
   status: number
   answerCount: number
+  onChangeOffset?: (value: number) => void
 }
 
 const WorkCard: FC<PropsType> = (props: PropsType) => {
@@ -30,7 +32,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
   const [messageApi, contextHolderMessage] = message.useMessage()
 
   const nav = useNavigate()
-  const { coverImg, id, title, isStar, status, answerCount } = props
+  const { coverImg, id, title, isStar, status, answerCount, onChangeOffset, tab } = props
   const isPublished = status === 2
 
   // 修改标星
@@ -43,6 +45,10 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
       manual: true,
       onSuccess() {
         setIsStarState(!isStarState) // 更新 state
+        // 如果是在星标tab下
+        if (tab === 'star') {
+          onChangeOffset?.(1)
+        }
         messageApi.success('已更新')
       },
     }
@@ -70,6 +76,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
       onSuccess() {
         messageApi.success('删除成功')
         setIsDeletedState(true)
+        onChangeOffset?.(1)
       },
     }
   )
@@ -90,17 +97,25 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
       {contextHolder}
       {contextHolderMessage}
       <Card
+        hoverable
         style={{ width: '100%' }}
         cover={
-          <img
-            alt="封面图"
-            src={
-              coverImg
-                ? `https://uicu-1252254586.cos.ap-guangzhou.myqcloud.com/${coverImg}`
-                : '/images/tutorial-01.jpg'
-            }
-            className="h-32"
-          />
+          <div className="relative">
+            <div className="absolute top-1.5 left-1.5">
+              <Tag bordered={false} color="orange">
+                普通问卷
+              </Tag>
+            </div>
+            <img
+              alt="封面图"
+              src={
+                coverImg
+                  ? `https://uicu-1252254586.cos.ap-guangzhou.myqcloud.com/${coverImg}`
+                  : '/images/base-01.png'
+              }
+              className="min-h-32"
+            />
+          </div>
         }
         actions={[
           <Popconfirm
@@ -177,10 +192,14 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
             </Link>
           }
           description={
-            <Space>
-              {isPublished ? <Tag color="processing">已发布</Tag> : <Tag>未发布</Tag>}
+            <div className="flex justify-between">
+              {isPublished ? (
+                <p className="text-green-400">已发布</p>
+              ) : (
+                <p className="text-gray-400">未发布</p>
+              )}
               <span>回收量: {answerCount}</span>
-            </Space>
+            </div>
           }
         />
       </Card>

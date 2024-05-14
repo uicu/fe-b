@@ -125,7 +125,7 @@ const Trash: FC = () => {
                           src={
                             coverImg
                               ? `https://uicu-1252254586.cos.ap-guangzhou.myqcloud.com/${coverImg}`
-                              : '/images/tutorial-01.jpg'
+                              : '/images/base-01.png'
                           }
                           className="h-32"
                         />

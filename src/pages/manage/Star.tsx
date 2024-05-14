@@ -11,7 +11,7 @@ const { Title } = Typography
 
 const Star: FC = () => {
   useTitle('星标问卷')
-  const { data = {}, loading } = useLoadWorkListData({ isStar: true })
+  const { data = {}, loading, refresh } = useLoadWorkListData({ isStar: true })
   const { works: list = [], totalCount: total = 0 } = data
   return (
     <>
@@ -46,7 +46,16 @@ const Star: FC = () => {
                 answerCount: number
               }) => {
                 const { id } = item
-                return <WorkCard key={id} {...item} />
+                return (
+                  <WorkCard
+                    key={id}
+                    {...item}
+                    onChangeOffset={() => {
+                      refresh() // 手动刷新列表
+                    }}
+                    tab="star"
+                  />
+                )
               }
             )}
           </Row>

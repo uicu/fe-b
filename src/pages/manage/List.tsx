@@ -23,6 +23,7 @@ const { Title } = Typography
 const List: FC = () => {
   useTitle('我的问卷')
 
+  const [offsetNum, setOffsetNum] = useState(0) // 偏移量，在删除或者取消标星时需要用到
   const [started, setStarted] = useState(false) // 是否已经开始加载（防抖，有延迟时间）
   const [pageNo, setPage] = useState(1) // List 内部的数据，不在 url 参数中体现
   const [list, setList] = useState([]) // 全部的列表数据，上划加载更多，累计
@@ -37,14 +38,6 @@ const List: FC = () => {
   const timeSpan = searchParams.get(LIST_SEARCH_TIME_SPAN) || undefined
   const channel = searchParams.get(LIST_SEARCH_CHANNEL) || undefined
 
-  // 查询条件变化时，重置信息
-  useEffect(() => {
-    setStarted(false)
-    setPage(1)
-    setList([])
-    setTotal(0)
-  }, [searchParams])
-
   // 真正加载
   const { run: load, loading } = useRequest(
     async () => {
@@ -57,6 +50,7 @@ const List: FC = () => {
         sort,
         timeSpan,
         channel,
+        offsetNum,
       })
       return data
     },
@@ -90,9 +84,15 @@ const List: FC = () => {
     }
   )
 
-  // 1. 当页面加载，或者 url 参数（keyword）变化时，触发加载
+  // 1. 当页面加载，或者url参数（keyword）变化时，触发加载
   useEffect(() => {
-    tryLoadMore() // 加载第一页，初始化
+    // 查询条件变化时，重置信息
+    setStarted(false)
+    setPage(1)
+    setList([])
+    setTotal(0)
+    // 加载第一页，初始化
+    tryLoadMore()
   }, [searchParams])
 
   // 2. 当页面滚动时，要尝试触发加载
@@ -144,7 +144,16 @@ const List: FC = () => {
                 answerCount: number
               }) => {
                 const { id } = item
-                return <WorkCard key={id} {...item} />
+                return (
+                  <WorkCard
+                    key={id}
+                    {...item}
+                    onChangeOffset={value => {
+                      setOffsetNum(offsetNum + value)
+                    }}
+                    tab="list"
+                  />
+                )
               }
             )}
           </Row>

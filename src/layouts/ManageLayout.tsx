@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Segmented, Spin } from 'antd'
 import { SnippetsOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons'
@@ -12,12 +12,18 @@ const ManageLayout: FC = () => {
 
   const nav = useNavigate()
   const { pathname } = useLocation()
-  const [value, setValue] = useState<string>(pathname)
+  const [value, setValue] = useState<string>('')
 
   const onChange = (value: string) => {
     setValue(value)
     nav(value)
   }
+
+  useEffect(() => {
+    if (pathname === value) return
+    setValue(pathname)
+  }, [pathname])
+
   return (
     <div className="font-inter antialiased bg-white text-gray-900 tracking-tight">
       <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">

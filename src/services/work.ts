@@ -11,6 +11,7 @@ type SearchOption = {
   sort?: string
   timeSpan?: string
   channel?: string
+  offsetNum?: number
 }
 
 // 获取单个问卷信息
