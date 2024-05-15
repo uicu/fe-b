@@ -98,7 +98,7 @@ const TemplatesCard: FC<PropsType> = (props: PropsType) => {
         width={660}
       >
         <div className="w-full text-center">
-          <Space direction="vertical" size="middle" className="w-full">
+          <Space direction="vertical" size="large" className="w-full">
             <Radio.Group value={position} onChange={e => setPosition(e.target.value)} size="middle">
               <Radio.Button value="desktop">
                 <DesktopOutlined />
