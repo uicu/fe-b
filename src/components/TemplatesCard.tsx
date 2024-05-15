@@ -1,6 +1,11 @@
 import React, { FC, useState } from 'react'
 import { Button, Card, Col, Tag, Modal, message } from 'antd'
-import { CopyOutlined, EyeOutlined } from '@ant-design/icons'
+import {
+  CopyOutlined,
+  EyeOutlined,
+  RotateLeftOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { useNavigate } from 'react-router-dom'
 import { copyWorkService } from '../services/work'
@@ -18,6 +23,7 @@ type PropsType = {
 }
 
 const TemplatesCard: FC<PropsType> = (props: PropsType) => {
+  const [modal, contextHolder] = Modal.useModal()
   const [messageApi, contextHolderMessage] = message.useMessage()
   const nav = useNavigate()
   const { id, title, desc, channelName, templateCoverImg, isHot, isNew } = props
@@ -49,8 +55,31 @@ const TemplatesCard: FC<PropsType> = (props: PropsType) => {
     }
   )
 
+  // 删除
+  // const [isDeletedState, setIsDeletedState] = useState(false)
+  // const { loading: deleteLoading, run: deleteWork } = useRequest(
+  //   async () => await deleteWorkService(id),
+  //   {
+  //     manual: true,
+  //     onSuccess() {
+  //       messageApi.success('删除成功')
+  //       setIsDeletedState(true)
+  //       onChangeOffset?.(1)
+  //     },
+  //   }
+  // )
+
+  // function del() {
+  //   modal.confirm({
+  //     title: '确定删除该作品？',
+  //     icon: <ExclamationCircleOutlined />,
+  //     onOk: deleteWork,
+  //   })
+  // }
+
   return (
     <Col xs={{ flex: '100%' }} sm={{ flex: '50%' }} md={{ flex: '33.33%' }} lg={{ flex: '25%' }}>
+      {contextHolder}
       <Modal
         title="模板预览"
         open={isModalOpen}
@@ -88,6 +117,16 @@ const TemplatesCard: FC<PropsType> = (props: PropsType) => {
           <Button key={id} type="text" icon={<EyeOutlined />} size="small" onClick={showModal}>
             预览
           </Button>,
+          // <Button
+          //   key={id}
+          //   type="text"
+          //   icon={<RotateLeftOutlined />}
+          //   size="small"
+          //   onClick={del}
+          //   disabled={deleteLoading}
+          // >
+          //   移出
+          // </Button>,
           <Button
             key={id}
             icon={<CopyOutlined />}

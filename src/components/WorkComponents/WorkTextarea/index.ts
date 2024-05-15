@@ -1,5 +1,5 @@
 /**
- * @description 问卷 多行输入
+ * @description 作品 多行输入
  */
 import { FormOutlined } from '@ant-design/icons'
 import Component from './Component'

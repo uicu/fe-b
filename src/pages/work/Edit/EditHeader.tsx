@@ -117,7 +117,7 @@ const PublishButton: FC = () => {
   return (
     <Popconfirm
       placement="bottomRight"
-      title="确定发布该问卷？"
+      title="确定发布该作品？"
       description={
         status === 2
           ? '此操作会将目前的修改推送给正在答题的用户'

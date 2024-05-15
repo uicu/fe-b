@@ -1,5 +1,5 @@
 /**
- * @description 问卷 info 组件
+ * @description 作品 info 组件
  */
 import { InfoCircleOutlined } from '@ant-design/icons'
 import Component from './Component'
@@ -9,7 +9,7 @@ import { WorkInfoDefaultProps } from './interface'
 export * from './interface'
 
 export default {
-  title: '问卷信息',
+  title: '作品信息',
   type: 'workInfo',
   describe: '描述',
   Component,

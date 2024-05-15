@@ -10,9 +10,19 @@ import {
   EllipsisOutlined,
   ExclamationCircleOutlined,
   EditOutlined,
+  SnippetsOutlined,
+  PlayCircleOutlined,
+  PauseCircleOutlined,
 } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
-import { updateWorkService, copyWorkService, deleteWorkService } from '../services/work'
+import {
+  updateWorkService,
+  copyWorkService,
+  deleteWorkService,
+  publishTemplateWorkService,
+  publishWorkService,
+  pauseWorkService,
+} from '../services/work'
 
 const { Meta } = Card
 
@@ -25,6 +35,7 @@ type PropsType = {
   status: number
   answerCount: number
   channelName: string
+  isTemplate: boolean
   onChangeOffset?: (value: number) => void
 }
 
@@ -33,9 +44,45 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
   const [messageApi, contextHolderMessage] = message.useMessage()
 
   const nav = useNavigate()
-  const { coverImg, id, title, isStar, status, answerCount, onChangeOffset, tab, channelName } =
-    props
-  const isPublished = status === 2
+  const {
+    coverImg,
+    id,
+    title,
+    isStar,
+    status,
+    answerCount,
+    onChangeOffset,
+    tab,
+    channelName,
+    isTemplate,
+  } = props
+
+  // 发布或暂停
+  const [isPublished, setIsPublished] = useState(status === 2)
+  const { loading: publishLoading, run: publish } = useRequest(
+    async () => {
+      await publishWorkService(id)
+    },
+    {
+      manual: true,
+      onSuccess() {
+        setIsPublished(true)
+        messageApi.success('已发布')
+      },
+    }
+  )
+  const { loading: pauseLoading, run: pause } = useRequest(
+    async () => {
+      await pauseWorkService(id)
+    },
+    {
+      manual: true,
+      onSuccess() {
+        setIsPublished(false)
+        messageApi.success('已暂停')
+      },
+    }
+  )
 
   // 修改标星
   const [isStarState, setIsStarState] = useState(isStar)
@@ -82,12 +129,31 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
       },
     }
   )
-
   function del() {
     modal.confirm({
-      title: '确定删除该问卷？',
+      title: '确定删除该作品？',
       icon: <ExclamationCircleOutlined />,
       onOk: deleteWork,
+    })
+  }
+
+  // 发布为模版
+  const [isTemplateState, setIsTemplateState] = useState(isTemplate)
+  const { loading: templateLoading, run: publishTemplate } = useRequest(
+    async () => await publishTemplateWorkService(id),
+    {
+      manual: true,
+      onSuccess() {
+        messageApi.success('发布成功')
+        setIsTemplateState(true)
+      },
+    }
+  )
+  function template() {
+    modal.confirm({
+      title: '确定发布为模版？',
+      icon: <ExclamationCircleOutlined />,
+      onOk: publishTemplate,
     })
   }
 
@@ -104,6 +170,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
         cover={
           <div className="relative">
             <div className="absolute top-1.5 left-1.5">
+              {!!isTemplateState && <Tag color="#f50">个人模版</Tag>}
               <Tag>{channelName}</Tag>
             </div>
             <img
@@ -145,6 +212,22 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
               <Space direction="vertical">
                 <Button
                   block
+                  icon={isPublished ? <PauseCircleOutlined /> : <PlayCircleOutlined />}
+                  type="text"
+                  size="small"
+                  disabled={publishLoading || pauseLoading}
+                  onClick={() => {
+                    if (isPublished) {
+                      pause()
+                    } else {
+                      publish()
+                    }
+                  }}
+                >
+                  {isPublished ? '暂停' : '发布'}
+                </Button>
+                <Button
+                  block
                   type="text"
                   icon={
                     isStarState ? <StarFilled style={{ color: '#faad14' }} /> : <StarOutlined />
@@ -165,6 +248,18 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
                 >
                   统计
                 </Button>
+                {!isTemplateState && (
+                  <Button
+                    block
+                    type="text"
+                    icon={<SnippetsOutlined />}
+                    size="small"
+                    onClick={template}
+                    disabled={templateLoading}
+                  >
+                    模版
+                  </Button>
+                )}
                 <Button
                   block
                   type="text"

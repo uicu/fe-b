@@ -98,14 +98,14 @@ const Personal: FC = () => {
           <Title level={3} className="flex-1 !m-0">
             个人模版
           </Title>
-          <p className="text-gray-600">在个人问卷中保存的模板</p>
+          <p className="text-gray-600">在个人作品中保存的模板</p>
         </div>
         <Divider dashed className="m-0" />
         <TemplatesQueryFilter />
       </div>
 
       <div className="mb-5">
-        {/* 问卷列表 */}
+        {/* 作品列表 */}
         {list.length > 0 && (
           <Row gutter={[16, 24]}>
             {list.map(

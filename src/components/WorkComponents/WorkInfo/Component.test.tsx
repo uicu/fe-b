@@ -6,7 +6,7 @@ import Component from './Component'
 // 测试用例
 test('默认属性', () => {
   render(<Component />) // 渲染组件
-  const h = screen.getByText('问卷标题')
+  const h = screen.getByText('作品标题')
   expect(h).toBeInTheDocument() // 断言
 })
 

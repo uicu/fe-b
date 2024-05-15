@@ -26,7 +26,7 @@ const PropComponent: FC<WorkInfoPropsType> = (props: WorkInfoPropsType) => {
       disabled={disabled}
       form={form}
     >
-      <Form.Item label="标题" name="title" rules={[{ required: true, message: '请输入问卷标题' }]}>
+      <Form.Item label="标题" name="title" rules={[{ required: true, message: '请输入作品标题' }]}>
         <Input />
       </Form.Item>
       <Form.Item label="描述" name="desc">

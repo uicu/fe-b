@@ -1,5 +1,5 @@
 /**
- * @description 问卷 输入框
+ * @description 作品 输入框
  */
 import { EditOutlined } from '@ant-design/icons'
 import Component from './Component'

@@ -1,5 +1,5 @@
 /**
- * @description 问卷 radio
+ * @description 作品 radio
  */
 import { CheckCircleOutlined } from '@ant-design/icons'
 import Component from './Component'

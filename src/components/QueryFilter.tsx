@@ -72,8 +72,8 @@ const QueryFilter: React.FC = () => {
           md={{ flex: '33.33%' }}
           lg={{ flex: '25%' }}
         >
-          <Form.Item name="title" label="问卷名称">
-            <Input placeholder="问卷名称" allowClear />
+          <Form.Item name="title" label="作品名称">
+            <Input placeholder="作品名称" allowClear />
           </Form.Item>
         </Col>
 
@@ -111,8 +111,8 @@ const QueryFilter: React.FC = () => {
           md={{ flex: '33.33%' }}
           lg={{ flex: '25%' }}
         >
-          <Form.Item name="channel" label="问卷类型">
-            <Select placeholder="问卷类型" disabled={waitingChannelData} allowClear>
+          <Form.Item name="channel" label="作品类型">
+            <Select placeholder="作品类型" disabled={waitingChannelData} allowClear>
               {channelList.map(item => {
                 return (
                   <Option value={`${item.id}`} key={item.id}>

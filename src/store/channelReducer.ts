@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-// 问卷类型
+// 作品类型
 export type ChannelStateType = Array<{
   name: string
   id: number

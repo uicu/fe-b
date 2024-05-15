@@ -1,6 +1,6 @@
 import axios, { ResDataType } from './ajax'
 
-// 获取问卷的统计列表
+// 获取作品的统计列表
 export async function getWorkStatListService(
   workId: string,
   opt: { pageNo: number; pageSize: number }

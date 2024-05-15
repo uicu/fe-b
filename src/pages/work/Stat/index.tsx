@@ -25,7 +25,7 @@ const Stat: FC = () => {
   const isPublished = status === 2
 
   // 修改标题
-  useTitle(`问卷统计 - ${title}`)
+  useTitle(`作品统计 - ${title}`)
 
   // Content Elem
   function genContentElem() {

@@ -105,7 +105,7 @@ const Public: FC = () => {
       </div>
 
       <div className="mb-5">
-        {/* 问卷列表 */}
+        {/* 作品列表 */}
         {list.length > 0 && (
           <Row gutter={[16, 24]}>
             {list.map(

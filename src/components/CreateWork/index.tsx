@@ -29,7 +29,7 @@ const CreateWork: FC = () => {
     setIsModalOpen(false)
   }
 
-  // 新建问卷
+  // 新建作品
   const { run: onFinish, loading: disabled } = useRequest(
     async (values: { title: string; channelId: number; desc: string }) => {
       const data = await createWorkService(values)
@@ -59,7 +59,7 @@ const CreateWork: FC = () => {
       </Button>
 
       <Modal
-        title="新建问卷"
+        title="新建作品"
         open={isModalOpen}
         footer={null}
         onOk={handleOk}
@@ -68,18 +68,18 @@ const CreateWork: FC = () => {
         <Form layout="vertical" form={form} onFinish={onFinish} className="pb-0">
           <Form.Item
             name="title"
-            label="问卷名称"
-            rules={[{ required: true, message: '请输入问卷名称!' }]}
+            label="作品名称"
+            rules={[{ required: true, message: '请输入作品名称!' }]}
           >
-            <Input placeholder="问卷名称" allowClear />
+            <Input placeholder="作品名称" allowClear />
           </Form.Item>
 
           <Form.Item
             name="channelId"
-            label="问卷类型"
-            rules={[{ required: true, message: '请输入问卷类型!' }]}
+            label="作品类型"
+            rules={[{ required: true, message: '请输入作品类型!' }]}
           >
-            <Select placeholder="问卷类型" disabled={waitingChannelData} allowClear>
+            <Select placeholder="作品类型" disabled={waitingChannelData} allowClear>
               {channelList.map(item => {
                 return (
                   <Option value={item.id} key={item.id}>
@@ -93,9 +93,9 @@ const CreateWork: FC = () => {
           <Form.Item
             name="desc"
             label="描述"
-            rules={[{ required: true, message: '请输入问卷描述!' }]}
+            rules={[{ required: true, message: '请输入作品描述!' }]}
           >
-            <TextArea rows={4} placeholder="问卷描述" allowClear />
+            <TextArea rows={4} placeholder="作品描述" allowClear />
           </Form.Item>
 
           <div className="text-right">

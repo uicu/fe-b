@@ -44,6 +44,7 @@ const Star: FC = () => {
                 status: number
                 answerCount: number
                 channelName: string
+                isTemplate: boolean
               }) => {
                 const { id } = item
                 return (

@@ -8,6 +8,6 @@ export type WorkInfoPropsType = {
 }
 
 export const WorkInfoDefaultProps: WorkInfoPropsType = {
-  title: '问卷标题',
-  desc: '问卷描述',
+  title: '作品标题',
+  desc: '作品描述',
 }

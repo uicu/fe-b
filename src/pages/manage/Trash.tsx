@@ -18,7 +18,7 @@ import { useRequest } from 'ahooks'
 import ListSearch from '../../components/ListSearch'
 import ListPage from '../../components/ListPage'
 import useLoadWorkListData from '../../hooks/useLoadWorkListData'
-import { updateWorkService, deleteThoroughWorkService } from '../../services/work'
+import { recoverWorkService, deleteThoroughWorkService } from '../../services/work'
 
 const { Title } = Typography
 const { Meta } = Card
@@ -34,7 +34,7 @@ const Trash: FC = () => {
   // 恢复
   const { run: recover } = useRequest(
     async (id: string) => {
-      await updateWorkService(id, { status: 1 })
+      await recoverWorkService(id)
     },
     {
       manual: true,
@@ -60,7 +60,7 @@ const Trash: FC = () => {
 
   function del(id: string) {
     modal.confirm({
-      title: '确认彻底删除该问卷？',
+      title: '确认彻底删除该作品？',
       icon: <ExclamationCircleOutlined />,
       content: '删除后不可以找回，请谨慎操作',
       okText: '确定',
@@ -132,7 +132,7 @@ const Trash: FC = () => {
                       actions={[
                         <Popconfirm
                           key={id}
-                          title="确定恢复该问卷？"
+                          title="确定恢复该作品？"
                           okText="确定"
                           cancelText="取消"
                           onConfirm={() => {

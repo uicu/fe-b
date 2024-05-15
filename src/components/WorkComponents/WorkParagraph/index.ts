@@ -1,5 +1,5 @@
 /**
- * @description 问卷 - 段落
+ * @description 作品 - 段落
  */
 import { FileTextOutlined } from '@ant-design/icons'
 import Component from './Component'

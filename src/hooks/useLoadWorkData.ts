@@ -14,7 +14,7 @@ function useLoadWorkData() {
   // ajax 加载
   const { data, loading, error, run } = useRequest(
     async (id: string) => {
-      if (!id) throw new Error('没有问卷 id')
+      if (!id) throw new Error('没有作品 id')
       const res = await getWorkService(id)
       return res.data
     },
@@ -62,7 +62,7 @@ function useLoadWorkData() {
     dispatch(resetPageInfo({ title, desc, status }))
   }, [data])
 
-  // 判断 id 变化，执行 ajax 加载问卷数据
+  // 判断 id 变化，执行 ajax 加载作品数据
   useEffect(() => {
     run(id)
   }, [id])

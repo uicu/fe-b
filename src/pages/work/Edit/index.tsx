@@ -30,7 +30,7 @@ const Edit: FC = () => {
 
   // 修改标题
   const { title } = useGetPageInfo()
-  useTitle(`问卷编辑 - ${title}`)
+  useTitle(`作品编辑 - ${title}`)
 
   const containerDefaultClassName = styles.container
   const editorSelectedClassName = styles.selected

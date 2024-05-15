@@ -1,5 +1,5 @@
 /**
- * @description 问卷 checkbox
+ * @description 作品 checkbox
  */
 import { CheckSquareOutlined } from '@ant-design/icons'
 import Component from './Component'

@@ -1,5 +1,5 @@
 /**
- * @description 问卷 标题
+ * @description 作品 标题
  */
 import { InfoOutlined } from '@ant-design/icons'
 import Component from './Component'

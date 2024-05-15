@@ -16,14 +16,14 @@ type SearchOption = {
   isPublic: boolean
 }
 
-// 获取单个问卷信息
+// 获取单个作品信息
 export async function getWorkService(id: string): Promise<ResDataType> {
   const url = `/v1/work/${id}`
   const res = (await axios.get(url)) as ResDataType
   return res.data
 }
 
-// 创建问卷
+// 创建作品
 export async function createWorkService(opt: {
   title: string
   channelId: number
@@ -36,11 +36,11 @@ export async function createWorkService(opt: {
       {
         fe_id: 'c1',
         type: 'workInfo',
-        title: '问卷信息',
+        title: '作品信息',
         page: 1,
         isHidden: false,
         isLocked: false,
-        props: { title: '问卷标题', desc: '问卷描述...' },
+        props: { title: '作品标题', desc: '作品描述...' },
       },
       {
         fe_id: 'c2',
@@ -67,7 +67,7 @@ export async function createWorkService(opt: {
         page: -1,
         isHidden: false,
         isLocked: false,
-        props: { title: '问卷到此结束，感谢您的参与！', desc: '问卷描述...' },
+        props: { title: '作品到此结束，感谢您的参与！', desc: '作品描述...' },
       },
     ],
     props: {},
@@ -78,14 +78,14 @@ export async function createWorkService(opt: {
   return res.data
 }
 
-// 获取（查询）问卷列表
+// 获取（查询）作品列表
 export async function getWorkListService(opt: Partial<SearchOption> = {}): Promise<ResDataType> {
   const url = '/v1/work'
   const res = (await axios.get(url, { params: opt })) as ResDataType
   return res.data
 }
 
-// 更新单个问卷
+// 更新单个作品
 export async function updateWorkService(
   id: string,
   opt: Record<string, unknown>
@@ -95,14 +95,14 @@ export async function updateWorkService(
   return res.data
 }
 
-// 发布问卷
+// 发布作品
 export async function publishWorkService(id: string): Promise<ResDataType> {
   const url = `/v1/work/publish/${id}`
   const res = (await axios.post(url)) as ResDataType
   return res.data
 }
 
-// 复制问卷
+// 复制作品
 export async function copyWorkService(id: string): Promise<ResDataType> {
   const url = `/v1/work/copy/${id}`
   const res = (await axios.post(url)) as ResDataType
@@ -120,5 +120,26 @@ export async function deleteWorkService(id: string): Promise<ResDataType> {
 export async function deleteThoroughWorkService(id: string): Promise<ResDataType> {
   const url = `/v1/work/thorough/${id}`
   const res = (await axios.delete(url)) as ResDataType
+  return res.data
+}
+
+// 发布为模版
+export async function publishTemplateWorkService(id: string): Promise<ResDataType> {
+  const url = `/v1/work/publish/template/${id}`
+  const res = (await axios.post(url)) as ResDataType
+  return res.data
+}
+
+// 暂停回收
+export async function pauseWorkService(id: string): Promise<ResDataType> {
+  const url = `/v1/work/pause/${id}`
+  const res = (await axios.post(url)) as ResDataType
+  return res.data
+}
+
+// 恢复作品
+export async function recoverWorkService(id: string): Promise<ResDataType> {
+  const url = `/v1/work/recover/${id}`
+  const res = (await axios.post(url)) as ResDataType
   return res.data
 }
