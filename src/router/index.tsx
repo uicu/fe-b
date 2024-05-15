@@ -7,7 +7,7 @@ import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
 import Star from '../pages/manage/Star'
-import TemplatesAll from '../pages/templates/All'
+import TemplatesPublic from '../pages/templates/Public'
 import TemplatesPersonal from '../pages/templates/Personal'
 // 路由懒加载，拆分 bundle ，优化首页体积
 const Edit = lazy(() => import(/* webpackChunkName: "editPage" */ '../pages/work/Edit'))
@@ -41,8 +41,8 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        path: 'all',
-        element: <TemplatesAll />,
+        path: 'public',
+        element: <TemplatesPublic />,
       },
       {
         path: 'personal',

@@ -12,6 +12,8 @@ type SearchOption = {
   timeSpan?: string
   channel?: string
   offsetNum?: number
+  isTemplate: boolean
+  isPublic: boolean
 }
 
 // 获取单个问卷信息

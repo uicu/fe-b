@@ -92,7 +92,7 @@ export default function Header() {
     <>
       {contextHolder}
       <header
-        className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${
+        className={`fixed w-full z-30 md:bg-white transition duration-300 ease-in-out ${
           !top ? 'bg-white backdrop-blur-sm shadow-lg' : ''
         }`}
       >
@@ -123,9 +123,9 @@ export default function Header() {
                 </li>
                 <li>
                   <NavLink
-                    to="/templates/all"
+                    to="/templates/public"
                     className={() => {
-                      const isActive = ['/templates/all', '/templates/personal'].some(route =>
+                      const isActive = ['/templates/public', '/templates/personal'].some(route =>
                         pathname.includes(route)
                       )
                       const styles =

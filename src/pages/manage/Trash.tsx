@@ -19,7 +19,6 @@ import ListSearch from '../../components/ListSearch'
 import ListPage from '../../components/ListPage'
 import useLoadWorkListData from '../../hooks/useLoadWorkListData'
 import { updateWorkService, deleteThoroughWorkService } from '../../services/work'
-import styles from './common.module.scss'
 
 const { Title } = Typography
 const { Meta } = Card
@@ -77,17 +76,17 @@ const Trash: FC = () => {
       {contextHolder}
       {contextHolderMessage}
       <div className="mb-6 p-6 bg-white rounded">
-        <div className={`${styles.header}`}>
-          <Title level={4} className={styles.left}>
+        <div className="flex items-center">
+          <Title level={3} className="flex-1 !m-0">
             回收站
           </Title>
-          <div className={styles.right}>
+          <div className="flex-1 text-right">
             <ListSearch />
           </div>
         </div>
       </div>
 
-      <div className={styles.content}>
+      <div className="mb-5">
         {loading && (
           <div style={{ textAlign: 'center' }}>
             <Spin />
@@ -125,9 +124,9 @@ const Trash: FC = () => {
                           src={
                             coverImg
                               ? `https://uicu-1252254586.cos.ap-guangzhou.myqcloud.com/${coverImg}`
-                              : '/images/base-01.png'
+                              : '/images/base-01.jpg'
                           }
-                          className="h-32"
+                          className="min-h-32"
                         />
                       }
                       actions={[
@@ -173,7 +172,7 @@ const Trash: FC = () => {
           </Row>
         )}
       </div>
-      <div className={styles.footer}>
+      <div className="text-center">
         <ListPage total={total} />
       </div>
     </>

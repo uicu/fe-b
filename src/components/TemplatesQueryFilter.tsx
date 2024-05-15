@@ -1,9 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { useLocation, NavLink, useSearchParams } from 'react-router-dom'
 import useLoadChannelData from '../hooks/useLoadChannelData'
 
 const TemplatesQueryFilter: React.FC = () => {
   const { channelList } = useLoadChannelData()
+  const { pathname } = useLocation()
+  const [searchParams] = useSearchParams()
   return (
     <>
       <ul className="flex grow justify-start flex-wrap items-center">
@@ -12,10 +14,12 @@ const TemplatesQueryFilter: React.FC = () => {
         </li>
         <li>
           <NavLink
-            to="/templates/all"
-            className={({ isActive }) => {
+            to={pathname}
+            className={() => {
+              const channelId = searchParams.get('channel')
+              const isActive = !channelId
               const styles =
-                'text-gray-600 hover:text-gray-900 px-1 flex items-center transition duration-150 ease-in-out'
+                'text-gray-600 hover:text-gray-900 px-2 flex items-center transition duration-150 ease-in-out'
               return isActive ? `text-purple-600 ${styles}` : `${styles}`
             }}
           >
@@ -26,10 +30,12 @@ const TemplatesQueryFilter: React.FC = () => {
           return (
             <li key={item.id}>
               <NavLink
-                to="/"
-                className={({ isActive }) => {
+                to={`${pathname}?channel=${item.id}`}
+                className={() => {
+                  const channelId = searchParams.get('channel')
+                  const isActive = channelId === `${item.id}`
                   const styles =
-                    'text-gray-600 hover:text-gray-900 px-1 flex items-center transition duration-150 ease-in-out'
+                    'text-gray-600 hover:text-gray-900 px-2 flex items-center transition duration-150 ease-in-out'
                   return isActive ? `text-purple-600 ${styles}` : `${styles}`
                 }}
               >

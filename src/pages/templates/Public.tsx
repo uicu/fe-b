@@ -1,39 +1,24 @@
-import React, { FC, useEffect, useState, useRef, useMemo } from 'react'
+import React, { FC, useState, useRef, useEffect, useMemo } from 'react'
 import { Typography, Spin, Empty, Row, Divider } from 'antd'
 import { useTitle, useDebounceFn, useRequest } from 'ahooks'
 import { useSearchParams } from 'react-router-dom'
+import TemplatesQueryFilter from '../../components/TemplatesQueryFilter'
+import TemplatesCard from '../../components/TemplatesCard'
 import { getWorkListService } from '../../services/work'
-import WorkCard from '../../components/WorkCard'
-import QueryFilter from '../../components/QueryFilter'
-import {
-  LIST_PAGE_SIZE,
-  LIST_SEARCH_CHANNEL,
-  LIST_SEARCH_QUANTITY,
-  LIST_SEARCH_SORT,
-  LIST_SEARCH_STATUS,
-  LIST_SEARCH_TIME_SPAN,
-  LIST_SEARCH_TITLE,
-} from '../../constant/index'
-import CreateWork from '../../components/CreateWork'
+import { LIST_PAGE_SIZE, LIST_SEARCH_CHANNEL } from '../../constant/index'
 
 const { Title } = Typography
 
-const List: FC = () => {
-  useTitle('我的问卷')
+const Public: FC = () => {
+  useTitle('公共模版')
 
-  const [offsetNum, setOffsetNum] = useState(0) // 偏移量，在删除或者取消标星时需要用到
   const [started, setStarted] = useState(false) // 是否已经开始加载（防抖，有延迟时间）
   const [pageNo, setPage] = useState(1) // List 内部的数据，不在 url 参数中体现
-  const [list, setList] = useState([]) // 全部的列表数据，上划加载更多，累计
+  const [list, setList] = useState([]) // 全部的列表数据
   const [total, setTotal] = useState(0)
   const haveMoreData = total > list.length // 有没有更多的、为加载完成的数据
 
-  const [searchParams] = useSearchParams() // url 参数，虽然没有 page pageSize ，但有 keyword
-  const title = searchParams.get(LIST_SEARCH_TITLE) || undefined
-  const status = searchParams.get(LIST_SEARCH_STATUS) || undefined
-  const quantity = searchParams.get(LIST_SEARCH_QUANTITY) || undefined
-  const sort = searchParams.get(LIST_SEARCH_SORT) || undefined
-  const timeSpan = searchParams.get(LIST_SEARCH_TIME_SPAN) || undefined
+  const [searchParams] = useSearchParams() // url 参数
   const channel = searchParams.get(LIST_SEARCH_CHANNEL) || undefined
 
   // 真正加载
@@ -42,13 +27,8 @@ const List: FC = () => {
       const data = await getWorkListService({
         pageNo,
         pageSize: LIST_PAGE_SIZE,
-        title,
-        status: status ? Number(status) : undefined,
-        quantity,
-        sort,
-        timeSpan,
+        isPublic: true,
         channel,
-        offsetNum,
       })
       return data
     },
@@ -116,16 +96,12 @@ const List: FC = () => {
       <div className="mb-6 p-6 bg-white rounded">
         <div className="flex items-center">
           <Title level={3} className="flex-1 !m-0">
-            我的问卷
+            公共模版
           </Title>
-          <CreateWork />
+          <p className="text-gray-600">由平台整理的标准模板</p>
         </div>
         <Divider dashed className="m-0" />
-        {(() => {
-          if (started) {
-            return <QueryFilter />
-          }
-        })()}
+        <TemplatesQueryFilter />
       </div>
 
       <div className="mb-5">
@@ -134,30 +110,22 @@ const List: FC = () => {
           <Row gutter={[16, 24]}>
             {list.map(
               (item: {
-                coverImg: string
                 id: string
                 title: string
-                isStar: boolean
-                status: number
-                answerCount: number
+                desc: string
                 channelName: string
+                templateCoverImg: string
+                isHot: number
+                isNew: number
               }) => {
                 const { id } = item
-                return (
-                  <WorkCard
-                    key={id}
-                    {...item}
-                    onChangeOffset={value => {
-                      setOffsetNum(offsetNum + value)
-                    }}
-                    tab="list"
-                  />
-                )
+                return <TemplatesCard key={id} {...item} />
               }
             )}
           </Row>
         )}
       </div>
+
       <div className="text-center">
         <div ref={containerRef}>{LoadMoreContentElem}</div>
       </div>
@@ -165,4 +133,4 @@ const List: FC = () => {
   )
 }
 
-export default List
+export default Public

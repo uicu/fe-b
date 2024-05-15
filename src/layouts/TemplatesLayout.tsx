@@ -31,12 +31,12 @@ const TemplatesLayout: FC = () => {
         <main className="grow">
           <section className="bg-gradient-to-b from-gray-100 to-white">
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
-              <div className="pt-24 pb-12 md:pt-24 md:pb-20">
+              <div className="pt-28 pb-12 md:pt-28 md:pb-20">
                 <div className="pb-6 md:pb-6 block min-w-[256px] md:inline-block">
                   <Segmented
                     block
                     options={[
-                      { label: '全部模版', value: '/templates/all', icon: <SnippetsOutlined /> },
+                      { label: '公共模版', value: '/templates/public', icon: <SnippetsOutlined /> },
                       { label: '个人模版', value: '/templates/personal', icon: <UserOutlined /> },
                     ]}
                     value={value}

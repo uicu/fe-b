@@ -24,6 +24,7 @@ type PropsType = {
   isStar: boolean
   status: number
   answerCount: number
+  channelName: string
   onChangeOffset?: (value: number) => void
 }
 
@@ -32,7 +33,8 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
   const [messageApi, contextHolderMessage] = message.useMessage()
 
   const nav = useNavigate()
-  const { coverImg, id, title, isStar, status, answerCount, onChangeOffset, tab } = props
+  const { coverImg, id, title, isStar, status, answerCount, onChangeOffset, tab, channelName } =
+    props
   const isPublished = status === 2
 
   // 修改标星
@@ -102,16 +104,14 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
         cover={
           <div className="relative">
             <div className="absolute top-1.5 left-1.5">
-              <Tag bordered={false} color="orange">
-                普通问卷
-              </Tag>
+              <Tag>{channelName}</Tag>
             </div>
             <img
               alt="封面图"
               src={
                 coverImg
                   ? `https://uicu-1252254586.cos.ap-guangzhou.myqcloud.com/${coverImg}`
-                  : '/images/base-01.png'
+                  : '/images/base-01.jpg'
               }
               className="min-h-32"
             />
