@@ -143,3 +143,10 @@ export async function recoverWorkService(id: string): Promise<ResDataType> {
   const res = (await axios.post(url)) as ResDataType
   return res.data
 }
+
+// 个人模版移除
+export async function removeTemplateWorkService(id: string): Promise<ResDataType> {
+  const url = `/v1/work/remove/template/${id}`
+  const res = (await axios.delete(url)) as ResDataType
+  return res.data
+}

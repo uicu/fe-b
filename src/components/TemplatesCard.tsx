@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { useNavigate } from 'react-router-dom'
-import { copyWorkService } from '../services/work'
+import { copyWorkService, removeTemplateWorkService } from '../services/work'
 
 const { Meta } = Card
 
@@ -20,13 +20,16 @@ type PropsType = {
   templateCoverImg: string
   isHot: number
   isNew: number
+  tab: string
+  onChangeOffset?: (value: number) => void
 }
 
 const TemplatesCard: FC<PropsType> = (props: PropsType) => {
   const [modal, contextHolder] = Modal.useModal()
   const [messageApi, contextHolderMessage] = message.useMessage()
   const nav = useNavigate()
-  const { id, title, desc, channelName, templateCoverImg, isHot, isNew } = props
+  const { id, title, desc, channelName, templateCoverImg, isHot, isNew, onChangeOffset, tab } =
+    props
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -55,27 +58,30 @@ const TemplatesCard: FC<PropsType> = (props: PropsType) => {
     }
   )
 
-  // 删除
-  // const [isDeletedState, setIsDeletedState] = useState(false)
-  // const { loading: deleteLoading, run: deleteWork } = useRequest(
-  //   async () => await deleteWorkService(id),
-  //   {
-  //     manual: true,
-  //     onSuccess() {
-  //       messageApi.success('删除成功')
-  //       setIsDeletedState(true)
-  //       onChangeOffset?.(1)
-  //     },
-  //   }
-  // )
+  // 移出该模版
+  const [isDeletedState, setIsDeletedState] = useState(false)
+  const { loading: deleteLoading, run: deleteWork } = useRequest(
+    async () => await removeTemplateWorkService(id),
+    {
+      manual: true,
+      onSuccess() {
+        messageApi.success('移出成功')
+        setIsDeletedState(true)
+        onChangeOffset?.(1)
+      },
+    }
+  )
 
-  // function del() {
-  //   modal.confirm({
-  //     title: '确定删除该作品？',
-  //     icon: <ExclamationCircleOutlined />,
-  //     onOk: deleteWork,
-  //   })
-  // }
+  function del() {
+    modal.confirm({
+      title: '确定移出该模版？',
+      icon: <ExclamationCircleOutlined />,
+      onOk: deleteWork,
+    })
+  }
+
+  // 已经移出的模版，不要再渲染卡片了
+  if (isDeletedState) return null
 
   return (
     <Col xs={{ flex: '100%' }} sm={{ flex: '50%' }} md={{ flex: '33.33%' }} lg={{ flex: '25%' }}>
@@ -117,16 +123,20 @@ const TemplatesCard: FC<PropsType> = (props: PropsType) => {
           <Button key={id} type="text" icon={<EyeOutlined />} size="small" onClick={showModal}>
             预览
           </Button>,
-          // <Button
-          //   key={id}
-          //   type="text"
-          //   icon={<RotateLeftOutlined />}
-          //   size="small"
-          //   onClick={del}
-          //   disabled={deleteLoading}
-          // >
-          //   移出
-          // </Button>,
+          <>
+            {tab === 'personal' && (
+              <Button
+                key={id}
+                type="text"
+                icon={<RotateLeftOutlined />}
+                size="small"
+                onClick={del}
+                disabled={deleteLoading}
+              >
+                移出
+              </Button>
+            )}
+          </>,
           <Button
             key={id}
             icon={<CopyOutlined />}

@@ -12,6 +12,7 @@ const { Title } = Typography
 const Public: FC = () => {
   useTitle('公共模版')
 
+  const [offsetNum, setOffsetNum] = useState(0) // 偏移量
   const [started, setStarted] = useState(false) // 是否已经开始加载（防抖，有延迟时间）
   const [pageNo, setPage] = useState(1) // List 内部的数据，不在 url 参数中体现
   const [list, setList] = useState([]) // 全部的列表数据
@@ -29,6 +30,7 @@ const Public: FC = () => {
         pageSize: LIST_PAGE_SIZE,
         isPublic: true,
         channel,
+        offsetNum,
       })
       return data
     },
@@ -119,7 +121,16 @@ const Public: FC = () => {
                 isNew: number
               }) => {
                 const { id } = item
-                return <TemplatesCard key={id} {...item} />
+                return (
+                  <TemplatesCard
+                    key={id}
+                    {...item}
+                    onChangeOffset={value => {
+                      setOffsetNum(offsetNum + value)
+                    }}
+                    tab="public"
+                  />
+                )
               }
             )}
           </Row>

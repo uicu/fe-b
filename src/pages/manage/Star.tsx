@@ -9,7 +9,7 @@ import useLoadWorkListData from '../../hooks/useLoadWorkListData'
 const { Title } = Typography
 
 const Star: FC = () => {
-  useTitle('星标问卷')
+  useTitle('星标作品')
   const { data = {}, loading, refresh } = useLoadWorkListData({ isStar: true })
   const { works: list = [], totalCount: total = 0 } = data
   return (
@@ -17,7 +17,7 @@ const Star: FC = () => {
       <div className="mb-6 p-6 bg-white rounded">
         <div className="flex items-center">
           <Title level={3} className="flex-1 !m-0">
-            星标问卷
+            星标作品
           </Title>
           <div className="flex-1 text-right">
             <ListSearch />

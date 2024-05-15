@@ -98,7 +98,7 @@ const Personal: FC = () => {
           <Title level={3} className="flex-1 !m-0">
             个人模版
           </Title>
-          <p className="text-gray-600">在个人作品中保存的模板</p>
+          <p className="text-gray-600">在工作台中保存的模板</p>
         </div>
         <Divider dashed className="m-0" />
         <TemplatesQueryFilter />
@@ -119,7 +119,7 @@ const Personal: FC = () => {
                 isNew: number
               }) => {
                 const { id } = item
-                return <TemplatesCard key={id} {...item} />
+                return <TemplatesCard key={id} {...item} tab="personal" />
               }
             )}
           </Row>

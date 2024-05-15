@@ -19,7 +19,7 @@ import CreateWork from '../../components/CreateWork'
 const { Title } = Typography
 
 const List: FC = () => {
-  useTitle('我的问卷')
+  useTitle('我的作品')
 
   const [offsetNum, setOffsetNum] = useState(0) // 偏移量，在删除或者取消标星时需要用到
   const [started, setStarted] = useState(false) // 是否已经开始加载（防抖，有延迟时间）
@@ -116,7 +116,7 @@ const List: FC = () => {
       <div className="mb-6 p-6 bg-white rounded">
         <div className="flex items-center">
           <Title level={3} className="flex-1 !m-0">
-            我的问卷
+            我的作品
           </Title>
           <CreateWork />
         </div>
@@ -129,7 +129,7 @@ const List: FC = () => {
       </div>
 
       <div className="mb-5">
-        {/* 问卷列表 */}
+        {/* 作品列表 */}
         {list.length > 0 && (
           <Row gutter={[16, 24]}>
             {list.map(
