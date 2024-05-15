@@ -1,10 +1,12 @@
 import React, { FC, useState } from 'react'
-import { Button, Card, Col, Tag, Modal, message } from 'antd'
+import { Button, Card, Col, Tag, Modal, message, Space, Radio } from 'antd'
 import {
   CopyOutlined,
   EyeOutlined,
   RotateLeftOutlined,
   ExclamationCircleOutlined,
+  DesktopOutlined,
+  MobileOutlined,
 } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { useNavigate } from 'react-router-dom'
@@ -25,6 +27,8 @@ type PropsType = {
 }
 
 const TemplatesCard: FC<PropsType> = (props: PropsType) => {
+  const [position, setPosition] = useState<'desktop' | 'mobile'>('desktop')
+
   const [modal, contextHolder] = Modal.useModal()
   const [messageApi, contextHolderMessage] = message.useMessage()
   const nav = useNavigate()
@@ -93,9 +97,19 @@ const TemplatesCard: FC<PropsType> = (props: PropsType) => {
         onCancel={handleCancel}
         width={660}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <div className="w-full text-center">
+          <Space direction="vertical" size="middle" className="w-full">
+            <Radio.Group value={position} onChange={e => setPosition(e.target.value)} size="middle">
+              <Radio.Button value="desktop">
+                <DesktopOutlined />
+              </Radio.Button>
+              <Radio.Button value="mobile">
+                <MobileOutlined />
+              </Radio.Button>
+            </Radio.Group>
+            <iframe src={`https://www.demo.com/template/${id}`} className="h-96 w-full"></iframe>
+          </Space>
+        </div>
       </Modal>
       {contextHolderMessage}
       <Card
