@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Segmented, Spin } from 'antd'
-import { UserOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons'
+import { SnippetsOutlined, UserOutlined } from '@ant-design/icons'
 import useLoadUserData from '../hooks/useLoadUserData'
 import useNavPage from '../hooks/useNavPage'
 import HeaderLayouts from '../components/UI/Header'
 
-const ManageLayout: FC = () => {
+const TemplatesLayout: FC = () => {
   const { waitingUserData } = useLoadUserData()
   useNavPage(waitingUserData)
 
@@ -36,9 +36,8 @@ const ManageLayout: FC = () => {
                   <Segmented
                     block
                     options={[
-                      { label: '我的', value: '/manage/list', icon: <UserOutlined /> },
-                      { label: '星标', value: '/manage/star', icon: <StarOutlined /> },
-                      { label: '回收站', value: '/manage/trash', icon: <DeleteOutlined /> },
+                      { label: '全部模版', value: '/templates/all', icon: <SnippetsOutlined /> },
+                      { label: '个人模版', value: '/templates/personal', icon: <UserOutlined /> },
                     ]}
                     value={value}
                     onChange={onChange}
@@ -62,4 +61,4 @@ const ManageLayout: FC = () => {
   )
 }
 
-export default ManageLayout
+export default TemplatesLayout

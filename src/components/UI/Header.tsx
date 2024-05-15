@@ -123,8 +123,11 @@ export default function Header() {
                 </li>
                 <li>
                   <NavLink
-                    to="/"
-                    className={({ isActive }) => {
+                    to="/templates/all"
+                    className={() => {
+                      const isActive = ['/templates/all', '/templates/personal'].some(route =>
+                        pathname.includes(route)
+                      )
                       const styles =
                         'text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out'
                       return isActive ? `text-purple-600 ${styles}` : `${styles}`

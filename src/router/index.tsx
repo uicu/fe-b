@@ -1,11 +1,14 @@
 import React, { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import ManageLayout from '../layouts/ManageLayout'
+import TemplatesLayout from '../layouts/TemplatesLayout'
 import WorkLayout from '../layouts/WorkLayout'
 import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
 import Star from '../pages/manage/Star'
+import TemplatesAll from '../pages/templates/All'
+import TemplatesPersonal from '../pages/templates/Personal'
 // 路由懒加载，拆分 bundle ，优化首页体积
 const Edit = lazy(() => import(/* webpackChunkName: "editPage" */ '../pages/work/Edit'))
 const Stat = lazy(() => import(/* webpackChunkName: "statPage" */ '../pages/work/Stat'))
@@ -29,6 +32,21 @@ const router = createBrowserRouter([
       {
         path: 'trash',
         element: <Trash />,
+      },
+    ],
+  },
+  {
+    path: 'templates',
+    element: <TemplatesLayout />,
+    children: [
+      {
+        index: true,
+        path: 'all',
+        element: <TemplatesAll />,
+      },
+      {
+        path: 'personal',
+        element: <TemplatesPersonal />,
       },
     ],
   },
