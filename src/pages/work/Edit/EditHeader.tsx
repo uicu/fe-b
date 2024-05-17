@@ -12,9 +12,8 @@ import { updateWorkService, publishWorkService } from '../../../services/work'
 
 // 显示和修改标题
 const TitleElem: FC = () => {
-  const { title } = useGetPageInfo()
   const dispatch = useDispatch()
-
+  const { title } = useGetPageInfo()
   const [editState, SetEditState] = useState(false)
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -23,8 +22,19 @@ const TitleElem: FC = () => {
     dispatch(changePageTitle(newTitle))
   }
 
+  let ele = (
+    <Space>
+      <h4 className="text-lg m-0">{title}</h4>
+      <Button
+        className="hidden md:block"
+        icon={<EditOutlined />}
+        type="text"
+        onClick={() => SetEditState(true)}
+      />
+    </Space>
+  )
   if (editState) {
-    return (
+    ele = (
       <Input
         value={title}
         onChange={handleChange}
@@ -35,15 +45,12 @@ const TitleElem: FC = () => {
   }
 
   return (
-    <Space>
-      <h4 className="text-lg m-0">{title}</h4>
-      <Button
-        className="hidden md:block"
-        icon={<EditOutlined />}
-        type="text"
-        onClick={() => SetEditState(true)}
-      />
-    </Space>
+    <>
+      <p className="text-sm max-w-40 whitespace-nowrap text-ellipsis overflow-hidden block md:hidden">
+        {title}
+      </p>
+      <div className="hidden md:block">{ele}</div>
+    </>
   )
 }
 
@@ -143,7 +150,7 @@ const EditHeader: FC = () => {
           <Space>
             <Link to={'/manage/list'}>
               <LeftOutlined />
-              列表
+              <span className="hidden md:inline">列表</span>
             </Link>
             <TitleElem />
           </Space>

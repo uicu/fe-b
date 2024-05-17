@@ -36,7 +36,9 @@ function genComponent(c: ComponentConfType) {
       content={
         <>
           <p className={styles.describe}>{describe}</p>
-          <Component />
+          <div className="hidden lg:block">
+            <Component />
+          </div>
         </>
       }
       title={title}

@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-// import { useParams } from 'react-router-dom'
+import React, { FC, useState } from 'react'
+import { Drawer } from 'antd'
 import { useDispatch } from 'react-redux'
 import { useTitle } from 'ahooks'
 import classNames from 'classnames'
@@ -16,11 +16,72 @@ import RightPanel from './RightPanel'
 import CanvasTool from './CanvasTool'
 import styles from './index.module.scss'
 
+const LeftPanelElem: FC = () => {
+  const [open, setOpen] = useState(false)
+
+  const showDrawer = () => {
+    setOpen(true)
+  }
+
+  const onClose = () => {
+    setOpen(false)
+  }
+
+  return (
+    <>
+      <div className={classNames({ [styles.left]: true, 'hidden lg:block': true })}>
+        <LeftPanel />
+      </div>
+      <div
+        onClick={showDrawer}
+        className="block lg:hidden absolute -left-4 top-0 bottom-0 z-10 flex items-center"
+      >
+        <div className="bg-slate-200 h-20 w-1 rounded-r"></div>
+      </div>
+      <Drawer placement="left" width={320} closable={false} onClose={onClose} open={open}>
+        <LeftPanel />
+      </Drawer>
+    </>
+  )
+}
+
+const RightPanelElem: FC = () => {
+  const [open, setOpen] = useState(false)
+
+  const showDrawer = () => {
+    setOpen(true)
+  }
+
+  const onClose = () => {
+    setOpen(false)
+  }
+
+  return (
+    <>
+      <div
+        className={classNames({
+          [styles.right]: true,
+          'hidden lg:block': true,
+        })}
+      >
+        <RightPanel />
+      </div>
+      <div
+        onClick={showDrawer}
+        className="block lg:hidden absolute -right-4 top-0 bottom-0 z-10 flex items-center"
+      >
+        <div className="bg-slate-200 h-20 w-1 rounded-l"></div>
+      </div>
+      <Drawer placement="right" width={320} closable={false} onClose={onClose} open={open}>
+        <RightPanel />
+      </Drawer>
+    </>
+  )
+}
+
 const Edit: FC = () => {
   const { editorSelectedId } = useGetInteractionInfo()
-
   const dispatch = useDispatch()
-
   const { loading } = useLoadWorkData()
 
   function clearSelectedId() {
@@ -49,9 +110,7 @@ const Edit: FC = () => {
       <div className="flex-auto py-4 px-4 sm:px-6">
         {/* pc端 */}
         <div className="h-full relative">
-          <div className={classNames({ [styles.left]: true, 'hidden lg:block': true })}>
-            <LeftPanel />
-          </div>
+          <LeftPanelElem />
           <div className={styles.main}>
             <div className="px-0 pb-3 lg:px-80">
               <CanvasTool />
@@ -64,14 +123,7 @@ const Edit: FC = () => {
               <EditCanvas loading={loading} />
             </div>
           </div>
-          <div
-            className={classNames({
-              [styles.right]: true,
-              'hidden lg:block': true,
-            })}
-          >
-            <RightPanel />
-          </div>
+          <RightPanelElem />
         </div>
       </div>
     </div>

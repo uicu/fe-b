@@ -41,10 +41,6 @@ const TemplatesCard: FC<PropsType> = (props: PropsType) => {
     setIsModalOpen(true)
   }
 
-  const handleOk = () => {
-    setIsModalOpen(false)
-  }
-
   const handleCancel = () => {
     setIsModalOpen(false)
   }
@@ -93,9 +89,10 @@ const TemplatesCard: FC<PropsType> = (props: PropsType) => {
       <Modal
         title="模板预览"
         open={isModalOpen}
-        onOk={handleOk}
+        onOk={duplicate}
         onCancel={handleCancel}
         width={740}
+        okText="使用"
       >
         <div className="w-full text-center">
           <Space direction="vertical" size="middle" className="w-full">
