@@ -95,11 +95,11 @@ const TemplatesCard: FC<PropsType> = (props: PropsType) => {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        width={660}
+        width={740}
       >
         <div className="w-full text-center">
-          <Space direction="vertical" size="large" className="w-full">
-            <Radio.Group value={position} onChange={e => setPosition(e.target.value)} size="middle">
+          <Space direction="vertical" size="middle" className="w-full">
+            <Radio.Group value={position} onChange={e => setPosition(e.target.value)} size="small">
               <Radio.Button value="desktop">
                 <DesktopOutlined />
               </Radio.Button>
@@ -107,7 +107,28 @@ const TemplatesCard: FC<PropsType> = (props: PropsType) => {
                 <MobileOutlined />
               </Radio.Button>
             </Radio.Group>
-            <iframe src={`https://www.demo.com/template/${id}`} className="h-96 w-full"></iframe>
+            {(() => {
+              if (position === 'desktop') {
+                return (
+                  <div className="bg-white rounded shadow box-border overflow-hidden h-420 p-3 w-full">
+                    <iframe
+                      src={`https://www.demo.com/template/${id}`}
+                      className="border border-solid border-inherit rounded scale-90 w-743 origin-top-left h-441"
+                    />
+                  </div>
+                )
+              }
+              if (position === 'mobile') {
+                return (
+                  <div className="bg-white rounded-3xl shadow box-border overflow-hidden h-420 p-3 w-64 mx-auto">
+                    <iframe
+                      src={`https://www.demo.com/template/${id}`}
+                      className="border border-solid border-inherit rounded-3xl scale-90 w-258 origin-top-left h-440"
+                    />
+                  </div>
+                )
+              }
+            })()}
           </Space>
         </div>
       </Modal>

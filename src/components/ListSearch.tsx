@@ -23,11 +23,16 @@ const ListSearch: FC = () => {
   }, [searchParams])
 
   function handleSearch(value: string) {
-    // 跳转页面，增加 url 参数
-    nav({
-      pathname,
-      search: `${LIST_SEARCH_TITLE}=${value}`, // 去掉了 page pageSize
-    })
+    if (value) {
+      nav({
+        pathname,
+        search: `${LIST_SEARCH_TITLE}=${value}`,
+      })
+    } else {
+      nav({
+        pathname,
+      })
+    }
   }
 
   return (

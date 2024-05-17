@@ -10,7 +10,7 @@ import {
   EllipsisOutlined,
   ExclamationCircleOutlined,
   EditOutlined,
-  SnippetsOutlined,
+  InboxOutlined,
   PlayCircleOutlined,
   PauseCircleOutlined,
 } from '@ant-design/icons'
@@ -151,7 +151,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
   )
   function template() {
     modal.confirm({
-      title: '确定发布为模版？',
+      title: '确定发布并保存为模版？',
       icon: <ExclamationCircleOutlined />,
       onOk: publishTemplate,
     })
@@ -252,7 +252,7 @@ const WorkCard: FC<PropsType> = (props: PropsType) => {
                   <Button
                     block
                     type="text"
-                    icon={<SnippetsOutlined />}
+                    icon={<InboxOutlined />}
                     size="small"
                     onClick={template}
                     disabled={templateLoading}

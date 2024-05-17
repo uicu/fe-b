@@ -136,8 +136,6 @@ const PublishButton: FC = () => {
 
 // 编辑器头部
 const EditHeader: FC = () => {
-  const nav = useNavigate()
-
   return (
     <header className="absolute w-full z-30">
       <div className="mx-auto px-4 sm:px-6">

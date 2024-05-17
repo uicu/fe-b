@@ -92,7 +92,7 @@ export default function Header() {
     <>
       {contextHolder}
       <header
-        className={`fixed w-full z-30 md:bg-white transition duration-300 ease-in-out ${
+        className={`fixed w-full z-30 bg-white md:bg-white transition duration-300 ease-in-out ${
           !top ? 'bg-white backdrop-blur-sm shadow-lg' : ''
         }`}
       >
@@ -136,14 +136,6 @@ export default function Header() {
                     模版库
                   </NavLink>
                 </li>
-                {/* <li>
-                  <Link
-                    to="/tutorials"
-                    className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
-                  >
-                    Tutorials
-                  </Link>
-                </li> */}
               </ul>
               {userInfo?.username ? UserInfo : Login}
             </nav>

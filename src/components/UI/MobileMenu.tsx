@@ -1,8 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
-import { Link } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
+import { Avatar, message } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
+import { useDispatch } from 'react-redux'
+import Cookie from 'js-cookie'
+import useGetUserInfo from '../../hooks/useGetUserInfo'
+import { logoutReducer } from '../../store/userReducer'
 
 export default function MobileMenu() {
+  const { pathname } = useLocation()
+  const dispatch = useDispatch()
+  const [messageApi, contextHolder] = message.useMessage()
+  const userInfo = useGetUserInfo()
+
   const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false)
 
   const trigger = useRef<HTMLButtonElement>(null)
@@ -34,8 +45,62 @@ export default function MobileMenu() {
     return () => document.removeEventListener('keydown', keyHandler)
   })
 
+  const logout = () => {
+    if (typeof window !== 'undefined') {
+      dispatch(logoutReducer())
+      Cookie.remove('USER_TOKEN')
+      Cookie.remove('REFRESH_USER_TOKEN')
+      messageApi.success('退出成功')
+    }
+  }
+
+  const UserInfo = (
+    <div className="px-5 py-2">
+      <a
+        href="/auth/update"
+        className="text-gray-600 hover:text-gray-900 py-3 flex items-center justify-center"
+      >
+        {userInfo?.headPic ? (
+          <Avatar size="small" src={`http://localhost:8888/${userInfo?.headPic}`} />
+        ) : (
+          <Avatar size="small" icon={<UserOutlined />} />
+        )}
+        <span className="ml-1">{userInfo?.nickname}</span>
+      </a>
+      <a
+        href="/auth/signin"
+        onClick={logout}
+        className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2"
+      >
+        退出
+      </a>
+    </div>
+  )
+
+  const Login = (
+    <ul className="px-5 py-2">
+      <li>
+        <a
+          href="/auth/signin"
+          className="text-gray-600 hover:text-gray-900 py-3 flex items-center justify-center"
+        >
+          登陆
+        </a>
+      </li>
+      <li>
+        <a
+          href="/auth/signup"
+          className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2"
+        >
+          注册
+        </a>
+      </li>
+    </ul>
+  )
+
   return (
     <div className="flex md:hidden">
+      {contextHolder}
       {/* Hamburger button */}
       <button
         ref={trigger}
@@ -72,108 +137,55 @@ export default function MobileMenu() {
         >
           <ul className="px-5 py-2">
             <li>
-              <Link
-                to="/pricing"
-                className="flex text-gray-600 hover:text-gray-900 py-2"
-                onClick={() => setMobileNavOpen(false)}
+              <NavLink
+                to="/manage/list"
+                className={() => {
+                  const isActive = ['/manage/list', '/manage/star', '/manage/trash'].some(route =>
+                    pathname.includes(route)
+                  )
+                  const styles =
+                    'text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out'
+                  return isActive ? `text-purple-600 ${styles}` : `${styles}`
+                }}
               >
-                Pricing
-              </Link>
+                工作台
+              </NavLink>
             </li>
             <li>
-              <Link
-                to="/about"
-                className="flex text-gray-600 hover:text-gray-900 py-2"
-                onClick={() => setMobileNavOpen(false)}
+              <NavLink
+                to="/templates/public"
+                className={() => {
+                  const isActive = ['/templates/public', '/templates/personal'].some(route =>
+                    pathname.includes(route)
+                  )
+                  const styles =
+                    'text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out'
+                  return isActive ? `text-purple-600 ${styles}` : `${styles}`
+                }}
               >
-                About us
-              </Link>
+                模版库
+              </NavLink>
             </li>
-            <li>
-              <Link
-                to="/tutorials"
-                className="flex text-gray-600 hover:text-gray-900 py-2"
-                onClick={() => setMobileNavOpen(false)}
-              >
-                Tutorials
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/blog"
-                className="flex text-gray-600 hover:text-gray-900 py-2"
-                onClick={() => setMobileNavOpen(false)}
-              >
-                Blog
-              </Link>
-            </li>
-            <li className="py-2 my-2 border-t border-b border-gray-200">
-              <span
-                className="flex text-gray-600 hover:text-gray-900 py-2"
-                onClick={() => setMobileNavOpen(false)}
-              >
-                Resources
-              </span>
-              <ul className="pl-4">
-                <li>
-                  <Link
-                    to="/documentation"
-                    className="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2"
-                    onClick={() => setMobileNavOpen(false)}
-                  >
-                    Documentation
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/support"
-                    className="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2"
-                    onClick={() => setMobileNavOpen(false)}
-                  >
-                    Support center
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/404"
-                    className="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2"
-                    onClick={() => setMobileNavOpen(false)}
-                  >
-                    404
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <Link
+            {/* <li>
+              <NavLink
                 to="/auth/signin"
                 className="flex font-medium w-full text-gray-600 hover:text-gray-900 py-2 justify-center"
                 onClick={() => setMobileNavOpen(false)}
               >
                 Sign in
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to="/auth/signup"
                 className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2"
                 onClick={() => setMobileNavOpen(false)}
               >
                 <span>Sign up</span>
-                <svg
-                  className="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1"
-                  viewBox="0 0 12 12"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
-                    fill="#999"
-                    fillRule="nonzero"
-                  />
-                </svg>
-              </Link>
-            </li>
+              </NavLink>
+            </li> */}
           </ul>
+          {userInfo?.username ? UserInfo : Login}
         </Transition>
       </div>
     </div>
