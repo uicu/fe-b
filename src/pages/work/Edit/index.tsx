@@ -34,9 +34,9 @@ const LeftPanelElem: FC = () => {
       </div>
       <div
         onClick={showDrawer}
-        className="block lg:hidden absolute -left-4 top-0 bottom-0 z-10 flex items-center"
+        className="lg:hidden absolute -left-4 top-0 bottom-0 z-10 flex items-center"
       >
-        <div className="bg-slate-200 h-20 w-1 rounded-r"></div>
+        <div className="bg-slate-200 h-60 w-1 rounded-r"></div>
       </div>
       <Drawer placement="left" width={320} closable={false} onClose={onClose} open={open}>
         <LeftPanel />
@@ -68,9 +68,9 @@ const RightPanelElem: FC = () => {
       </div>
       <div
         onClick={showDrawer}
-        className="block lg:hidden absolute -right-4 top-0 bottom-0 z-10 flex items-center"
+        className="lg:hidden absolute -right-4 top-0 bottom-0 z-10 flex items-center"
       >
-        <div className="bg-slate-200 h-20 w-1 rounded-l"></div>
+        <div className="bg-slate-200 h-60 w-1 rounded-l"></div>
       </div>
       <Drawer placement="right" width={320} closable={false} onClose={onClose} open={open}>
         <RightPanel />
