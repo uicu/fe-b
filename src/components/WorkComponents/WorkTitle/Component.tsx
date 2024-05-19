@@ -37,6 +37,7 @@ const WorkTitle: FC<WorkTitlePropsType> = (props: WorkTitlePropsType & { fe_id?:
         textAlign: textAlign,
         fontSize: `${genFontSize(level)}px`,
         lineHeight: `${genFontSize(level)}px`,
+        fontWeight: 600,
       }}
       onChange={handleInput}
     />

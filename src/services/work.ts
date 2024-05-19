@@ -40,7 +40,7 @@ export async function createWorkService(opt: {
         page: 1,
         isHidden: false,
         isLocked: false,
-        props: { title: '作品标题', desc: '作品描述...' },
+        props: { title: '作品标题', desc: '作品描述...', textAlign: 'center' },
       },
       {
         fe_id: 'c2',

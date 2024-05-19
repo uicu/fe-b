@@ -1,23 +1,22 @@
 import React, { FC } from 'react'
+import { Empty } from 'antd'
 import { useDispatch } from 'react-redux'
 import { debounce } from 'lodash-es'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import { getComponentConfByType, ComponentPropsType } from '../../../components/WorkComponents'
 import { changeComponentProps, pushPast } from '../../../store/componentsReducer'
 
-const NoProp: FC = () => {
-  return <div style={{ textAlign: 'center' }}>未选中组件</div>
-}
-
 const ComponentProp: FC = () => {
   const dispatch = useDispatch()
 
   const { selectedComponent } = useGetComponentInfo()
-  if (selectedComponent == null) return <NoProp />
+  if (selectedComponent == null)
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="未选中组件" />
 
   const { type, props, isLocked, isHidden } = selectedComponent
   const componentConf = getComponentConfByType(type)
-  if (componentConf == null) return <NoProp />
+  if (componentConf == null)
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="未选中组件" />
 
   function changeProps(newProps: ComponentPropsType) {
     if (selectedComponent == null) return

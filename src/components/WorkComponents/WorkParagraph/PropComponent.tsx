@@ -1,40 +1,8 @@
-import React, { FC, useEffect } from 'react'
-import { Form, Input } from 'antd'
-import { WorkParagraphPropsType } from './interface'
+import React, { FC } from 'react'
+import { Empty } from 'antd'
 
-const { TextArea } = Input
-
-const PropComponent: FC<WorkParagraphPropsType> = (props: WorkParagraphPropsType) => {
-  const { text, onChange, disabled } = props
-  const [form] = Form.useForm()
-
-  useEffect(() => {
-    form.setFieldsValue({ text })
-  }, [text])
-
-  function handleValuesChange() {
-    if (onChange) {
-      onChange(form.getFieldsValue())
-    }
-  }
-
-  return (
-    <Form
-      layout="vertical"
-      initialValues={{ text }}
-      onValuesChange={handleValuesChange}
-      disabled={disabled}
-      form={form}
-    >
-      <Form.Item
-        label="段落内容"
-        name="text"
-        rules={[{ required: true, message: '请输入段落内容' }]}
-      >
-        <TextArea />
-      </Form.Item>
-    </Form>
-  )
+const PropComponent: FC = () => {
+  return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="无属性配置" />
 }
 
 export default PropComponent

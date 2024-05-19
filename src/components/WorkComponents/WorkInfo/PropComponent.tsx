@@ -1,18 +1,18 @@
 import React, { FC, useEffect } from 'react'
-import { Form, Input } from 'antd'
+import { Form, Select } from 'antd'
 import { WorkInfoPropsType } from './interface'
 
-const { TextArea } = Input
-
 const PropComponent: FC<WorkInfoPropsType> = (props: WorkInfoPropsType) => {
-  const { title, desc, onChange, disabled } = props
+  const { textAlign, onChange, disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
-    form.setFieldsValue({ title, desc })
-  }, [title, desc])
+    form.setFieldsValue({
+      textAlign,
+    })
+  }, [textAlign])
 
-  function handleValuesChange() {
+  function handleValueChange() {
     if (onChange) {
       onChange(form.getFieldsValue())
     }
@@ -20,17 +20,20 @@ const PropComponent: FC<WorkInfoPropsType> = (props: WorkInfoPropsType) => {
 
   return (
     <Form
-      layout="vertical"
-      initialValues={{ title, desc }}
-      onValuesChange={handleValuesChange}
-      disabled={disabled}
       form={form}
+      layout="vertical"
+      onValuesChange={handleValueChange}
+      initialValues={{ textAlign }}
+      disabled={disabled}
     >
-      <Form.Item label="标题" name="title" rules={[{ required: true, message: '请输入作品标题' }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item label="描述" name="desc">
-        <TextArea />
+      <Form.Item label="对齐方式" name="textAlign">
+        <Select
+          options={[
+            { value: 'left', label: '居左' },
+            { value: 'center', label: '居中' },
+            { value: 'right', label: '居右' },
+          ]}
+        ></Select>
       </Form.Item>
     </Form>
   )

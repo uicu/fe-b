@@ -1,25 +1,57 @@
 import React, { FC } from 'react'
-import { Typography } from 'antd'
+import { useDispatch } from 'react-redux'
 import { WorkInfoPropsType, WorkInfoDefaultProps } from './interface'
+import WorkTextarea from '../../WorkTextarea'
+import { changeComponentProps, pushPast } from '../../../store/componentsReducer'
 
-const { Title, Paragraph } = Typography
+const Component: FC<WorkInfoPropsType> = (props: WorkInfoPropsType & { fe_id?: string }) => {
+  const dispatch = useDispatch()
+  const {
+    title = '',
+    desc = '',
+    fe_id = '',
+    textAlign = 'center',
+  } = { ...WorkInfoDefaultProps, ...props }
 
-const Component: FC<WorkInfoPropsType> = (props: WorkInfoPropsType) => {
-  const { title, desc = '' } = { ...WorkInfoDefaultProps, ...props }
+  const handleTitle = (value: string) => {
+    if (value) {
+      const newProps = { title: value }
+      dispatch(pushPast())
+      dispatch(changeComponentProps({ fe_id, newProps }))
+    }
+  }
 
-  const descTextList = desc.split('\n')
+  const handleDesc = (value: string) => {
+    if (value) {
+      const newProps = { desc: value }
+      dispatch(pushPast())
+      dispatch(changeComponentProps({ fe_id, newProps }))
+    }
+  }
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <Title style={{ fontSize: '24px' }}>{title}</Title>
-      <Paragraph>
-        {descTextList.map((t, index) => (
-          <span key={index}>
-            {index > 0 && <br />}
-            {t}
-          </span>
-        ))}
-      </Paragraph>
+    <div>
+      <WorkTextarea
+        size={24}
+        value={title}
+        styles={{
+          textAlign: textAlign,
+          fontSize: '24px',
+          lineHeight: '24px',
+          fontWeight: 600,
+        }}
+        onChange={handleTitle}
+      />
+      <WorkTextarea
+        size={14}
+        value={desc}
+        styles={{
+          textAlign: textAlign,
+          fontSize: '14px',
+          lineHeight: '14px',
+        }}
+        onChange={handleDesc}
+      />
     </div>
   )
 }
