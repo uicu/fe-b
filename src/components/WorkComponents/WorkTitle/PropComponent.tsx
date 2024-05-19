@@ -1,18 +1,17 @@
 import React, { FC, useEffect } from 'react'
-import { Form, Input, Select, Checkbox } from 'antd'
+import { Form, Select } from 'antd'
 import { WorkTitlePropsType } from './interface'
 
 const PropComponent: FC<WorkTitlePropsType> = (props: WorkTitlePropsType) => {
-  const { text, level, isCenter, onChange, disabled } = props
+  const { level, textAlign, onChange, disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
     form.setFieldsValue({
-      text,
       level,
-      isCenter,
+      textAlign,
     })
-  }, [text, level, isCenter])
+  }, [level, textAlign])
 
   function handleValueChange() {
     if (onChange) {
@@ -25,27 +24,26 @@ const PropComponent: FC<WorkTitlePropsType> = (props: WorkTitlePropsType) => {
       form={form}
       layout="vertical"
       onValuesChange={handleValueChange}
-      initialValues={{ text, level, isCenter }}
+      initialValues={{ level, textAlign }}
       disabled={disabled}
     >
-      <Form.Item
-        label="标题内容"
-        name="text"
-        rules={[{ required: true, message: '请输入标题内容' }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item label="层级" name="level">
+      <Form.Item label="字体大小" name="level">
         <Select
           options={[
-            { value: 1, text: 1 },
-            { value: 2, text: 2 },
-            { value: 3, text: 3 },
+            { value: 1, label: 1 },
+            { value: 2, label: 2 },
+            { value: 3, label: 3 },
           ]}
         ></Select>
       </Form.Item>
-      <Form.Item name="isCenter" valuePropName="checked">
-        <Checkbox>居中显示</Checkbox>
+      <Form.Item label="对齐方式" name="textAlign">
+        <Select
+          options={[
+            { value: 'left', label: '居左' },
+            { value: 'center', label: '居中' },
+            { value: 'right', label: '居右' },
+          ]}
+        ></Select>
       </Form.Item>
     </Form>
   )

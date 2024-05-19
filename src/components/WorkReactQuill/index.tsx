@@ -1,3 +1,4 @@
+// https://github.com/surmon-china/vue-quill-editor/issues/124
 // https://github.com/zenoamaro/react-quill/issues/330
 // https://juejin.cn/post/6844904166284869640
 // https://juejin.cn/post/6968104416784171039
@@ -7,6 +8,7 @@ import React, { FC, useState, MouseEvent, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import ReactQuill from 'react-quill'
 import { DeltaStatic, Sources } from 'quill'
+import classNames from 'classnames'
 import Quill, { blanksHandler, customMatcher, imageHandler } from './customQuill'
 import { quillGetHTML } from '../../utils/quill'
 import useGetInteractionInfo from '../../hooks/useGetInteractionInfo'
@@ -31,17 +33,25 @@ const WorkReactQuill: FC<WorkReactQuillPropsType> = (props: WorkReactQuillPropsT
 
   const [reactQuillRef, setReactQuillRef] = useState<ReactQuill | null>(null)
 
-  // 自动获得焦点
   useEffect(() => {
     if (reactQuillRef && reactQuillRef.editor) {
       const { editor } = reactQuillRef
+      // 自动获得焦点
       editor.focus()
+      // 修改placeholder
+      const tooltip = (editor as any).theme.tooltip
+      const inputLink = tooltip.root.querySelector('input[data-link]')
+      inputLink.dataset.link = 'www.link.com'
+
+      const inputVideo = tooltip.root.querySelector('input[data-video]')
+      inputVideo.dataset.video = 'www.video.com'
     }
   }, [reactQuillRef])
 
   // 格式白名单
   const formats = [
     'color',
+    'align',
     'link',
     'image',
     'video',
@@ -59,7 +69,9 @@ const WorkReactQuill: FC<WorkReactQuillPropsType> = (props: WorkReactQuillPropsT
       matchers: [[Node.ELEMENT_NODE, customMatcher]],
     },
     toolbar: {
-      container: [[{ color: [] }, 'link', 'image', 'video', 'blanks']],
+      container: [
+        [{ color: [] }, 'link', 'image', 'video', 'blanks', { align: ['', 'right', 'center'] }],
+      ],
       handlers: {
         blanks: blanksHandler,
         image: imageHandler,
@@ -119,8 +131,8 @@ const WorkReactQuill: FC<WorkReactQuillPropsType> = (props: WorkReactQuillPropsT
     const staticText = quillGetHTML(defaultValue)
     return (
       <div
+        className={classNames({ [styles.static]: true, 'ql-editor': true })}
         onClick={e => handleClick(e)}
-        className={styles.static}
         dangerouslySetInnerHTML={{ __html: staticText }}
       />
     )

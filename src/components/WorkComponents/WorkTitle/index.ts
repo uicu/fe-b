@@ -10,7 +10,7 @@ export * from './interface'
 
 // Title 组件的配置
 export default {
-  title: '标题',
+  title: '副标题',
   type: 'workTitle', // 要和后端统一好
   describe: '描述',
   Component,

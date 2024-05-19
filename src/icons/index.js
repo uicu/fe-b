@@ -1,5 +1,0 @@
-export { default as Blanks } from './Blanks'
-export { default as Color } from './Color'
-export { default as Image } from './Image'
-export { default as Link } from './Link'
-export { default as Video } from './Video'

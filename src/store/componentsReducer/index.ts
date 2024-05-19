@@ -118,13 +118,18 @@ export const componentsSlice = createSlice({
     // 删除选中的组件
     removeSelectedComponent: produce((draft: ComponentsStateType) => {
       const { componentList = [], selectedId: removedId } = draft.present
+      const currentPageComponent = componentList.filter(item => {
+        return item.page === draft.present.currentPage
+      })
+      // 每页至少有一个
+      if (currentPageComponent.length > 1) {
+        // 重新计算 selectedId
+        const newSelectedId = getNextSelectedId(removedId, componentList)
+        draft.present.selectedId = newSelectedId
 
-      // 重新计算 selectedId
-      const newSelectedId = getNextSelectedId(removedId, componentList)
-      draft.present.selectedId = newSelectedId
-
-      const index = componentList.findIndex(c => c.fe_id === removedId)
-      componentList.splice(index, 1)
+        const index = componentList.findIndex(c => c.fe_id === removedId)
+        componentList.splice(index, 1)
+      }
     }),
 
     // 隐藏/显示 组件

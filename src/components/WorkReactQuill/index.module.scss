@@ -2,7 +2,7 @@
 
 // 重置编辑器的一些样式
 .static{
-    padding: 8px 15px;
+    padding: 4px;
     border: 1px dashed rgba(0, 0, 0, 0);
     font-size: 13px;
     line-height: 1.42;
@@ -37,7 +37,7 @@
             border-radius: 4px;
         }
         .ql-editor {
-            padding: 8px 15px;
+            padding: 4px;
         }
         .ql-snow .ql-tooltip[data-mode=link]::before {
             content: " ";

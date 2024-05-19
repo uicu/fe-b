@@ -11,7 +11,7 @@ const { Title } = Typography
 
 function genComponent(c: ComponentConfType) {
   const { currentPage } = useGetComponentInfo()
-  const { title, type, Component, defaultProps, Icon, describe } = c
+  const { title, type, defaultProps, Icon, describe } = c
   const dispatch = useDispatch()
 
   const handleClick = useCallback(() => {
@@ -36,9 +36,7 @@ function genComponent(c: ComponentConfType) {
       content={
         <>
           <p className={styles.describe}>{describe}</p>
-          <div className="hidden lg:block">
-            <Component />
-          </div>
+          <div className="hidden lg:block">图片占位</div>
         </>
       }
       title={title}

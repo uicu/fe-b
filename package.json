@@ -9,8 +9,7 @@
     "test": "node scripts/test.js",
     "lint": " eslint 'src/**/*.+(js|ts|jsx|tsx)' ",
     "format": " prettier --write 'src/**/*.+(js|ts|jsx|tsx)' ",
-    "prepare": "husky install",
-    "svgr": "svgr -d src/icons/ src/assets/"
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -87,13 +86,13 @@
     ]
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.17",
     "@ant-design/icons": "^5.1.2",
     "@ant-design/plots": "^2.2.1",
     "@antv/l7": "^2.21.7",
     "@antv/l7-maps": "^2.21.7",
     "@antv/larkmap": "^1.4.16",
     "@dnd-kit/sortable": "^7.0.2",
+    "@headlessui/react": "^1.7.17",
     "@logicflow/core": "^1.2.18",
     "@logicflow/extension": "^1.2.19",
     "@reduxjs/toolkit": "^1.9.5",
@@ -145,6 +144,7 @@
     "browserslist": "^4.18.1",
     "camelcase": "^6.2.1",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
+    "classnames": "^2.5.1",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
     "dotenv": "^10.0.0",
