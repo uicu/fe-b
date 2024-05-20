@@ -6,6 +6,7 @@
     border: 1px dashed rgba(0, 0, 0, 0);
     font-size: 13px;
     line-height: 1.42;
+    margin: 2px 0;
     &:hover{
         border: 1px dashed #1677ff; 
         border-radius: 4px;
@@ -19,6 +20,7 @@
 }
 .editor{
     position: relative;
+    margin: 2px 0;
     :global {
         .ql-toolbar{
             display: inline-block;

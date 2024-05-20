@@ -1,14 +1,14 @@
 import React, { FC, useEffect } from 'react'
-import { Form, Input } from 'antd'
+import { Form, Input, Switch } from 'antd'
 import { WorkInputPropsType } from './interface'
 
 const PropComponent: FC<WorkInputPropsType> = (props: WorkInputPropsType) => {
-  const { title, placeholder, onChange, disabled } = props
+  const { placeholder, required, onChange, disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
-    form.setFieldsValue({ title, placeholder })
-  }, [title, placeholder])
+    form.setFieldsValue({ placeholder, required })
+  }, [placeholder, required])
 
   function handleValuesChange() {
     if (onChange) {
@@ -19,16 +19,16 @@ const PropComponent: FC<WorkInputPropsType> = (props: WorkInputPropsType) => {
   return (
     <Form
       layout="vertical"
-      initialValues={{ title, placeholder }}
+      initialValues={{ placeholder, required }}
       form={form}
       onValuesChange={handleValuesChange}
       disabled={disabled}
     >
-      <Form.Item label="标题" name="title" rules={[{ required: true, message: '请输入标题' }]}>
+      <Form.Item label="输入框占位符" name="placeholder">
         <Input />
       </Form.Item>
-      <Form.Item label="Placeholder" name="placeholder">
-        <Input />
+      <Form.Item label="必填" valuePropName="required">
+        <Switch />
       </Form.Item>
     </Form>
   )

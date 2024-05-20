@@ -1,15 +1,29 @@
 import React, { FC } from 'react'
-import { Typography, Input } from 'antd'
+import { useDispatch } from 'react-redux'
+import { Input } from 'antd'
+import { debounce } from 'lodash-es'
+import WorkReactQuill from '../../WorkReactQuill'
 import { WorkInputPropsType, WorkInputDefaultProps } from './interface'
+import { changeComponentProps, pushPast } from '../../../store/componentsReducer'
 
-const { Paragraph } = Typography
+const WorkInput: FC<WorkInputPropsType & { fe_id?: string }> = props => {
+  const dispatch = useDispatch()
+  const { title = '', placeholder, fe_id = '' } = { ...WorkInputDefaultProps, ...props }
 
-const WorkInput: FC<WorkInputPropsType> = (props: WorkInputPropsType) => {
-  const { title, placeholder } = { ...WorkInputDefaultProps, ...props }
-
+  function handleChange(editorProp: string, delta: string) {
+    const newProps = { title: delta }
+    dispatch(pushPast())
+    dispatch(changeComponentProps({ fe_id, newProps }))
+  }
   return (
     <div>
-      <Paragraph strong>{title}</Paragraph>
+      <WorkReactQuill
+        value={title}
+        editorProp="text"
+        fe_id={fe_id}
+        onChange={debounce(handleChange, 300)}
+        showBlanks={false}
+      />
       <div>
         <Input placeholder={placeholder}></Input>
       </div>

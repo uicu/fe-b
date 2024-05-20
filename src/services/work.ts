@@ -49,7 +49,7 @@ export async function createWorkService(opt: {
         page: 1,
         isHidden: false,
         isLocked: false,
-        props: { title: '你的姓名', placeholder: '请输入姓名...' },
+        props: { title: '你的姓名', placeholder: '请输入姓名...', required: false },
       },
       {
         fe_id: 'c3',

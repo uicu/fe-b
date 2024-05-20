@@ -22,10 +22,11 @@ export type WorkReactQuillPropsType = {
   editorProp: string
   fe_id: string
   onChange?: (editorProp: string, delta: string) => void
+  showBlanks?: boolean
 }
 
 const WorkReactQuill: FC<WorkReactQuillPropsType> = (props: WorkReactQuillPropsType) => {
-  const { editorProp, fe_id, onChange } = props
+  const { editorProp, fe_id, onChange, showBlanks = true } = props
   const editorId = `${fe_id}-${editorProp}`
 
   const dispatch = useDispatch()
@@ -63,15 +64,26 @@ const WorkReactQuill: FC<WorkReactQuillPropsType> = (props: WorkReactQuillPropsT
     'id',
   ]
 
+  // 展示那些tool
+  let container = [{ color: [] }, 'link', 'image', 'video', { align: ['', 'right', 'center'] }]
+  if (showBlanks) {
+    container = [
+      { color: [] },
+      'link',
+      'image',
+      'video',
+      'blanks',
+      { align: ['', 'right', 'center'] },
+    ]
+  }
+
   // 编辑器modules自定义配置
   const modules = {
     clipboard: {
       matchers: [[Node.ELEMENT_NODE, customMatcher]],
     },
     toolbar: {
-      container: [
-        [{ color: [] }, 'link', 'image', 'video', 'blanks', { align: ['', 'right', 'center'] }],
-      ],
+      container: [...container],
       handlers: {
         blanks: blanksHandler,
         image: imageHandler,
