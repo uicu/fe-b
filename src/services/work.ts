@@ -45,11 +45,11 @@ export async function createWorkService(opt: {
       {
         fe_id: 'c2',
         type: 'workInput',
-        title: '输入框1',
+        title: '单行输入',
         page: 1,
         isHidden: false,
         isLocked: false,
-        props: { title: '你的姓名', placeholder: '请输入姓名...', required: false },
+        props: { title: '你的姓名', placeholder: '请输入姓名...', required: false, rule: 'null' },
       },
       {
         fe_id: 'c3',
@@ -58,7 +58,7 @@ export async function createWorkService(opt: {
         page: 1,
         isHidden: false,
         isLocked: false,
-        props: { title: '你的爱好', placeholder: '请输入...' },
+        props: { title: '你的爱好', placeholder: '请输入...', required: false, rule: 'null' },
       },
       {
         fe_id: 'last',

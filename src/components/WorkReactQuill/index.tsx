@@ -23,10 +23,11 @@ export type WorkReactQuillPropsType = {
   fe_id: string
   onChange?: (editorProp: string, delta: string) => void
   showBlanks?: boolean
+  strong?: boolean
 }
 
 const WorkReactQuill: FC<WorkReactQuillPropsType> = (props: WorkReactQuillPropsType) => {
-  const { editorProp, fe_id, onChange, showBlanks = true } = props
+  const { editorProp, fe_id, onChange, showBlanks = true, strong = false } = props
   const editorId = `${fe_id}-${editorProp}`
 
   const dispatch = useDispatch()
@@ -125,13 +126,15 @@ const WorkReactQuill: FC<WorkReactQuillPropsType> = (props: WorkReactQuillPropsT
   }
   if (editorSelectedId === editorId && fe_id) {
     return (
-      <div onClick={e => handleClick(e)}>
+      <div
+        onClick={e => handleClick(e)}
+        className={classNames({ [styles.editor]: true, [styles.strong]: strong })}
+      >
         <ReactQuill
           ref={el => {
             setReactQuillRef(el)
           }}
           defaultValue={defaultValue}
-          className={styles.editor}
           theme="snow"
           onChange={handleChange}
           modules={modules}
@@ -143,7 +146,11 @@ const WorkReactQuill: FC<WorkReactQuillPropsType> = (props: WorkReactQuillPropsT
     const staticText = quillGetHTML(defaultValue)
     return (
       <div
-        className={classNames({ [styles.static]: true, 'ql-editor': true })}
+        className={classNames({
+          [styles.static]: true,
+          'ql-editor': true,
+          [styles.strong]: strong,
+        })}
         onClick={e => handleClick(e)}
         dangerouslySetInnerHTML={{ __html: staticText }}
       />

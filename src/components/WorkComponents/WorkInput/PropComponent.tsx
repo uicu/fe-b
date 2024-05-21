@@ -1,14 +1,15 @@
 import React, { FC, useEffect } from 'react'
 import { Form, Input, Switch } from 'antd'
 import { WorkInputPropsType } from './interface'
+import TextRules from '../../TextRules'
 
 const PropComponent: FC<WorkInputPropsType> = (props: WorkInputPropsType) => {
-  const { placeholder, required, onChange, disabled } = props
+  const { placeholder, required, rule, onChange, disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
-    form.setFieldsValue({ placeholder, required })
-  }, [placeholder, required])
+    form.setFieldsValue({ placeholder, required, rule })
+  }, [placeholder, required, rule])
 
   function handleValuesChange() {
     if (onChange) {
@@ -18,16 +19,32 @@ const PropComponent: FC<WorkInputPropsType> = (props: WorkInputPropsType) => {
 
   return (
     <Form
-      layout="vertical"
-      initialValues={{ placeholder, required }}
+      layout="horizontal"
+      initialValues={{ placeholder, required, rule }}
       form={form}
       onValuesChange={handleValuesChange}
       disabled={disabled}
     >
-      <Form.Item label="输入框占位符" name="placeholder">
+      <Form.Item
+        label="提示文案"
+        name="placeholder"
+        wrapperCol={{ span: 24 }}
+        labelCol={{ span: 24 }}
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="必填" valuePropName="required">
+
+      <Form.Item label="文本格式" name="rule" wrapperCol={{ span: 24 }} labelCol={{ span: 24 }}>
+        <TextRules />
+      </Form.Item>
+
+      <Form.Item
+        label="是否必填"
+        valuePropName="required"
+        wrapperCol={{ span: 4 }}
+        labelCol={{ span: 20 }}
+        labelAlign="left"
+      >
         <Switch />
       </Form.Item>
     </Form>

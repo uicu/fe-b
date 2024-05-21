@@ -63,3 +63,16 @@
         }
     }
 }
+
+.strong{
+    &.static{
+        font-weight: 600;
+        font-size: 14px;
+    }
+    :global {
+        .ql-editor {
+            font-weight: 600;
+            font-size: 14px;
+        } 
+    }
+}

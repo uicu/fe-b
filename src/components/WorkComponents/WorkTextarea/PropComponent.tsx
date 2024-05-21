@@ -1,14 +1,15 @@
 import React, { FC, useEffect } from 'react'
-import { Form, Input } from 'antd'
+import { Form, Input, Switch } from 'antd'
 import { WorkTextareaPropsType } from './interface'
+import TextRules from '../../TextRules'
 
 const PropComponent: FC<WorkTextareaPropsType> = (props: WorkTextareaPropsType) => {
-  const { title, placeholder, onChange, disabled } = props
+  const { placeholder, required, rule, onChange, disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
-    form.setFieldsValue({ title, placeholder })
-  }, [title, placeholder])
+    form.setFieldsValue({ placeholder, required, rule })
+  }, [placeholder, required, rule])
 
   function handleValuesChange() {
     if (onChange) {
@@ -18,17 +19,33 @@ const PropComponent: FC<WorkTextareaPropsType> = (props: WorkTextareaPropsType) 
 
   return (
     <Form
-      layout="vertical"
-      initialValues={{ title, placeholder }}
+      layout="horizontal"
+      initialValues={{ placeholder, required, rule }}
       form={form}
       onValuesChange={handleValuesChange}
       disabled={disabled}
     >
-      <Form.Item label="标题" name="title" rules={[{ required: true, message: '请输入标题' }]}>
+      <Form.Item
+        label="提示文案"
+        name="placeholder"
+        wrapperCol={{ span: 24 }}
+        labelCol={{ span: 24 }}
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="Placeholder" name="placeholder">
-        <Input />
+
+      <Form.Item label="文本格式" name="rule" wrapperCol={{ span: 24 }} labelCol={{ span: 24 }}>
+        <TextRules />
+      </Form.Item>
+
+      <Form.Item
+        label="是否必填"
+        valuePropName="required"
+        wrapperCol={{ span: 4 }}
+        labelCol={{ span: 20 }}
+        labelAlign="left"
+      >
+        <Switch />
       </Form.Item>
     </Form>
   )

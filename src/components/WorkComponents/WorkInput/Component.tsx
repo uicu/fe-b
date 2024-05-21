@@ -23,9 +23,15 @@ const WorkInput: FC<WorkInputPropsType & { fe_id?: string }> = props => {
         fe_id={fe_id}
         onChange={debounce(handleChange, 300)}
         showBlanks={false}
+        strong
       />
-      <div>
-        <Input placeholder={placeholder}></Input>
+      <div className="px-1">
+        <Input
+          placeholder={placeholder}
+          variant="filled"
+          value=""
+          style={{ pointerEvents: 'none' }}
+        />
       </div>
     </div>
   )
