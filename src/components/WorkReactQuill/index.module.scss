@@ -7,6 +7,7 @@
     font-size: 13px;
     line-height: 1.42;
     margin: 2px 0;
+    flex: 1;
     &:hover{
         border: 1px dashed #1677ff; 
         border-radius: 4px;
@@ -21,6 +22,7 @@
 .editor{
     position: relative;
     margin: 2px 0;
+    flex: 1;
     :global {
         .ql-toolbar{
             display: inline-block;
@@ -30,6 +32,7 @@
             position: absolute;
             top: -42px;
             background-color: #fff;
+            min-width: 156px;
         }
         .ql-toolbar.ql-snow .ql-formats {
             margin-right: 0;

@@ -20,7 +20,7 @@ const WorkTextarea: FC<WorkTextareaPropsType & { fe_id?: string }> = props => {
     <div>
       <WorkReactQuill
         value={title}
-        editorProp="text"
+        editorProp="title"
         fe_id={fe_id}
         onChange={debounce(handleChange, 300)}
         showBlanks={false}

@@ -24,7 +24,7 @@ test('传入属性', () => {
     { value: 'v3', text: 't3' },
   ]
   const value = 'v1'
-  render(<Component title="hello" options={opts} value={value} />)
+  render(<Component title="hello" options={opts} />)
 
   const p = screen.getByText('hello')
   expect(p).toBeInTheDocument()

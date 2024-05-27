@@ -23,11 +23,12 @@ export type WorkReactQuillPropsType = {
   fe_id: string
   onChange?: (editorProp: string, delta: string) => void
   showBlanks?: boolean
+  showAlign?: boolean
   strong?: boolean
 }
 
 const WorkReactQuill: FC<WorkReactQuillPropsType> = (props: WorkReactQuillPropsType) => {
-  const { editorProp, fe_id, onChange, showBlanks = true, strong = false } = props
+  const { editorProp, fe_id, onChange, showBlanks = true, strong = false, showAlign = true } = props
   const editorId = `${fe_id}-${editorProp}`
 
   const dispatch = useDispatch()
@@ -66,16 +67,18 @@ const WorkReactQuill: FC<WorkReactQuillPropsType> = (props: WorkReactQuillPropsT
   ]
 
   // 展示那些tool
-  let container = [{ color: [] }, 'link', 'image', 'video', { align: ['', 'right', 'center'] }]
+  const container: Array<string | { color: never[] } | { align: string[] }> = [
+    { color: [] },
+    'link',
+    'image',
+    'video',
+  ]
+
   if (showBlanks) {
-    container = [
-      { color: [] },
-      'link',
-      'image',
-      'video',
-      'blanks',
-      { align: ['', 'right', 'center'] },
-    ]
+    container.push('blanks')
+  }
+  if (showAlign) {
+    container.push({ align: ['', 'right', 'center'] })
   }
 
   // 编辑器modules自定义配置
