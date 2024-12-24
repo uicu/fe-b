@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react'
 import { Form, Switch, Select } from 'antd'
 import { WorkRadioPropsType } from './interface'
 
-const PropComponent: FC<WorkRadioPropsType> = (props: WorkRadioPropsType) => {
+const PropComponent: FC<WorkRadioPropsType> = props => {
   const { title, required, row, onChange, disabled } = props
   const [form] = Form.useForm()
 

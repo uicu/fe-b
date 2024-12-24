@@ -1,10 +1,31 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
-import { Segmented, Spin } from 'antd'
+import { Spin, Menu } from 'antd'
 import { UserOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons'
+import type { MenuProps } from 'antd'
 import useLoadUserData from '../hooks/useLoadUserData'
 import useNavPage from '../hooks/useNavPage'
 import HeaderLayouts from '../components/UI/Header'
+
+type MenuItem = Required<MenuProps>['items'][number]
+
+const items: MenuItem[] = [
+  {
+    label: '我的作品',
+    key: '/manage/list',
+    icon: <UserOutlined />,
+  },
+  {
+    label: '星标作品',
+    key: '/manage/star',
+    icon: <StarOutlined />,
+  },
+  {
+    label: '回收站',
+    key: '/manage/trash',
+    icon: <DeleteOutlined />,
+  },
+]
 
 const ManageLayout: FC = () => {
   const { waitingUserData } = useLoadUserData()
@@ -14,9 +35,10 @@ const ManageLayout: FC = () => {
   const { pathname } = useLocation()
   const [value, setValue] = useState<string>('')
 
-  const onChange = (value: string) => {
-    setValue(value)
-    nav(value)
+  const onClick: MenuProps['onClick'] = e => {
+    setValue(e.key)
+    setValue(e.key)
+    nav(e.key)
   }
 
   useEffect(() => {
@@ -32,18 +54,13 @@ const ManageLayout: FC = () => {
           <section className="bg-gradient-to-b from-gray-100 to-white">
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
               <div className="pt-28 pb-12 md:pt-28 md:pb-20">
-                <div className="pb-6 md:pb-6 block min-w-[256px] md:inline-block">
-                  <Segmented
-                    block
-                    options={[
-                      { label: '我的', value: '/manage/list', icon: <UserOutlined /> },
-                      { label: '星标', value: '/manage/star', icon: <StarOutlined /> },
-                      { label: '回收站', value: '/manage/trash', icon: <DeleteOutlined /> },
-                    ]}
-                    value={value}
-                    onChange={onChange}
-                  />
-                </div>
+                <Menu
+                  className="rounded-t"
+                  onClick={onClick}
+                  selectedKeys={[value]}
+                  mode="horizontal"
+                  items={items}
+                />
                 <div>
                   {waitingUserData ? (
                     <div style={{ textAlign: 'center', marginTop: '60px' }}>

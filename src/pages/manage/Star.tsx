@@ -14,7 +14,7 @@ const Star: FC = () => {
   const { works: list = [], totalCount: total = 0 } = data
   return (
     <>
-      <div className="mb-6 p-6 bg-white rounded">
+      <div className="mb-6 p-6 bg-white rounded-b">
         <div className="flex items-center">
           <Title level={3} className="flex-1 !m-0">
             星标作品

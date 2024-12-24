@@ -2,12 +2,13 @@
  * @description 将Quill Delta转换为HTML
  */
 
-import Quill, { Delta } from 'quill'
-
-export function quillGetHTML(value: Delta | string) {
+import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function quillGetHTML(value: { ops: any[] }) {
   if (typeof value === 'string') return value
-
-  const tempCont = document.createElement('div')
-  new Quill(tempCont).setContents(value)
-  return tempCont.getElementsByClassName('ql-editor')[0].innerHTML
+  const deltaOps = value.ops
+  const cfg = {}
+  const converter = new QuillDeltaToHtmlConverter(deltaOps, cfg)
+  const html = converter.convert()
+  return html
 }
