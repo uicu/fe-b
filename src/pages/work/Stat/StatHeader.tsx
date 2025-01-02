@@ -1,16 +1,34 @@
 import React, { FC, useRef, useMemo } from 'react'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import { Space, Button, Input, Tooltip, message, Popover } from 'antd'
 import type { InputRef } from 'antd'
 import { CopyOutlined, QrcodeOutlined, LeftOutlined } from '@ant-design/icons'
-import { useNavigate, useParams } from 'react-router-dom'
 import QRCode from 'qrcode.react'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
+
+const TitleElem: FC = () => {
+  const { title } = useGetPageInfo()
+
+  const ele = (
+    <Tooltip title={title}>
+      <h4 className="text-lg m-0 w-40 whitespace-nowrap overflow-hidden text-ellipsis">{title}</h4>
+    </Tooltip>
+  )
+
+  return (
+    <>
+      <p className="text-sm max-w-40 whitespace-nowrap text-ellipsis overflow-hidden block md:hidden">
+        {title}
+      </p>
+      <div className="hidden md:block">{ele}</div>
+    </>
+  )
+}
 
 const StatHeader: FC = () => {
   const nav = useNavigate()
   const { id } = useParams()
-
-  const { title, status } = useGetPageInfo()
+  const { status } = useGetPageInfo()
   const isPublished = status === 2
 
   // 拷贝链接
@@ -54,17 +72,16 @@ const StatHeader: FC = () => {
     <header className="absolute w-full z-30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
-          <Space>
-            <a onClick={() => nav(-1)}>
+          <Space className="w-72">
+            <Link to={'/manage/list'}>
               <LeftOutlined />
-              返回
-            </a>
-            <h4 className="text-lg m-0">{title}</h4>
+              <span className="hidden md:inline">工作台</span>
+            </Link>
+            <TitleElem />
           </Space>
-          <div className="hidden md:block">{LinkAndQRCodeElem}</div>
+          <div className="hidden lg:block">{LinkAndQRCodeElem}</div>
 
-          <Space>
-            <Button onClick={() => nav('/manage/list')}>列表</Button>
+          <Space className="w-72 justify-end">
             <Button type="primary" onClick={() => nav(`/work/edit/${id}`)}>
               编辑
             </Button>

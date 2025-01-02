@@ -1,7 +1,7 @@
 import React, { FC, useState, ChangeEvent } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Button, Space, Input, message, Popconfirm } from 'antd'
+import { Button, Space, Input, message, Popconfirm, Tooltip } from 'antd'
 import { LeftOutlined, EditOutlined, LoadingOutlined, SaveOutlined } from '@ant-design/icons'
 import { useRequest, useKeyPress, useDebounceEffect } from 'ahooks'
 import EditToolbar from './EditToolbar'
@@ -24,7 +24,11 @@ const TitleElem: FC = () => {
 
   let ele = (
     <Space>
-      <h4 className="text-lg m-0">{title}</h4>
+      <Tooltip title={title}>
+        <h4 className="text-lg m-0 w-40 whitespace-nowrap overflow-hidden text-ellipsis">
+          {title}
+        </h4>
+      </Tooltip>
       <Button
         className="hidden md:block"
         icon={<EditOutlined />}
@@ -147,10 +151,10 @@ const EditHeader: FC = () => {
     <header className="absolute w-full z-30">
       <div className="mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
-          <Space>
+          <Space className="w-72">
             <Link to={'/manage/list'}>
               <LeftOutlined />
-              <span className="hidden md:inline">列表</span>
+              <span className="hidden md:inline">工作台</span>
             </Link>
             <TitleElem />
           </Space>
@@ -159,7 +163,7 @@ const EditHeader: FC = () => {
             <EditToolbar />
           </div>
 
-          <Space>
+          <Space className="w-72 justify-end">
             <SaveButton />
             <PublishButton />
           </Space>

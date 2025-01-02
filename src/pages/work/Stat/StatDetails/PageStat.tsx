@@ -82,8 +82,8 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
   // 构造表格列
   const { componentList } = useGetComponentInfo()
   const columns = componentList.map(c => {
-    const { fe_id, title, props = {}, type } = c
-    const colTitle = props!.title || title
+    const { fe_id, title, type } = c
+    const colTitle = title
     return {
       title: (
         <Tooltip placement="topLeft" title={colTitle}>

@@ -1,5 +1,5 @@
 import { KeyboardEvent } from 'react'
-import { Quill } from 'react-quill'
+import Quill from 'quill'
 import Compressor from 'js-image-compressor'
 import ImageResize from 'quill-image-resize-module-react'
 

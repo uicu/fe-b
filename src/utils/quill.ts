@@ -9,6 +9,13 @@ export function quillGetHTML(value: { ops: any[] }) {
   const deltaOps = value.ops
   const cfg = {}
   const converter = new QuillDeltaToHtmlConverter(deltaOps, cfg)
+  converter.renderCustomWith(function (customOp) {
+    if (customOp.insert.type === 'blanks') {
+      return `<span style="display: inline-block;">____________</span>`
+    } else {
+      return 'Unmanaged custom blot!'
+    }
+  })
   const html = converter.convert()
   return html
 }
