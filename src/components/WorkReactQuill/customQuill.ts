@@ -2,6 +2,8 @@ import { KeyboardEvent } from 'react'
 import Quill from 'quill'
 import Compressor from 'js-image-compressor'
 import ImageResize from 'quill-image-resize-module-react'
+// https://github.com/zenoamaro/react-quill/issues/970
+import 'mutation-events'
 
 // 【1】覆盖图标
 const icons = Quill.import('ui/icons')
